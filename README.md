@@ -1,4 +1,3 @@
 # webComprasVentas
 
-La bd creadla con el nombre: comprasVentasDB
-Y con el usuario y contraseña (son el mismo): grupo15
+La bd creadla con el nombre: "comprasVentasDB" y con el usuario y contraseña (son el mismo): "grupo15" (todo sin comillas claro)
