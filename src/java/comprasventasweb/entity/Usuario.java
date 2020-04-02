@@ -5,6 +5,7 @@
  */
 package comprasventasweb.entity;
 
+import comprasventasweb.dto.UsuarioBasicoDTO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -194,4 +195,12 @@ public class Usuario implements Serializable {
         return "comprasventasweb.entity.Usuario[ id=" + id + " ]";
     }
     
+    public UsuarioBasicoDTO getDTOBasico() {
+        UsuarioBasicoDTO usuarioDTO = new UsuarioBasicoDTO();
+        usuarioDTO.setId(id);
+        usuarioDTO.setNombre(nombre);
+        usuarioDTO.setUsuario(usuario);
+        usuarioDTO.setAdministrador(administrador);
+        return usuarioDTO;
+    }
 }

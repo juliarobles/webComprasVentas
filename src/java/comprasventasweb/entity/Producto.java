@@ -5,6 +5,7 @@
  */
 package comprasventasweb.entity;
 
+import comprasventasweb.dto.ProductoBasicoDTO;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -42,7 +43,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Producto.findByTitulo", query = "SELECT p FROM Producto p WHERE p.titulo = :titulo")
     , @NamedQuery(name = "Producto.findByDescripcion", query = "SELECT p FROM Producto p WHERE p.descripcion = :descripcion")
     , @NamedQuery(name = "Producto.findByPrecio", query = "SELECT p FROM Producto p WHERE p.precio = :precio")
-    , @NamedQuery(name = "Producto.findByEtiquetas", query = "SELECT p FROM Producto p WHERE p.etiquetas = :etiquetas")
     , @NamedQuery(name = "Producto.findByHora", query = "SELECT p FROM Producto p WHERE p.hora = :hora")
     , @NamedQuery(name = "Producto.findByFecha", query = "SELECT p FROM Producto p WHERE p.fecha = :fecha")
     , @NamedQuery(name = "Producto.findByFoto", query = "SELECT p FROM Producto p WHERE p.foto = :foto")
@@ -67,9 +67,6 @@ public class Producto implements Serializable {
     @NotNull
     @Column(name = "PRECIO")
     private float precio;
-    @Size(max = 255)
-    @Column(name = "ETIQUETAS")
-    private String etiquetas;
     @Basic(optional = false)
     @NotNull
     @Column(name = "HORA")
@@ -144,14 +141,6 @@ public class Producto implements Serializable {
 
     public void setPrecio(float precio) {
         this.precio = precio;
-    }
-
-    public String getEtiquetas() {
-        return etiquetas;
-    }
-
-    public void setEtiquetas(String etiquetas) {
-        this.etiquetas = etiquetas;
     }
 
     public Date getHora() {
@@ -254,4 +243,17 @@ public class Producto implements Serializable {
         return "comprasventasweb.entity.Producto[ id=" + id + " ]";
     }
     
+    public ProductoBasicoDTO getDTOBasico() {
+        ProductoBasicoDTO productoDTO = new ProductoBasicoDTO();
+        productoDTO.setId(id);
+        productoDTO.setTitulo(titulo);
+        productoDTO.setDescripcion(descripcion);
+        productoDTO.setFecha(fecha);
+        productoDTO.setHora(hora);
+        productoDTO.setFoto(foto);
+        productoDTO.setPrecio(precio);
+        productoDTO.setValoracionmedia(valoracionmedia);
+        productoDTO.setVendedor(vendedor.getDTOBasico());
+        return productoDTO;
+    }
 }
