@@ -6,9 +6,11 @@
 package comprasventasweb.dao;
 
 import comprasventasweb.entity.Subcategoria;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +30,15 @@ public class SubcategoriaFacade extends AbstractFacade<Subcategoria> {
     public SubcategoriaFacade() {
         super(Subcategoria.class);
     }
+    
+    /*
+    public List<Subcategoria> findByCategory(Integer categoryId) {        
+        Query q = this.getEntityManager().createNamedQuery("Subcategoria.findByCategory");
+        q.setParameter("id", categoryId);
+        
+        return q.getResultList();
+        
+    }
+*/
     
 }

@@ -5,6 +5,7 @@
  */
 package comprasventasweb.entity;
 
+import comprasventasweb.dto.SubcategoriaDTO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -34,6 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Subcategoria.findAll", query = "SELECT s FROM Subcategoria s")
+    , @NamedQuery(name = "Subcategoria.findByCategory", query = "SELECT s FROM Subcategoria s WHERE s.categoriaPadre = :id")
     , @NamedQuery(name = "Subcategoria.findById", query = "SELECT s FROM Subcategoria s WHERE s.id = :id")
     , @NamedQuery(name = "Subcategoria.findByNombre", query = "SELECT s FROM Subcategoria s WHERE s.nombre = :nombre")})
 public class Subcategoria implements Serializable {
@@ -123,6 +125,13 @@ public class Subcategoria implements Serializable {
     @Override
     public String toString() {
         return "comprasventasweb.entity.Subcategoria[ id=" + id + " ]";
+    }
+    
+    public SubcategoriaDTO getDTO(){
+        SubcategoriaDTO subDTO = new SubcategoriaDTO();
+        subDTO.setId(id);
+        subDTO.setNombre(nombre);
+        return subDTO;
     }
     
 }

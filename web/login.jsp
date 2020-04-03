@@ -14,6 +14,6 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-        <a href="listarProductos">Ver productos</a> <br/>
+        <a href="ProductosListar">Ver productos</a> <br/>
     </body>
 </html>

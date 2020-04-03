@@ -20,6 +20,7 @@
     %>
     <body>
         <h1>NOMBRE WEB A DECIDIR AUN</h1>
+        <a href="ProductoCrear">Nuevo producto</a>
         <%
         if (productos == null || productos.isEmpty()) {
         %>          
@@ -35,7 +36,8 @@
             <th>PRECIO</th>         
             <th>FOTO</th>
             <th>MEDIA</th>
-            <th>VENDEDOR</th>                
+            <th>VENDEDOR</th>
+            <th>FECHA Y HORA</th>
         </tr>
         <%    
             for (ProductoBasicoDTO producto : productos) {
@@ -44,10 +46,20 @@
             <td><%= producto.getId() %></td>
             <td><%= producto.getTitulo()  %></td>
             <td><%= producto.getDescripcion() %></td>
-            <td><%= producto.getPrecio() %></td> 
-            <td><%= producto.getFoto() %></td>
+            <td><%= producto.getPrecio() %></td>
+            <% try{
+                     %>
+                     <td><img src=<%= producto.getFoto() %> width="200" height="200"></td>
+                     <% } catch(Exception e){
+                     %>
+                    <td><%= producto.getFoto() %></td>
+                    <%
+                        }
+                     %>
+            
             <td><%= producto.getValoracionmedia() %></td> 
-            <td><%= producto.getVendedor().getUsuario() %></td>          
+            <td><%= producto.getVendedor().getUsuario() %></td>
+            <td><%= producto.getFecha() %></td> 
         </tr>
         <%
             }// for

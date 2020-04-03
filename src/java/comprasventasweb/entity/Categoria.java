@@ -5,7 +5,10 @@
  */
 package comprasventasweb.entity;
 
+import comprasventasweb.dto.CategoriaDTO;
+import comprasventasweb.dto.SubcategoriaDTO;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -110,6 +113,18 @@ public class Categoria implements Serializable {
     @Override
     public String toString() {
         return "comprasventasweb.entity.Categoria[ id=" + id + " ]";
+    }
+    
+    public CategoriaDTO getDTO(){
+        CategoriaDTO catDTO = new CategoriaDTO();
+        catDTO.setId(id);
+        catDTO.setNombre(nombre);
+        List<SubcategoriaDTO> subcat = new ArrayList<>();
+        for(Subcategoria s : subcategoriaList){
+            subcat.add(s.getDTO());
+        }
+        catDTO.setSubcategoriaList(subcat);
+        return catDTO;
     }
     
 }

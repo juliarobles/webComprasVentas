@@ -5,8 +5,8 @@
  */
 package comprasventasweb.servlet;
 
-import comprasventasweb.dto.ProductoBasicoDTO;
-import comprasventasweb.service.ProductoService;
+import comprasventasweb.dto.CategoriaDTO;
+import comprasventasweb.service.CategoriaService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -17,17 +17,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Usuario
  */
-@WebServlet(name = "listarProductos", urlPatterns = {"/listarProductos"})
-public class listarProductos extends HttpServlet {
+@WebServlet(name = "ProductoCrear", urlPatterns = {"/ProductoCrear"})
+public class ProductoCrear extends HttpServlet {
 
     @EJB
-    private ProductoService productoServices;
+    private CategoriaService categoriaService;
+
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,23 +41,17 @@ public class listarProductos extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //HttpSession session = request.getSession();
-        //UsuarioDTO usuario;
         
-        //usuario = (AdministradorDTO)session.getAttribute("usuario");
-        // Si el usuario no está en la sesión quiere decir que no ha hecho "login"
-        // y que se está haciendo un acceso ilegal a la aplicación.
-        //if (usuario == null) { 
-          //  response.sendRedirect("login.jsp");
-        //} else {                        
-            List<ProductoBasicoDTO> listaProductos = this.productoServices.searchAll();
+        //if (session.getAttribute("usuario")==null) { // Se ha llamado al servlet sin haberse autenticado
+          //  response.sendRedirect("login.jsp");            
+        //} else {
             
-                                      
-            request.setAttribute("listaProductos", listaProductos);
-
-            RequestDispatcher rd = request.getRequestDispatcher("paginaPrincipal.jsp");
+            List<CategoriaDTO> categorias = this.categoriaService.searchAll();
+            request.setAttribute("listaCategorias", categorias);
+            
+            RequestDispatcher rd = request.getRequestDispatcher("creacionProducto.jsp");
             rd.forward(request, response);
-        //}
-        
+        //}  
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
