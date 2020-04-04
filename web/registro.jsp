@@ -10,9 +10,42 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Nuevo usuario</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>¡Bienvenido!</h1>
+        <h3>Introduce tus datos</h3>
+        <form>
+            <table>
+                <tr>
+        <td>Usuario:</td>
+        <td><input type="text" maxlength ="50" size="50" name="usuario"></td> 
+    </tr>
+        <tr>
+        <td>Correo electrónico:</td>
+        <td><input type="text" maxlength ="100" size="50" name="correo"></td> 
+    </tr>
+        <tr>
+        <td>Nombre:</td>
+        <td><input type="text" maxlength ="100" size="50" name="nombre"></td> 
+    </tr>
+        <tr>
+        <td>Contraseña:</td>
+        <td><input type="password" maxlength ="50" size="50" name="contraseña"></td> 
+    </tr>
+    <tr>
+        <td><input type="submit" value="Enviar"></td>
+    </tr> 
+        
+            </table>
+        </form>
+    
+    
+     <!--
+     Meter comprobación de contraseña (mirar más adelante)
+     Meter valor del administrador 
+     Meter foto
+     Generar ID y meter usuario en la base de datos
+     -->
     </body>
 </html>
