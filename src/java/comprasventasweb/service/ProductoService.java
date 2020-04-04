@@ -9,6 +9,7 @@ import comprasventasweb.dao.ProductoFacade;
 import comprasventasweb.dao.SubcategoriaFacade;
 import comprasventasweb.dao.UsuarioFacade;
 import comprasventasweb.dto.ProductoBasicoDTO;
+import comprasventasweb.dto.ProductoDTO;
 import comprasventasweb.dto.UsuarioDTO;
 import comprasventasweb.entity.Producto;
 import comprasventasweb.entity.Subcategoria;
@@ -52,6 +53,11 @@ public class ProductoService {
         return this.convertToDTO(listaProductos);
     }
     
+    public List<ProductoBasicoDTO> searchAllInverso () {
+        List<Producto> listaProductos = this.productoFacade.findAllInverso();
+        return this.convertToDTO(listaProductos);
+    }
+    
     public void createOrUpdate (String id, String vendedor, String titulo, String descripcion, String precio, String subcategoria,
                                 String foto) {
         Producto producto;
@@ -67,14 +73,15 @@ public class ProductoService {
 
         producto.setTitulo(titulo);
         producto.setDescripcion(descripcion);
-        producto.setVendedor(this.usuarioFacade.find(new Integer(vendedor)));
         producto.setPrecio(Float.parseFloat(precio));
         producto.setCategoria(this.subcategoriaFacade.find(new Integer(subcategoria)));
-        producto.setFecha(new Date());
-        producto.setHora(new Date());
         producto.setFoto(foto);
-        producto.setValoracionmedia(Float.parseFloat("-1"));                       
-
+        if(esCrearNuevo){
+            producto.setVendedor(this.usuarioFacade.find(new Integer(vendedor)));
+            producto.setFecha(new Date());
+            producto.setHora(new Date());
+            producto.setValoracionmedia(Float.parseFloat("-1"));
+        }
         if (esCrearNuevo) {
             this.productoFacade.create(producto);
         } else {
@@ -87,15 +94,13 @@ public class ProductoService {
         return this.convertToDTO(listaProductos);
     }
     
-    public ProductoBasicoDTO searchById(String str){
-        /*
-        Customer cliente = this.customerFacade.find(new Integer(customerId));
-        if (cliente != null) {
-            return cliente.getDTO();
+    public ProductoDTO searchById(String str){
+        
+        Producto producto = this.productoFacade.find(new Integer(str));
+        if (producto != null) {
+            return producto.getDTO();
         } else {
             return null;
         }
-*/
-        return new ProductoBasicoDTO();
     }
 }

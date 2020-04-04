@@ -39,6 +39,7 @@
             <th>MEDIA</th>
             <th>VENDEDOR</th>
             <th>FECHA Y HORA</th>
+            <th>HORA</th>
         </tr>
         <%    
             for (ProductoBasicoDTO producto : productos) {
@@ -61,6 +62,7 @@
             <td><%= producto.getValoracionmedia() %></td> 
             <td><%= producto.getVendedor().getUsuario() %></td>
             <td><%= producto.getFecha() %></td> 
+            <td><%= producto.getHora() %></td>
         </tr>
         <%
             }// for

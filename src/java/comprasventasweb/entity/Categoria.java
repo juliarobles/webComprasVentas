@@ -6,6 +6,7 @@
 package comprasventasweb.entity;
 
 import comprasventasweb.dto.CategoriaDTO;
+import comprasventasweb.dto.SubcategoriaBasicaDTO;
 import comprasventasweb.dto.SubcategoriaDTO;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -119,9 +120,9 @@ public class Categoria implements Serializable {
         CategoriaDTO catDTO = new CategoriaDTO();
         catDTO.setId(id);
         catDTO.setNombre(nombre);
-        List<SubcategoriaDTO> subcat = new ArrayList<>();
+        List<SubcategoriaBasicaDTO> subcat = new ArrayList<>();
         for(Subcategoria s : subcategoriaList){
-            subcat.add(s.getDTO());
+            subcat.add(s.getDTOBasico());
         }
         catDTO.setSubcategoriaList(subcat);
         return catDTO;

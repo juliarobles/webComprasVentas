@@ -7,6 +7,7 @@ package comprasventasweb.service;
 
 import comprasventasweb.dao.UsuarioFacade;
 import comprasventasweb.dto.UsuarioDTO;
+import comprasventasweb.entity.Usuario;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -22,6 +23,11 @@ public class UsuarioService {
     private UsuarioFacade usuarioFacade; 
     
     public UsuarioDTO searchByUserId(Integer id){
-        return this.usuarioFacade.find(id).getDTO();
+        Usuario user = this.usuarioFacade.find(id);
+        if(user != null){
+            return user.getDTO();
+        } else {
+            return null;
+        }
     }
 }

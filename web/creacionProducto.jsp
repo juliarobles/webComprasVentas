@@ -5,6 +5,8 @@
     Funcion    : Aqui se podrá crear un nuevo producto o editar uno existente, 
 --%>
 
+<%@page import="comprasventasweb.dto.SubcategoriaBasicaDTO"%>
+<%@page import="comprasventasweb.dto.ProductoDTO"%>
 <%@page import="com.google.gson.Gson"%>
 <%@page import="comprasventasweb.dto.CategoriaDTO"%>
 <%@page import="java.util.List"%>
@@ -17,15 +19,32 @@
     </head>
     <body>
         <%
-            String id = "", titulo = "", descripcion = "", precio = "", categoria = null, foto = "", vendedor = "1";
+            String id = "", titulo = "", descripcion = "", precio = "", foto = "", vendedor = "1";
+            int categoria = -1, subcategoria = -1;
             //Vendedor nunca puede ser null, ya hemos iniciado sesion con un usuario, pero como aun no esta implementado el login
             //no puedo hacer esto. Pondremos a pepito propietario de todo por ahora.
             List<CategoriaDTO> categorias = (List) request.getAttribute("listaCategorias");
+            ProductoDTO producto = (ProductoDTO)request.getAttribute("producto");
+            String editar = null;
+            
+            if(producto != null){
+                id = producto.getId() + "";
+                titulo = producto.getTitulo();
+                descripcion = producto.getDescripcion();
+                precio = producto.getPrecio()+"";
+                categoria = producto.getCategoria().getCategoriaPadre().getId();
+                subcategoria = producto.getCategoria().getId();
+                foto = producto.getFoto();
+                vendedor = producto.getVendedor().getId()+"";
+                //FALTAN LAS ETIQUETAS
+                editar = "1";
+            } 
             
             //Aqui va el si no es nulo noseque entonces rellenar todo (para el editar)
             //Recuerda coger el id de categoria y no la categoria entera
         %>
         <form action="ProductoGuardar">
+            <input type="hidden" name="editar" value="<%= editar %>" />
             <input type="hidden" name="id" value="<%= id %>" />
             <input type="hidden" name="vendedor" value="<%= vendedor %>" />
             <script type="text/javascript" src="javascript/subcategoria.js"></script>
@@ -47,7 +66,7 @@
                             
                             for (CategoriaDTO cat : categorias) {
                                 String seleccionado = "";
-                                if (categoria != null && categoria.equals(cat.getId())) {
+                                if (categoria != -1 && categoria == cat.getId()) {
                                     seleccionado = "selected";
                                 }
                                 Gson gson = new Gson();
@@ -64,7 +83,24 @@
                     <td>Subcategoria</td>
                     <td>
                         <select id="subcategoria" name="subcategoria" >
-                            <option value="">Seleccione una subcategoria...</option>
+                            <%
+                                if(subcategoria == -1){
+                            %>
+                                <option value="">Seleccione una subcategoria...</option>
+                            <%
+                                } else {
+                                   for (SubcategoriaBasicaDTO cat : producto.getCategoria().getCategoriaPadre().getSubcategoriaList()) {
+                                    String seleccionado = "";
+                                    if (subcategoria != -1 && subcategoria == cat.getId()) {
+                                        seleccionado = "selected";
+                                    }
+                            %>
+                                <option <%= seleccionado %> value=<%= cat.getId() %>><%= cat.getNombre() %></option>
+                            <%
+                                    }
+                                }
+                            %>
+                            
                         </select>
                     </td> 
                 </tr>

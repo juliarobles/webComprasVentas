@@ -5,8 +5,11 @@
  */
 package comprasventasweb.entity;
 
+import comprasventasweb.dto.EtiquetaDTO;
 import comprasventasweb.dto.ProductoBasicoDTO;
+import comprasventasweb.dto.ProductoDTO;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -39,6 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Producto.findAll", query = "SELECT p FROM Producto p")
+    , @NamedQuery(name = "Producto.findAllInverso", query = "SELECT p FROM Producto p ORDER BY p.id DESC")
     , @NamedQuery(name = "Producto.findById", query = "SELECT p FROM Producto p WHERE p.id = :id")
     , @NamedQuery(name = "Producto.findByVendedor", query = "SELECT p FROM Producto p WHERE p.vendedor = :user")
     , @NamedQuery(name = "Producto.findByTitulo", query = "SELECT p FROM Producto p WHERE p.titulo = :titulo")
@@ -257,4 +261,25 @@ public class Producto implements Serializable {
         productoDTO.setVendedor(vendedor.getDTO());
         return productoDTO;
     }
+    
+    public ProductoDTO getDTO() {
+        ProductoDTO productoDTO = new ProductoDTO();
+        productoDTO.setId(id);
+        productoDTO.setTitulo(titulo);
+        productoDTO.setDescripcion(descripcion);
+        productoDTO.setFecha(fecha);
+        productoDTO.setHora(hora);
+        productoDTO.setFoto(foto);
+        productoDTO.setPrecio(precio);
+        productoDTO.setValoracionmedia(valoracionmedia);
+        productoDTO.setVendedor(vendedor.getDTO());
+        productoDTO.setCategoria(categoria.getDTO());
+        List<EtiquetaDTO> etiquetas = new ArrayList<>();
+        for(Etiqueta e : etiquetaList){
+            etiquetas.add(e.getDTO());
+        }
+        productoDTO.setEtiquetas(etiquetas);
+        return productoDTO;
+    }
+    
 }

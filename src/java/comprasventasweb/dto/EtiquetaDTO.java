@@ -5,18 +5,15 @@
  */
 package comprasventasweb.dto;
 
-import java.util.List;
-
 /**
  *
  * @author Usuario
  */
-public class CategoriaDTO {
+public class EtiquetaDTO {
     private Integer id;
     private String nombre;
-    private List<SubcategoriaBasicaDTO> subcategoriaList;
 
-    public CategoriaDTO() {
+    public EtiquetaDTO() {
     }
 
     public Integer getId() {
@@ -34,15 +31,6 @@ public class CategoriaDTO {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-    public List<SubcategoriaBasicaDTO> getSubcategoriaList() {
-        return subcategoriaList;
-    }
-
-    public void setSubcategoriaList(List<SubcategoriaBasicaDTO> subcategoriaList) {
-        this.subcategoriaList = subcategoriaList;
-    }
-
     
     
 }

@@ -5,6 +5,9 @@
  */
 package comprasventasweb.servlet;
 
+import comprasventasweb.dto.CategoriaDTO;
+import comprasventasweb.dto.ProductoDTO;
+import comprasventasweb.service.CategoriaService;
 import comprasventasweb.service.ProductoService;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -32,6 +35,9 @@ public class ProductoEditar extends HttpServlet {
     @EJB
     private ProductoService productoService;
     
+    @EJB
+    private CategoriaService categoriaService;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,7 +49,7 @@ public class ProductoEditar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        /*
+        
         HttpSession session = request.getSession();
         
         if (session.getAttribute("usuario")==null) { // Se ha llamado al servlet sin haberse autenticado
@@ -52,26 +58,24 @@ public class ProductoEditar extends HttpServlet {
             String str = request.getParameter("id");
             if (str == null) {
                 LOG.log(Level.SEVERE, "No se ha encontrado el producto a editar");
-                response.sendRedirect("menu.jsp");            
+                response.sendRedirect("menuPrincipal.jsp");            
             } else {
-                ProductoBasicoDTO = this.productoService.searchById(str);
-                if (cliente == null) { //Esta situación no debería darse
+                ProductoDTO producto = this.productoService.searchById(str);
+                if (producto == null) { //Esta situación no debería darse
                     LOG.log(Level.SEVERE, "No se ha encontrado el cliente a editar");
-                    response.sendRedirect("menu.jsp");
+                    response.sendRedirect("menuPrincipal.jsp");
                 } else {
-                    List<MicroMarketDTO> listaSupermercados = this.supermercadosService.searchAll();
-                    List<DiscountCodeDTO> listaDescuentos = this.codigosDescuentoService.searchAll();
+                    List<CategoriaDTO> categorias = this.categoriaService.searchAll();
                     
-                    request.setAttribute("cliente", cliente);
-                    request.setAttribute("listaSupermercados", listaSupermercados);
-                    request.setAttribute("listaDescuentos", listaDescuentos);
+                    request.setAttribute("listaCategorias", categorias);
+                    request.setAttribute("producto", producto);
                     
-                    RequestDispatcher rd = request.getRequestDispatcher("cliente.jsp");
+                    RequestDispatcher rd = request.getRequestDispatcher("creacionProducto.jsp");
                     rd.forward(request, response);
                 }       
             }
         }
-        */
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

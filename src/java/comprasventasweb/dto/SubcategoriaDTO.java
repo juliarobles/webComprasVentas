@@ -12,6 +12,7 @@ package comprasventasweb.dto;
 public class SubcategoriaDTO {
     private Integer id;
     private String nombre;
+    private CategoriaDTO categoriaPadre;
 
     public SubcategoriaDTO() {
     }
@@ -30,6 +31,14 @@ public class SubcategoriaDTO {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public CategoriaDTO getCategoriaPadre() {
+        return categoriaPadre;
+    }
+
+    public void setCategoriaPadre(CategoriaDTO categoriaPadre) {
+        this.categoriaPadre = categoriaPadre;
     }
     
     

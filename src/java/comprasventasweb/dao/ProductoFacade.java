@@ -37,7 +37,11 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         q.setParameter("user", user);
         
         return q.getResultList();
-        
+    }
+    
+    public List<Producto> findAllInverso(){
+       Query q = this.getEntityManager().createNamedQuery("Producto.findAllInverso");
+       return q.getResultList(); 
     }
     
 }

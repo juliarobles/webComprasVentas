@@ -49,7 +49,7 @@ public class ProductosListar extends HttpServlet {
         //if (usuario == null) { 
           //  response.sendRedirect("login.jsp");
         //} else {                        
-            List<ProductoBasicoDTO> listaProductos = this.productoServices.searchAll();
+            List<ProductoBasicoDTO> listaProductos = this.productoServices.searchAllInverso();
             
                                       
             request.setAttribute("listaProductos", listaProductos);

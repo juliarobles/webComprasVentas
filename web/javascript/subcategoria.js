@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-function cargarSubcategorias(){
+function cargarSubcategorias(subcategoria){
     var categoria = document.getElementById('categoria')
     var subcategoria = document.getElementById('subcategoria')
     var categoriaSeleccionada = categoria.value

@@ -5,6 +5,7 @@
  */
 package comprasventasweb.entity;
 
+import comprasventasweb.dto.SubcategoriaBasicaDTO;
 import comprasventasweb.dto.SubcategoriaDTO;
 import java.io.Serializable;
 import java.util.List;
@@ -129,6 +130,14 @@ public class Subcategoria implements Serializable {
     
     public SubcategoriaDTO getDTO(){
         SubcategoriaDTO subDTO = new SubcategoriaDTO();
+        subDTO.setId(id);
+        subDTO.setNombre(nombre);
+        subDTO.setCategoriaPadre(categoriaPadre.getDTO());
+        return subDTO;
+    }
+    
+    public SubcategoriaBasicaDTO getDTOBasico(){
+        SubcategoriaBasicaDTO subDTO = new SubcategoriaBasicaDTO();
         subDTO.setId(id);
         subDTO.setNombre(nombre);
         return subDTO;

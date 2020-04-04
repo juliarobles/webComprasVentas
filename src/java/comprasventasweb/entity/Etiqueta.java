@@ -5,6 +5,7 @@
  */
 package comprasventasweb.entity;
 
+import comprasventasweb.dto.EtiquetaDTO;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -114,6 +115,13 @@ public class Etiqueta implements Serializable {
     @Override
     public String toString() {
         return "comprasventasweb.entity.Etiqueta[ id=" + id + " ]";
+    }
+    
+    public EtiquetaDTO getDTO(){
+        EtiquetaDTO etDTO = new EtiquetaDTO();
+        etDTO.setId(id);
+        etDTO.setNombre(nombre);
+        return etDTO;
     }
     
 }

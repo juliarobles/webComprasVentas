@@ -46,7 +46,13 @@ public class ProductoGuardar extends HttpServlet {
                     request.getParameter("foto")
             );
             
-            response.sendRedirect("ProductosListar");            
+            String editar = request.getParameter("editar");
+            if(editar != null && editar.equals("1")){
+                response.sendRedirect("PerfilUsuario");
+            } else {
+                response.sendRedirect("ProductosListar");
+            }
+                        
         //}        
     }
 
