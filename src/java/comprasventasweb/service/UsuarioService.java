@@ -24,4 +24,8 @@ public class UsuarioService {
     public UsuarioDTO searchByUserId(Integer id){
         return this.usuarioFacade.find(id).getDTO();
     }
+    
+    public UsuarioDTO buscarPorCorreo(String user){
+        return this.usuarioFacade.buscarPorCorreo(user).getDTO();
+    }
 }
