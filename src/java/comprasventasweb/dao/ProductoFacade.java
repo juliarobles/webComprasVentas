@@ -6,9 +6,12 @@
 package comprasventasweb.dao;
 
 import comprasventasweb.entity.Producto;
+import comprasventasweb.entity.Usuario;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +30,14 @@ public class ProductoFacade extends AbstractFacade<Producto> {
 
     public ProductoFacade() {
         super(Producto.class);
+    }
+    
+    public List<Producto> findByUserId(Usuario user) {        
+        Query q = this.getEntityManager().createNamedQuery("Producto.findByVendedor");
+        q.setParameter("user", user);
+        
+        return q.getResultList();
+        
     }
     
 }

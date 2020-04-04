@@ -14,6 +14,10 @@
     </head>
     <body>
         <h1>Hello World!</h1>
+        <!--
+        Nota 1: Esto solo esta puesto para que yo pudiera acceder a lo que hacia, puedes quitarlo sin miedo
+        Nota 2: Cuando tengas que crear el usuario recuerda usar UsuarioDTO y no Usuario
+        -->
         <a href="ProductosListar">Ver productos</a> <br/>
     </body>
 </html>

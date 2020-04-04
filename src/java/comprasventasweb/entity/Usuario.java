@@ -5,11 +5,9 @@
  */
 package comprasventasweb.entity;
 
-import comprasventasweb.dto.UsuarioBasicoDTO;
+import comprasventasweb.dto.UsuarioDTO;
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,12 +15,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -38,7 +34,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Usuario.findByEmail", query = "SELECT u FROM Usuario u WHERE u.email = :email")
     , @NamedQuery(name = "Usuario.findByNombre", query = "SELECT u FROM Usuario u WHERE u.nombre = :nombre")
     , @NamedQuery(name = "Usuario.findByPassword", query = "SELECT u FROM Usuario u WHERE u.password = :password")
-    , @NamedQuery(name = "Usuario.findByAdministrador", query = "SELECT u FROM Usuario u WHERE u.administrador = :administrador")})
+    , @NamedQuery(name = "Usuario.findByAdministrador", query = "SELECT u FROM Usuario u WHERE u.administrador = :administrador")
+    , @NamedQuery(name = "Usuario.findByFoto", query = "SELECT u FROM Usuario u WHERE u.foto = :foto")})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -72,12 +69,9 @@ public class Usuario implements Serializable {
     @NotNull
     @Column(name = "ADMINISTRADOR")
     private Boolean administrador;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario1")
-    private List<Valoracion> valoracionList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vendedor")
-    private List<Producto> productoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
-    private List<Comentario> comentarioList;
+    @Size(max = 512)
+    @Column(name = "FOTO")
+    private String foto;
 
     public Usuario() {
     }
@@ -143,31 +137,12 @@ public class Usuario implements Serializable {
         this.administrador = administrador;
     }
 
-    @XmlTransient
-    public List<Valoracion> getValoracionList() {
-        return valoracionList;
+    public String getFoto() {
+        return foto;
     }
 
-    public void setValoracionList(List<Valoracion> valoracionList) {
-        this.valoracionList = valoracionList;
-    }
-
-    @XmlTransient
-    public List<Producto> getProductoList() {
-        return productoList;
-    }
-
-    public void setProductoList(List<Producto> productoList) {
-        this.productoList = productoList;
-    }
-
-    @XmlTransient
-    public List<Comentario> getComentarioList() {
-        return comentarioList;
-    }
-
-    public void setComentarioList(List<Comentario> comentarioList) {
-        this.comentarioList = comentarioList;
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
     @Override
@@ -195,11 +170,13 @@ public class Usuario implements Serializable {
         return "comprasventasweb.entity.Usuario[ id=" + id + " ]";
     }
     
-    public UsuarioBasicoDTO getDTOBasico() {
-        UsuarioBasicoDTO usuarioDTO = new UsuarioBasicoDTO();
+    public UsuarioDTO getDTO() {
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
         usuarioDTO.setId(id);
         usuarioDTO.setNombre(nombre);
         usuarioDTO.setUsuario(usuario);
+        usuarioDTO.setEmail(email);
+        usuarioDTO.setFoto(foto);
         usuarioDTO.setAdministrador(administrador);
         return usuarioDTO;
     }

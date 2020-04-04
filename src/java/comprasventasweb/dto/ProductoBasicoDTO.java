@@ -26,7 +26,7 @@ public class ProductoBasicoDTO {
     private Date fecha;
     private String foto;
     private Float valoracionmedia;
-    private UsuarioBasicoDTO vendedor;
+    private UsuarioDTO vendedor;
 
     public ProductoBasicoDTO() {
     }
@@ -95,11 +95,11 @@ public class ProductoBasicoDTO {
         this.valoracionmedia = valoracionmedia;
     }
 
-    public UsuarioBasicoDTO getVendedor() {
+    public UsuarioDTO getVendedor() {
         return vendedor;
     }
 
-    public void setVendedor(UsuarioBasicoDTO vendedor) {
+    public void setVendedor(UsuarioDTO vendedor) {
         this.vendedor = vendedor;
     }
     

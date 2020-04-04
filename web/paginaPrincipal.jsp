@@ -21,6 +21,7 @@
     <body>
         <h1>NOMBRE WEB A DECIDIR AUN</h1>
         <a href="ProductoCrear">Nuevo producto</a>
+        <a href="PerfilUsuario">Perfil</a>
         <%
         if (productos == null || productos.isEmpty()) {
         %>          
@@ -63,8 +64,10 @@
         </tr>
         <%
             }// for
-        }//if
         %>
         </table>
+        <%
+        }//if
+        %>
     </body>
 </html>

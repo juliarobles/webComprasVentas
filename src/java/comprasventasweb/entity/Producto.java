@@ -40,6 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Producto.findAll", query = "SELECT p FROM Producto p")
     , @NamedQuery(name = "Producto.findById", query = "SELECT p FROM Producto p WHERE p.id = :id")
+    , @NamedQuery(name = "Producto.findByVendedor", query = "SELECT p FROM Producto p WHERE p.vendedor = :user")
     , @NamedQuery(name = "Producto.findByTitulo", query = "SELECT p FROM Producto p WHERE p.titulo = :titulo")
     , @NamedQuery(name = "Producto.findByDescripcion", query = "SELECT p FROM Producto p WHERE p.descripcion = :descripcion")
     , @NamedQuery(name = "Producto.findByPrecio", query = "SELECT p FROM Producto p WHERE p.precio = :precio")
@@ -253,7 +254,7 @@ public class Producto implements Serializable {
         productoDTO.setFoto(foto);
         productoDTO.setPrecio(precio);
         productoDTO.setValoracionmedia(valoracionmedia);
-        productoDTO.setVendedor(vendedor.getDTOBasico());
+        productoDTO.setVendedor(vendedor.getDTO());
         return productoDTO;
     }
 }

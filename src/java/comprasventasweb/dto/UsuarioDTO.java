@@ -10,13 +10,15 @@ package comprasventasweb.dto;
  *
  * @author Usuario
  */
-public class UsuarioBasicoDTO {
+public class UsuarioDTO {
     private Integer id;
     private String usuario;
+    private String email;
     private String nombre;
+    private String foto;
     private Boolean administrador;
 
-    public UsuarioBasicoDTO() {
+    public UsuarioDTO() {
     }
 
     public Integer getId() {
@@ -50,6 +52,23 @@ public class UsuarioBasicoDTO {
     public void setAdministrador(Boolean administrador) {
         this.administrador = administrador;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+    
     
     
 }

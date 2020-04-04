@@ -9,6 +9,7 @@ import comprasventasweb.dao.ProductoFacade;
 import comprasventasweb.dao.SubcategoriaFacade;
 import comprasventasweb.dao.UsuarioFacade;
 import comprasventasweb.dto.ProductoBasicoDTO;
+import comprasventasweb.dto.UsuarioDTO;
 import comprasventasweb.entity.Producto;
 import comprasventasweb.entity.Subcategoria;
 import java.text.SimpleDateFormat;
@@ -79,5 +80,22 @@ public class ProductoService {
         } else {
             this.productoFacade.edit(producto);
         }                
+    }
+
+    public List<ProductoBasicoDTO> searchByUser(UsuarioDTO user) {
+        List<Producto> listaProductos = this.productoFacade.findByUserId(this.usuarioFacade.find(user.getId()));
+        return this.convertToDTO(listaProductos);
+    }
+    
+    public ProductoBasicoDTO searchById(String str){
+        /*
+        Customer cliente = this.customerFacade.find(new Integer(customerId));
+        if (cliente != null) {
+            return cliente.getDTO();
+        } else {
+            return null;
+        }
+*/
+        return new ProductoBasicoDTO();
     }
 }
