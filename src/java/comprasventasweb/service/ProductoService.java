@@ -5,6 +5,7 @@
  */
 package comprasventasweb.service;
 
+import comprasventasweb.dao.EtiquetaFacade;
 import comprasventasweb.dao.ProductoFacade;
 import comprasventasweb.dao.SubcategoriaFacade;
 import comprasventasweb.dao.UsuarioFacade;
@@ -36,6 +37,12 @@ public class ProductoService {
     @EJB
     private SubcategoriaFacade subcategoriaFacade;
     
+    @EJB
+    private EtiquetaFacade etiquetaFacade;
+    
+    @EJB
+    private EtiquetaService etiquetaService;
+    
     
     protected List<ProductoBasicoDTO> convertToDTO (List<Producto> listaProductos) {
         List<ProductoBasicoDTO> listaDTO = null;
@@ -59,7 +66,7 @@ public class ProductoService {
     }
     
     public void createOrUpdate (String id, String vendedor, String titulo, String descripcion, String precio, String subcategoria,
-                                String foto) {
+                                String foto, String etiquetas) {
         Producto producto;
         boolean esCrearNuevo = false;
         
@@ -76,17 +83,36 @@ public class ProductoService {
         producto.setPrecio(Float.parseFloat(precio));
         producto.setCategoria(this.subcategoriaFacade.find(new Integer(subcategoria)));
         producto.setFoto(foto);
+     
         if(esCrearNuevo){
+            producto.setEtiquetaList(new ArrayList<>());
             producto.setVendedor(this.usuarioFacade.find(new Integer(vendedor)));
             producto.setFecha(new Date());
             producto.setHora(new Date());
             producto.setValoracionmedia(Float.parseFloat("-1"));
         }
+        
         if (esCrearNuevo) {
             this.productoFacade.create(producto);
         } else {
             this.productoFacade.edit(producto);
-        }                
+        } 
+        
+        if(!esCrearNuevo){
+           this.productoFacade.vaciarEtiquetas(producto);
+        }
+        
+        String[] split = etiquetas.split("#");
+        for(int i = 0; i < split.length; i++){
+            String s = split[i];
+            if(s != null && s.length() >= 1){
+                this.etiquetaFacade.createOrUpdate(s, producto);
+            }
+        }
+        
+        
+        
+        
     }
 
     public List<ProductoBasicoDTO> searchByUser(UsuarioDTO user) {

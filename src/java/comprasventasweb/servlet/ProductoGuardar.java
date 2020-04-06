@@ -43,7 +43,7 @@ public class ProductoGuardar extends HttpServlet {
             this.productoService.createOrUpdate(
                     request.getParameter("id"), request.getParameter("vendedor"), request.getParameter("titulo"),
                     request.getParameter("descripcion"), request.getParameter("precio"), request.getParameter("subcategoria"),
-                    request.getParameter("foto")
+                    request.getParameter("foto"), request.getParameter("etiquetas")
             );
             
             String editar = request.getParameter("editar");

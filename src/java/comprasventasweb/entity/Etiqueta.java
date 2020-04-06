@@ -124,4 +124,5 @@ public class Etiqueta implements Serializable {
         return etDTO;
     }
     
+    
 }

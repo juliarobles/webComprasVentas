@@ -5,6 +5,7 @@
     Funcion    : Aqui se podrá crear un nuevo producto o editar uno existente, 
 --%>
 
+<%@page import="comprasventasweb.dto.EtiquetaDTO"%>
 <%@page import="comprasventasweb.dto.SubcategoriaBasicaDTO"%>
 <%@page import="comprasventasweb.dto.ProductoDTO"%>
 <%@page import="com.google.gson.Gson"%>
@@ -19,7 +20,7 @@
     </head>
     <body>
         <%
-            String id = "", titulo = "", descripcion = "", precio = "", foto = "", vendedor = "1";
+            String id = "", titulo = "", descripcion = "", precio = "", foto = "", vendedor = "1", etiquetas = "";
             int categoria = -1, subcategoria = -1;
             //Vendedor nunca puede ser null, ya hemos iniciado sesion con un usuario, pero como aun no esta implementado el login
             //no puedo hacer esto. Pondremos a pepito propietario de todo por ahora.
@@ -36,7 +37,13 @@
                 subcategoria = producto.getCategoria().getId();
                 foto = producto.getFoto();
                 vendedor = producto.getVendedor().getId()+"";
-                //FALTAN LAS ETIQUETAS
+                StringBuilder sb = new StringBuilder();
+                for(EtiquetaDTO et : producto.getEtiquetas()){
+                    sb.append("#");
+                    sb.append(et.getNombre());
+                    sb.append(" ");
+                }
+                etiquetas = sb.toString();
                 editar = "1";
             } 
             
@@ -111,6 +118,10 @@
                 <tr>
                     <td>Foto</td>
                     <td><input type="text" name="foto" value="<%= foto %>" size="30" max="30" maxlength="30" /></td>
+                </tr>
+                <tr>
+                    <td>Etiquetas</td>
+                    <td><input type="text" name="etiquetas" value="<%= etiquetas %>" size="30" max="30" maxlength="30" /></td>
                 </tr>
             </table>
             <button type="submit">Publicar producto</button>
