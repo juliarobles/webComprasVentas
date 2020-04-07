@@ -19,6 +19,7 @@
     </head>
     <%
         List<ProductoBasicoDTO> productos = (List)request.getAttribute("listaProductos");
+
         SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat hora = new SimpleDateFormat("HH:mm");
     %>

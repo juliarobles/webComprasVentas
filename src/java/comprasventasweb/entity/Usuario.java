@@ -178,6 +178,7 @@ public class Usuario implements Serializable {
         usuarioDTO.setEmail(email);
         usuarioDTO.setFoto(foto);
         usuarioDTO.setAdministrador(administrador);
+        usuarioDTO.setPassword(this.password);
         return usuarioDTO;
     }
 }

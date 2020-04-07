@@ -17,6 +17,15 @@ public class UsuarioDTO {
     private String nombre;
     private String foto;
     private Boolean administrador;
+    private String password;
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 
     public UsuarioDTO() {
     }
