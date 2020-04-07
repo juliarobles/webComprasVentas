@@ -13,9 +13,14 @@
         <title>Nuevo usuario</title>
     </head>
     <body>
+        
+        <%
+        //Poner las cosas que se tiene que comprobar al hacer el registro
+        //Nombre, correo (comprobar requerimientos), contraseña, nombre de usuario
+        %>
         <h1>¡Bienvenido!</h1>
         <h3>Introduce tus datos</h3>
-        <form>
+        <form method="post" action="RegistrarUsuario">
             <table>
                 <tr>
         <td>Usuario:</td>
@@ -31,7 +36,7 @@
     </tr>
         <tr>
         <td>Contraseña:</td>
-        <td><input type="password" maxlength ="50" size="50" name="contraseña"></td> 
+        <td><input type="password" maxlength ="50" size="50" name="pass"></td> 
     </tr>
     <tr>
         <td><input type="submit" value="Enviar"></td>
