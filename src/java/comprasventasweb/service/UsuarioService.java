@@ -27,11 +27,23 @@ public class UsuarioService {
     }
     
     public UsuarioDTO buscarPorCorreo(String user){
-        return this.usuarioFacade.buscarPorCorreo(user).getDTO();
+        
+        Usuario usu = this.usuarioFacade.buscarPorCorreo(user);
+        if(usu != null){
+            return usu.getDTO();
+        }else{
+            return null;
+        }
     }
 
     public UsuarioDTO buscarPorUsuario(String usuario) {//To do
-        return this.usuarioFacade.buscarPorUsuario(usuario).getDTO();
+         
+        Usuario usu = this.usuarioFacade.buscarPorUsuario(usuario);
+        if(usu != null){
+            return usu.getDTO();
+        }else{
+            return null;
+        }
     }
 
     public void create(String usuario, String correo, String nombre, String pass, boolean b) {    
@@ -44,7 +56,7 @@ public class UsuarioService {
         user.setEmail(correo);
         user.setNombre(nombre);
         user.setPassword(pass);
-        
+        user.setFoto("");
         this.usuarioFacade.create(user);
         
     }

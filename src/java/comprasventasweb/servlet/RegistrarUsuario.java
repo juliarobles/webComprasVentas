@@ -52,8 +52,8 @@ public class RegistrarUsuario extends HttpServlet {
         correo = request.getParameter("correo");
         usu = this.usuarioService.buscarPorCorreo(correo);
         String statusCorreo = null;
-        if(usu != null){
-            statusCorreo = "Ya existe una cuenta con este correo";
+        if(usu != null || correo.length()<=0 ){
+            statusCorreo = "Este correo ya está en uso";
             request.setAttribute("statusCorreo", statusCorreo);
             comprobar = false;
         }
@@ -61,7 +61,7 @@ public class RegistrarUsuario extends HttpServlet {
         usuario = request.getParameter("usuario");
         usu = this.usuarioService.buscarPorUsuario(usuario);//Hacer funcion buscar usuario
         String statusUsuario = null;
-        if(usu != null){
+        if(usu != null || usuario.length()<=0){
             statusUsuario = "Este nombre está pillado amig@";
             request.setAttribute("statusUsuario", statusUsuario);
             comprobar = false;

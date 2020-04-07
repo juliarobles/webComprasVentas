@@ -6,6 +6,7 @@
                  un boton para acceder a su perfil con los productos vendidos por el propio usuario y con otro para añadir un nuevo producto
 --%>
 
+<%@page import="comprasventasweb.dto.UsuarioDTO"%>
 <%@page import="comprasventasweb.dto.ProductoBasicoDTO"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -17,9 +18,13 @@
     </head>
     <%
         List<ProductoBasicoDTO> productos = (List)request.getAttribute("listaProductos");
+        HttpSession sesion = request.getSession();
+        UsuarioDTO user = (UsuarioDTO)sesion.getAttribute("usuario");
+        String nombre = user.getNombre();
     %>
     <body>
-        <h1>NOMBRE WEB A DECIDIR AUN</h1>
+       
+        <h1>Me alegro de verte <%=nombre%></h1>
         <a href="ProductoCrear">Nuevo producto</a>
         <a href="PerfilUsuario">Perfil</a>
         <%
