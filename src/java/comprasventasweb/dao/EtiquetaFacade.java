@@ -72,17 +72,20 @@ public class EtiquetaFacade extends AbstractFacade<Etiqueta> {
     public void removeProducto(Etiqueta et, Producto p) {
         if(et != null && p != null){
             List<Producto> lista = et.getProductoList();
-            List<Etiqueta> lista2 = p.getEtiquetaList();
-            if(lista != null && lista.contains(p) && lista2 != null && lista2.contains(et)){
+            //List<Etiqueta> lista2 = p.getEtiquetaList();
+            //&& lista2 != null && lista2.contains(et)
+            if(lista != null && lista.contains(p)){
                 EntityManager em = this.getEntityManager();
                 
                 lista.remove(p);
                 et.setProductoList(lista);
                 em.persist(et);
                 
+                /*
                 lista2.remove(et);
                 p.setEtiquetaList(lista2);
                 em.persist(p);
+                */
             }
             
         }

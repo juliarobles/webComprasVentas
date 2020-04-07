@@ -46,6 +46,7 @@ public class ProductoFacade extends AbstractFacade<Producto> {
        return q.getResultList(); 
     }
 
+    /*
     public void vaciarEtiquetas(Producto producto) {
         EntityManager em = this.getEntityManager();
         List<Producto> lista;
@@ -58,5 +59,14 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         producto.setEtiquetaList(new ArrayList<>());
         em.persist(producto);
     }
+*/
+    
+    public void vaciarEtiquetas(Producto producto) {
+         EntityManager em = this.getEntityManager();
+         producto.setEtiquetaList(new ArrayList<>());
+         em.persist(producto);
+    }
+    
+    
     
 }

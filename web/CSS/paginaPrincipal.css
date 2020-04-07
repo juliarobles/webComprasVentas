@@ -1,0 +1,168 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 07-abr-2020, 19:27:55
+    Author     : Usuario
+*/
+/*
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 270px;
+  background-color: white;
+  margin: 10px;
+  text-align: left;
+  font-family: arial;
+  flex: 25%;
+  
+}
+*/
+
+.card {
+  background: white;
+  text-decoration: none;
+  color: #444;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  max-width: 270px;
+  position: relative;
+  top: 0;
+  transition: all .1s ease-in;
+}
+
+.card:hover {
+    top: -2px;
+    box-shadow: 0 4px 5px rgba(0,0,0,0.2);
+  }
+
+.headerImagen {
+    display:block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+  margin-bottom: 50px;
+  object-fit: contain;
+}
+
+
+
+precio {
+    font-size: 18px;
+    color: #14536d;
+    font-weight: 600;
+}
+
+fecha{
+    display: inline-block;
+    margin-left: 5px;
+    float: right;
+    text-align: right;
+    color: #8a8a8a;
+    font-size: 12px;
+}
+
+.tituloCard {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+    color: #363636;
+    text-decoration: none;
+}
+
+.descripcionCard {
+    font-size: 15px;
+    line-height: 22px;
+    margin-bottom: 18px;
+    color: #999;
+}
+
+.bottom{
+    overflow: hidden;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+bottom div {
+    float: left;
+    width: 50%;
+}
+
+article {
+    padding: 20px;
+    flex: 1;
+    justify-content: space-between;
+}
+
+html {
+    background: #fdfeff;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  padding: 20px 0;
+}
+
+.band {
+    width: 90%;
+  margin: 0 auto;
+  
+  
+  display: grid;
+  
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  grid-gap: 20px;
+  justify-content:center
+}
+
+@media (min-width: 30em) {
+    .band{
+       grid-template-columns: 1fr 1fr; 
+    }
+  }
+  
+  @media (min-width: 60em) {
+      .band{
+         grid-template-columns: repeat(5, 1fr); 
+      }
+      
+  
+    
+  }
+
+p {
+    flex: 1;
+    
+    line-height: 0.3;
+    
+  }
+
+
+.imagen > img{
+	width: 270px;
+	height: 200px;
+	object-fit: cover;
+	background-color: black;
+}
+
+vendedor{
+    font-size: 12px;
+    color: #ccc;
+}
+
+valoracion{
+    color: #494949;
+    font-size: 16px;
+    display: inline-block;
+    margin-left: 5px;
+    float: right;
+}
+
+.top{
+    display: block;
+    font-weight: 700;
+    margin-bottom: 18px;
+}

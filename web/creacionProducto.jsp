@@ -117,7 +117,7 @@
                 </tr>
                 <tr>
                     <td>Foto</td>
-                    <td><input type="text" name="foto" value="<%= foto %>" size="30" max="30" maxlength="30" /></td>
+                    <td><input type="text" name="foto" value="<%= foto %>" size="30" max="30" maxlength="100" /></td>
                 </tr>
                 <tr>
                     <td>Etiquetas</td>

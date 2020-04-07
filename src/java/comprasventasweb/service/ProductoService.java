@@ -12,6 +12,7 @@ import comprasventasweb.dao.UsuarioFacade;
 import comprasventasweb.dto.ProductoBasicoDTO;
 import comprasventasweb.dto.ProductoDTO;
 import comprasventasweb.dto.UsuarioDTO;
+import comprasventasweb.entity.Etiqueta;
 import comprasventasweb.entity.Producto;
 import comprasventasweb.entity.Subcategoria;
 import java.text.SimpleDateFormat;
@@ -99,18 +100,23 @@ public class ProductoService {
         } 
         
         if(!esCrearNuevo){
-           this.productoFacade.vaciarEtiquetas(producto);
+           this.vaciarEtiquetas(producto);
         }
         
-        String[] split = etiquetas.split("#");
-        for(int i = 0; i < split.length; i++){
-            String s = split[i];
-            if(s != null && s.length() >= 1){
-                this.etiquetaFacade.createOrUpdate(s, producto);
-            }
+        if(etiquetas != null){
+           String[] split = etiquetas.split("#");
+            for(int i = 0; i < split.length; i++){
+                String s = split[i];
+
+                while(s != null && s.length() >= 1 && s.charAt(s.length()-1) == ' '){
+                    s = s.substring(0, s.length()-1);
+                }
+
+                if(s != null && s.length() >= 1){
+                    this.etiquetaFacade.createOrUpdate(s, producto);
+                }
+            } 
         }
-        
-        
         
         
     }
@@ -128,5 +134,15 @@ public class ProductoService {
         } else {
             return null;
         }
+    }
+    
+    protected void vaciarEtiquetas(Producto producto) {
+        for(Etiqueta et : producto.getEtiquetaList()){
+            this.etiquetaFacade.removeProducto(et, producto);
+            if(et.getProductoList().isEmpty()){
+                this.etiquetaService.remove(et.getNombre());
+            }
+        }
+        this.productoFacade.vaciarEtiquetas(producto);
     }
 }

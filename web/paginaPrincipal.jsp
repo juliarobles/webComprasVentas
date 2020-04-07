@@ -6,6 +6,7 @@
                  un boton para acceder a su perfil con los productos vendidos por el propio usuario y con otro para añadir un nuevo producto
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="comprasventasweb.dto.ProductoBasicoDTO"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,14 +15,18 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Menú principal</title>
+        <link rel="stylesheet" href="CSS/paginaPrincipal.css">
     </head>
     <%
         List<ProductoBasicoDTO> productos = (List)request.getAttribute("listaProductos");
+        SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat hora = new SimpleDateFormat("HH:mm");
     %>
     <body>
-        <h1>NOMBRE WEB A DECIDIR AUN</h1>
+        <img class="headerImagen" src="imagenes/logo.png" width="800" height="100">
         <a href="ProductoCrear">Nuevo producto</a>
         <a href="PerfilUsuario">Perfil</a>
+        <br>
         <%
         if (productos == null || productos.isEmpty()) {
         %>          
@@ -29,6 +34,7 @@
          <%
         } else {
         %>
+        <!--
         <table border="1">
         <tr>
             <th>ID</th>
@@ -41,9 +47,46 @@
             <th>FECHA Y HORA</th>
             <th>HORA</th>
         </tr>
+        -->
+        <div class="band">
         <%    
+            String precio = "", valoracion = "";
             for (ProductoBasicoDTO producto : productos) {
+                Float p = producto.getPrecio();
+                if(p % 1 == 0){
+                    precio = p.intValue() + "";
+                } else {
+                    precio = p + "";
+                }
+                if(producto.getValoracionmedia() < 0){
+                    valoracion = "-";
+                } else {
+                    valoracion = producto.getValoracionmedia() + "";
+                }
         %>
+        <div class="item">
+           <a href="PerfilUsuario" class="card">
+            <div class="imagen">
+                <img src=<%= producto.getFoto() %>>
+            </div>
+            <article>
+                <div class ="top">
+                   <vendedor>@<%= producto.getVendedor().getUsuario() %></vendedor>
+                   <valoracion><%= valoracion %>★</valoracion>
+                </div>
+                <h4 class="tituloCard"><%= producto.getTitulo()  %></h1>
+                <p class = "descripcionCard"><%= producto.getDescripcion() %></p>
+                <div class="bottom">
+                    <precio><%= precio %>€</precio>
+                    <fecha><%= fecha.format(producto.getFecha()) + " " + hora.format(producto.getHora()) %></fecha>
+                    
+                </div>
+            </article>
+           </a>
+        </div>
+        
+        
+        <!--
         <tr>
             <td><%= producto.getId() %></td>
             <td><%= producto.getTitulo()  %></td>
@@ -64,10 +107,14 @@
             <td><%= producto.getFecha() %></td> 
             <td><%= producto.getHora() %></td>
         </tr>
+        -->
         <%
             }// for
         %>
+        <!--
         </table>
+        -->
+        </div>
         <%
         }//if
         %>
