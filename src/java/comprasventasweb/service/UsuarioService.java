@@ -28,4 +28,6 @@ public class UsuarioService {
     public UsuarioDTO buscarPorCorreo(String user){
         return this.usuarioFacade.buscarPorCorreo(user).getDTO();
     }
+    
+    
 }

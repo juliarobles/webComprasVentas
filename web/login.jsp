@@ -27,7 +27,7 @@
         //Comprobamos si no es null
         if(usuario != null){
             //Aqui redireccionaremos la pagina al inicio de la aplicacion
-            response.sendRedirect("menu.jsp");
+            response.sendRedirect("paginaPrincipal.jsp");
             //Con esto redireccionaremos al menu si en efecto hay usuario en la sesion
             return;
         }
@@ -36,9 +36,11 @@
          //En cualquier otro caso
          
 
-        status = (String)request.getAttribute("status");
+        status = (String)request.getAttribute("estado");
+        //Obtenemos el estado para ver si no hemos accedido a la cuenta por algo o si es la primera
+        //vez que entramos o algo asi, importante
         if (status == null) {
-            status = "";
+            status = "";//Si no hay estado lo igualamos a esto para que no de error
         } 
         %>
         <h2>Iniciar sesi&oacute;n</h2>
