@@ -25,6 +25,7 @@
             //Vendedor nunca puede ser null, ya hemos iniciado sesion con un usuario, pero como aun no esta implementado el login
             //no puedo hacer esto. Pondremos a pepito propietario de todo por ahora.
             List<CategoriaDTO> categorias = (List) request.getAttribute("listaCategorias");
+            
             ProductoDTO producto = (ProductoDTO)request.getAttribute("producto");
             String editar = null;
             
@@ -55,14 +56,15 @@
             <input type="hidden" name="id" value="<%= id %>" />
             <input type="hidden" name="vendedor" value="<%= vendedor %>" />
             <script type="text/javascript" src="javascript/subcategoria.js"></script>
+            <script type="text/javascript" src="javascript/comprobacionesProducto.js"></script>
             <table>
                 <tr>
                     <td>Titulo</td>
-                    <td><input type="text" name="titulo" value="<%= titulo %>" size="30" max="30" maxlength="100" /></td> 
+                    <td><input type="text" name="titulo" value="<%= titulo %>" size="30" minlength="1" maxlength="100" required/></td> 
                 </tr>
                 <tr>
                     <td>Descripcion</td>
-                    <td><input type="text" name="descripcion" value="<%= descripcion %>" size="30" max="30" maxlength="500" /></td> 
+                    <td><input type="text" name="descripcion" value="<%= descripcion %>" size="30" maxlength="500" /></td> 
                 </tr>
                 <tr>
                     <td>Categoria</td>
@@ -89,7 +91,7 @@
                 <tr>
                     <td>Subcategoria</td>
                     <td>
-                        <select id="subcategoria" name="subcategoria" >
+                        <select id="subcategoria" name="subcategoria" required>
                             <%
                                 if(subcategoria == -1){
                             %>
@@ -113,18 +115,18 @@
                 </tr>
                 <tr>
                     <td>Precio</td>
-                    <td><input type="text" name="precio" value="<%= precio %>" size="30" max="30" maxlength="30" /></td> 
+                    <td><input type="number" name="precio" value="<%= precio %>" size="30" min="0" maxlength="50" required/></td> 
                 </tr>
                 <tr>
                     <td>Foto</td>
-                    <td><input type="text" name="foto" value="<%= foto %>" size="30" max="30" maxlength="520" /></td>
+                    <td><input type="text" name="foto" value="<%= foto %>" size="30" maxlength="520" /></td>
                 </tr>
                 <tr>
                     <td>Etiquetas</td>
-                    <td><input type="text" name="etiquetas" value="<%= etiquetas %>" size="30" max="30" maxlength="200" /></td>
+                    <td><input type="text" name="etiquetas" value="<%= etiquetas %>" size="30" maxlength="200" /></td>
                 </tr>
             </table>
-            <button type="submit">Publicar producto</button>
+            <button type="submit" onclick="comprobar()">Publicar producto</button>
         </form>
     </body>
 </html>
