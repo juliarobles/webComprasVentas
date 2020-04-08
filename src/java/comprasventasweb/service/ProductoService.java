@@ -107,7 +107,7 @@ public class ProductoService {
            this.vaciarEtiquetas(producto);
         }
         
-        if(etiquetas != null){
+        if(etiquetas != null || etiquetas.equals("")){
            String[] split = etiquetas.split("#");
             for(int i = 0; i < split.length; i++){
                 String s = split[i];
