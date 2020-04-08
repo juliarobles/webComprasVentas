@@ -6,6 +6,7 @@
 package comprasventasweb.servlet;
 
 import comprasventasweb.dto.ProductoBasicoDTO;
+import comprasventasweb.dto.UsuarioDTO;
 import comprasventasweb.service.ProductoService;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -40,15 +41,13 @@ public class ProductosListar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //HttpSession session = request.getSession();
-        //UsuarioDTO usuario;
+        HttpSession session = request.getSession();
+        UsuarioDTO usuario;
         
-        //usuario = (AdministradorDTO)session.getAttribute("usuario");
-        // Si el usuario no está en la sesión quiere decir que no ha hecho "login"
-        // y que se está haciendo un acceso ilegal a la aplicación.
-        //if (usuario == null) { 
-          //  response.sendRedirect("login.jsp");
-        //} else {                        
+        usuario = (UsuarioDTO)session.getAttribute("usuario");
+        if (usuario == null) { 
+            response.sendRedirect("login.jsp");
+        } else {                        
             List<ProductoBasicoDTO> listaProductos = this.productoServices.searchAllInverso();
             
                                       
@@ -56,7 +55,7 @@ public class ProductosListar extends HttpServlet {
 
             RequestDispatcher rd = request.getRequestDispatcher("paginaPrincipal.jsp");
             rd.forward(request, response);
-        //}
+        }
         
     }
 

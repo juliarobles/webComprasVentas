@@ -20,7 +20,7 @@
     </head>
     <body>
         <%
-            String id = "", titulo = "", descripcion = "", precio = "", foto = "", vendedor = "1", etiquetas = "";
+            String id = "", titulo = "", descripcion = "", precio = "", foto = "", vendedor = "", etiquetas = "";
             int categoria = -1, subcategoria = -1;
             //Vendedor nunca puede ser null, ya hemos iniciado sesion con un usuario, pero como aun no esta implementado el login
             //no puedo hacer esto. Pondremos a pepito propietario de todo por ahora.
@@ -58,11 +58,11 @@
             <table>
                 <tr>
                     <td>Titulo</td>
-                    <td><input type="text" name="titulo" value="<%= titulo %>" size="30" max="30" maxlength="30" /></td> 
+                    <td><input type="text" name="titulo" value="<%= titulo %>" size="30" max="30" maxlength="100" /></td> 
                 </tr>
                 <tr>
                     <td>Descripcion</td>
-                    <td><input type="text" name="descripcion" value="<%= descripcion %>" size="30" max="30" maxlength="30" /></td> 
+                    <td><input type="text" name="descripcion" value="<%= descripcion %>" size="30" max="30" maxlength="500" /></td> 
                 </tr>
                 <tr>
                     <td>Categoria</td>
@@ -117,11 +117,11 @@
                 </tr>
                 <tr>
                     <td>Foto</td>
-                    <td><input type="text" name="foto" value="<%= foto %>" size="30" max="30" maxlength="100" /></td>
+                    <td><input type="text" name="foto" value="<%= foto %>" size="30" max="30" maxlength="520" /></td>
                 </tr>
                 <tr>
                     <td>Etiquetas</td>
-                    <td><input type="text" name="etiquetas" value="<%= etiquetas %>" size="30" max="30" maxlength="30" /></td>
+                    <td><input type="text" name="etiquetas" value="<%= etiquetas %>" size="30" max="30" maxlength="200" /></td>
                 </tr>
             </table>
             <button type="submit">Publicar producto</button>

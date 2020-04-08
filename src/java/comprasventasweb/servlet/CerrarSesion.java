@@ -5,11 +5,9 @@
  */
 package comprasventasweb.servlet;
 
-import comprasventasweb.dto.UsuarioDTO;
-import comprasventasweb.service.ProductoService;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,12 +19,9 @@ import javax.servlet.http.HttpSession;
  *
  * @author Usuario
  */
-@WebServlet(name = "ProductoGuardar", urlPatterns = {"/ProductoGuardar"})
-public class ProductoGuardar extends HttpServlet {
-    
-    @EJB
-    private ProductoService productoService;
-    
+@WebServlet(name = "CerrarSesion", urlPatterns = {"/CerrarSesion"})
+public class CerrarSesion extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,32 +33,11 @@ public class ProductoGuardar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         
         HttpSession session = request.getSession();
-        UsuarioDTO user = (UsuarioDTO)session.getAttribute("usuario");
+        RequestDispatcher rd;
         
-        if (user==null) { // Se ha llamado al servlet sin haberse autenticado
-            response.sendRedirect("login.jsp");            
-        } else {
-            String vendedor = request.getParameter("vendedor");
-            if(vendedor.equals("")){
-                vendedor = user.getId()+"";
-            }
-            
-            this.productoService.createOrUpdate(
-                    request.getParameter("id"), vendedor, request.getParameter("titulo"),
-                    request.getParameter("descripcion"), request.getParameter("precio"), request.getParameter("subcategoria"),
-                    request.getParameter("foto"), request.getParameter("etiquetas")
-            );
-            
-            String editar = request.getParameter("editar");
-            if(editar != null && editar.equals("1")){
-                response.sendRedirect("PerfilUsuario");
-            } else {
-                response.sendRedirect("ProductosListar");
-            }
-                        
-        }        
+        session.removeAttribute("usuario");
+        response.sendRedirect("login.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

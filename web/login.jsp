@@ -27,7 +27,7 @@
         //Comprobamos si no es null
         if(usuario != null){
             //Aqui redireccionaremos la pagina al inicio de la aplicacion
-            response.sendRedirect("paginaPrincipal.jsp");
+            response.sendRedirect("ProductosListar");
             //Con esto redireccionaremos al menu si en efecto hay usuario en la sesion
             return;
         }
@@ -52,7 +52,7 @@
         <form method="post" action="Autenticar">
             <table>
                 <tr>
-                    <td>Usuario:</td>
+                    <td>Email:</td>
                     <td><input type="text" name="usuario"/></td>                
                 </tr>
                 <tr>
@@ -72,6 +72,5 @@
             <a href="registro.jsp">¿No tienes cuenta?</a>
             </tr>
         </form>
-        <a href="ProductosListar">Ver productos</a> <br/>
     </body>
 </html>

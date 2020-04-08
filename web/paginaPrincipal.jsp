@@ -25,6 +25,7 @@
     %>
     <body>
         <img class="headerImagen" src="imagenes/logo.png" width="800" height="100">
+        <a href="CerrarSesion">Cerrar sesión</a>
         <a href="ProductoCrear">Nuevo producto</a>
         <a href="PerfilUsuario">Perfil</a>
         <br>
@@ -35,20 +36,6 @@
          <%
         } else {
         %>
-        <!--
-        <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>TITULO</th>
-            <th>DESCRIPCION</th>
-            <th>PRECIO</th>         
-            <th>FOTO</th>
-            <th>MEDIA</th>
-            <th>VENDEDOR</th>
-            <th>FECHA Y HORA</th>
-            <th>HORA</th>
-        </tr>
-        -->
         <div class="band">
         <%    
             String precio = "", valoracion = "";

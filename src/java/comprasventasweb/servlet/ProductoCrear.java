@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -40,18 +41,18 @@ public class ProductoCrear extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
         
-        //if (session.getAttribute("usuario")==null) { // Se ha llamado al servlet sin haberse autenticado
-          //  response.sendRedirect("login.jsp");            
-        //} else {
+        if (session.getAttribute("usuario")==null) { // Se ha llamado al servlet sin haberse autenticado
+            response.sendRedirect("login.jsp");            
+        } else {
             
             List<CategoriaDTO> categorias = this.categoriaService.searchAll();
             request.setAttribute("listaCategorias", categorias);
             
             RequestDispatcher rd = request.getRequestDispatcher("creacionProducto.jsp");
             rd.forward(request, response);
-        //}  
+        }  
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -32,10 +32,6 @@ public class PerfilUsuario extends HttpServlet {
     @EJB
     private ProductoService productoService;
     
-    //RECUERDA BORRAR ESTO DE ABAJO
-    @EJB
-    private UsuarioService usuarioService;
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -50,20 +46,18 @@ public class PerfilUsuario extends HttpServlet {
         
         HttpSession session = request.getSession();
         
-        //if (session.getAttribute("usuario")==null) { // Se ha llamado al servlet sin haberse autenticado
-            //response.sendRedirect("login.jsp");            
-        //} else {
+        if (session.getAttribute("usuario")==null) { // Se ha llamado al servlet sin haberse autenticado
+            response.sendRedirect("login.jsp");            
+        } else {
             
-            //UsuarioDTO user = (UsuarioDTO)session.getAttribute("usuario");
-            UsuarioDTO user = this.usuarioService.searchByUserId(1);
-            session.setAttribute("usuario", user);
+            UsuarioDTO user = (UsuarioDTO)session.getAttribute("usuario");
             
             List<ProductoBasicoDTO> productosUsuario = this.productoService.searchByUser(user);
             request.setAttribute("productosUsuario", productosUsuario);
             
             RequestDispatcher rd = request.getRequestDispatcher("perfil.jsp");
             rd.forward(request, response);
-        //}  
+        }  
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

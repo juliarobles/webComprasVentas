@@ -39,7 +39,7 @@ public class Autenticar extends HttpServlet {
         
         RequestDispatcher rd;
         //Esto es para procesar la respuesta que hara nuestro servlet
-        String user, contrasena, estado = null, destino= "paginaPrincipal.jsp";
+        String user, contrasena, estado = null, destino= "ProductosListar";
         //El estado es la frase que se mostrará en el inicio de sesión si falla algo
         //En principio debería de ser que los datos introducidos no fueron correctos
         user = request.getParameter("usuario");

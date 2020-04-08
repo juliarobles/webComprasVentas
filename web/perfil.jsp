@@ -26,6 +26,7 @@
         List<ProductoBasicoDTO> productos = (List)request.getAttribute("productosUsuario");
      %>
     <body>
+        <a href="ProductosListar">&#8592 Volver al menú principal </a> 
         <img id="avatar" src=<%= user.getFoto() %> width="200" height="200">
         <h1> <%= user.getNombre() %> </h1>
         <h2> <%= user.getUsuario() %> </h2>
@@ -54,20 +55,11 @@
             for (ProductoBasicoDTO producto : productos) {
         %>
         <tr>
+            <td><img src=<%= producto.getFoto() %> width="200" height="200"></td>
             <td><%= producto.getId() %></td>
             <td><%= producto.getTitulo()  %></td>
             <td><%= producto.getDescripcion() %></td>
-            <td><%= producto.getPrecio() %></td>
-            <% try{
-                     %>
-                     <td><img src=<%= producto.getFoto() %> width="200" height="200"></td>
-                     <% } catch(Exception e){
-                     %>
-                    <td><%= producto.getFoto() %></td>
-                    <%
-                        }
-                     %>
-            
+            <td><%= producto.getPrecio() %></td>     
             <td><%= producto.getValoracionmedia() %></td> 
             <td><%= (fecha.format(producto.getFecha()) + " " + hora.format(producto.getHora()) )%></td>
             <td><a href="ProductoEditar?id=<%= producto.getId() %>">Editar</a></td>
