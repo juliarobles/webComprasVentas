@@ -6,6 +6,7 @@
                  Si nos sobra tiempo haremos un boton para que edite el perfil
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="comprasventasweb.dto.ProductoBasicoDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="comprasventasweb.dto.UsuarioDTO"%>
@@ -34,6 +35,8 @@
             <h2>Ningún producto ha sido publicado todavía</h2>
          <%
         } else {
+            SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat hora = new SimpleDateFormat("HH:mm");
         %>
         <table border="1">
         <tr>
@@ -66,7 +69,7 @@
                      %>
             
             <td><%= producto.getValoracionmedia() %></td> 
-            <td><%= producto.getFecha() %></td>
+            <td><%= (fecha.format(producto.getFecha()) + " " + hora.format(producto.getHora()) )%></td>
             <td><a href="ProductoEditar?id=<%= producto.getId() %>">Editar</a></td>
             <td><a href="ProductoBorrar?id=<%= producto.getId() %>">Borrar</a></td>
         </tr>
