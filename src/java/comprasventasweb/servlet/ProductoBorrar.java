@@ -2,16 +2,21 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- */
+    */
 package comprasventasweb.servlet;
 
+import comprasventasweb.service.ProductoService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -19,6 +24,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ProductoBorrar", urlPatterns = {"/ProductoBorrar"})
 public class ProductoBorrar extends HttpServlet {
+    private static final Logger LOG = Logger.getLogger(ProductoBorrar.class.getName());
+    
+    @EJB
+    private ProductoService productoService;
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,9 +41,30 @@ public class ProductoBorrar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String str;
+        
+        if (session.getAttribute("usuario")==null) { // Se ha llamado al servlet sin haberse autenticado
+            response.sendRedirect("login.jsp");            
+        } else {        
+            str = request.getParameter("id");
+            if (str == null) {
+                LOG.log(Level.SEVERE, "No se ha encontrado el producto a borrar");
+                response.sendRedirect("menu.jsp");            
+            } else {
+                boolean ok = this.productoService.remove(str);
+                if (ok) { 
+                    response.sendRedirect("ProductosListar");                       
+                } else {
+                    response.sendRedirect("menuPrincipal.jsp");                    
+                }       
+            }
+        }
+        /* Lo que habia antes:
+        
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+            // TODO output your page here. You may use following sample code. 
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -44,6 +75,8 @@ public class ProductoBorrar extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
         }
+        */
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
