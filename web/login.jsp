@@ -70,6 +70,7 @@
         <form>
             <tr>
             <a href="registro.jsp">¿No tienes cuenta?</a>
+            <a href="UsuarioListar">Usuarios admin</a>
             </tr>
         </form>
     </body>
