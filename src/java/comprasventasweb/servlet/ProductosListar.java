@@ -6,10 +6,10 @@
 package comprasventasweb.servlet;
 
 import comprasventasweb.dto.ProductoBasicoDTO;
+import comprasventasweb.dto.ProductoDTO;
 import comprasventasweb.dto.UsuarioDTO;
 import comprasventasweb.service.ProductoService;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -50,25 +50,24 @@ public class ProductosListar extends HttpServlet {
         if (usuario == null) { 
             response.sendRedirect("login.jsp");
         } else {
-            
+            RequestDispatcher rd;
             if(search == null){
-                List<ProductoBasicoDTO> listaProductos = this.productoServices.searchAllInverso();
-            
-                                      
-                request.setAttribute("listaProductos", listaProductos);
-
-                RequestDispatcher rd = request.getRequestDispatcher("paginaPrincipal.jsp");
-                rd.forward(request, response);
+                if (usuario.getAdministrador()){
+                    List<ProductoDTO> listaProductos = this.productoServices.searchAllInverso2();                       
+                    request.setAttribute("listaProductos", listaProductos);
+                    rd = request.getRequestDispatcher("productosAdmin.jsp");
+                } else {                        
+                    List<ProductoBasicoDTO> listaProductos = this.productoServices.searchAllInverso();                       
+                    request.setAttribute("listaProductos", listaProductos);
+                    rd = request.getRequestDispatcher("paginaPrincipal.jsp");  
+                }
             }else{
                 List<ProductoBasicoDTO> listaProductos = this.productoServices.searchByKeywords(search);
                 request.setAttribute("listaProductos", listaProductos);
 
-                RequestDispatcher rd = request.getRequestDispatcher("paginaPrincipal.jsp");
-                rd.forward(request, response);
+                rd = request.getRequestDispatcher("paginaPrincipal.jsp");
             }
-            
-            
-            
+            rd.forward(request, response);
         }
             
         

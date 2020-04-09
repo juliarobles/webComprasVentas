@@ -39,7 +39,7 @@ public class Autenticar extends HttpServlet {
         
         RequestDispatcher rd;
         //Esto es para procesar la respuesta que hara nuestro servlet
-        String user, contrasena, estado = null, destino= "ProductosListar";
+        String user, contrasena, estado = null, destino;
         //El estado es la frase que se mostrará en el inicio de sesión si falla algo
         //En principio debería de ser que los datos introducidos no fueron correctos
         user = request.getParameter("usuario");
@@ -59,8 +59,12 @@ public class Autenticar extends HttpServlet {
                 //Creamos la variable de la sesión en esta clase y la obtenemos de la request que nos llama
                 sesion.setAttribute("usuario", usu);
                 //A la sesion obtenida le añadimos el usuario para poder comprobar si ya hay uno la proxima vez que la llamemos
-                //destino = "paginaPrincipal.jsp";
-            }else{          //No son iguales entonces volver a inicio de sesión e informar de datos mal introducidos
+                if(usu.getAdministrador()){
+                    destino = "PrincipalAdmin";
+                } else {
+                    destino = "ProductosListar";
+                }
+            }else{  //No son iguales entonces volver a inicio de sesión e informar de datos mal introducidos
                 destino = "login.jsp";
                 //En teoria creo que no tienen que decirte donde fallas al iniciar sesion
                 //para que la gente no pueda sacarte la informacion pero asi queda más profesional
