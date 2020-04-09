@@ -27,7 +27,11 @@
         //Comprobamos si no es null
         if(usuario != null){
             //Aqui redireccionaremos la pagina al inicio de la aplicacion
-            response.sendRedirect("ProductosListar");
+            if(usuario.getAdministrador()){
+                response.sendRedirect("ProductosListar");
+            } else {
+                response.sendRedirect("PrincipalAdmin");
+            }
             //Con esto redireccionaremos al menu si en efecto hay usuario en la sesion
             return;
         }
@@ -70,7 +74,6 @@
         <form>
             <tr>
             <a href="registro.jsp">¿No tienes cuenta?</a>
-            <a href="UsuarioListar">Usuarios admin</a>
             </tr>
         </form>
     </body>

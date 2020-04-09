@@ -43,10 +43,10 @@ public class UsuarioListar extends HttpServlet {
         HttpSession session = request.getSession();
         UsuarioDTO usuario;
         
-        //usuario = (UsuarioDTO)session.getAttribute("usuario");
-        //if (usuario == null) { 
-            //response.sendRedirect("login.jsp");
-        //} else {                        
+        usuario = (UsuarioDTO)session.getAttribute("usuario");
+        if (usuario == null) { 
+            response.sendRedirect("login.jsp");
+        } else {                        
             List<UsuarioDTO> listaUsuarios = this.usuarioService.searchAll();
             
                                       
@@ -54,7 +54,7 @@ public class UsuarioListar extends HttpServlet {
 
             RequestDispatcher rd = request.getRequestDispatcher("usuarios.jsp");
             rd.forward(request, response);
-        //}
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

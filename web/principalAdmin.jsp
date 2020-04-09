@@ -18,7 +18,7 @@
         <h1> Acceder a... </h1>
         <ul>
             <li><a href="ProductosListar">Lista de productos</a>
-            <li><a href="ClientesListar">Lista de clientes</a>
+            <li><a href="UsuarioListar">Lista de usuarios</a>
         </ul>
     </body>
 </html>

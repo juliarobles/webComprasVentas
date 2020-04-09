@@ -40,9 +40,9 @@ public class UsuarioGuardar extends HttpServlet {
         
         HttpSession session = request.getSession();
         
-        //if (session.getAttribute("usuario")==null) { // Se ha llamado al servlet sin haberse autenticado
-            //response.sendRedirect("login.jsp");            
-        //} else {
+        if (session.getAttribute("usuario")==null) { // Se ha llamado al servlet sin haberse autenticado
+            response.sendRedirect("login.jsp");            
+        } else {
             
             this.usuarioService.createOrUpdate(
                     Integer.parseInt(request.getParameter("id")), request.getParameter("usuario"), request.getParameter("email"),
@@ -51,7 +51,7 @@ public class UsuarioGuardar extends HttpServlet {
             );
             
             response.sendRedirect("UsuarioListar");            
-        //} 
+        } 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

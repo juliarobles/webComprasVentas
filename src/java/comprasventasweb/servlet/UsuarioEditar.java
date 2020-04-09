@@ -43,9 +43,9 @@ public class UsuarioEditar extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         
-        //if (session.getAttribute("usuario")==null) { // Se ha llamado al servlet sin haberse autenticado
-            //response.sendRedirect("login.jsp");            
-        //} else {        
+        if (session.getAttribute("usuario")==null) { // Se ha llamado al servlet sin haberse autenticado
+            response.sendRedirect("login.jsp");            
+        } else {        
             Integer ID = (Integer) request.getAttribute("id");
             if (ID == null) {
                 LOG.log(Level.SEVERE, "No se ha encontrado el usuario a editar");
@@ -62,7 +62,7 @@ public class UsuarioEditar extends HttpServlet {
                     rd.forward(request, response);
                 }    
             }
-        //}
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
