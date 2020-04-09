@@ -10,6 +10,7 @@ import comprasventasweb.service.ProductoService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -51,18 +52,17 @@ public class ProductoGuardar extends HttpServlet {
             }
             
             this.productoService.createOrUpdate(
-                    request.getParameter("id"), vendedor, request.getParameter("titulo"),
-                    request.getParameter("descripcion"), request.getParameter("precio"), request.getParameter("subcategoria"),
-                    request.getParameter("foto"), request.getParameter("etiquetas")
+                request.getParameter("id"), vendedor, request.getParameter("titulo"),
+                request.getParameter("descripcion"), request.getParameter("precio"), request.getParameter("subcategoria"),
+                request.getParameter("foto"), request.getParameter("etiquetas")
             );
-            
+
             String editar = request.getParameter("editar");
             if(editar != null && editar.equals("1")){
                 response.sendRedirect("PerfilUsuario");
             } else {
                 response.sendRedirect("ProductosListar");
-            }
-                        
+            }      
         }        
     }
 
@@ -105,4 +105,26 @@ public class ProductoGuardar extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private boolean noTodoEspacios(String s){
+        boolean otro = false;
+        if(s != null){
+            int i = 0;
+            while(i < s.length() && !otro){
+                if(s.charAt(i) != ' '){
+                    otro = true;
+                }
+            }
+        }
+        return otro;
+    }
+    
+    private boolean esUnFloat(String s){
+        boolean esValido = true;
+        try{
+            Float.parseFloat(s);
+        } catch(NumberFormatException e){
+            esValido = false;
+        }
+        return esValido;
+    }
 }

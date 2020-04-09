@@ -43,23 +43,33 @@ public class ProductosListar extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         UsuarioDTO usuario;
+        String search;
+        search = (String)request.getParameter("busqueda");
         
         usuario = (UsuarioDTO)session.getAttribute("usuario");
         if (usuario == null) { 
             response.sendRedirect("login.jsp");
         } else {
             RequestDispatcher rd;
-            if (usuario.getAdministrador()){
-                List<ProductoDTO> listaProductos = this.productoServices.searchAllInverso2();                       
+            if(search == null){
+                if (usuario.getAdministrador()){
+                    List<ProductoDTO> listaProductos = this.productoServices.searchAllInverso2();                       
+                    request.setAttribute("listaProductos", listaProductos);
+                    rd = request.getRequestDispatcher("productosAdmin.jsp");
+                } else {                        
+                    List<ProductoBasicoDTO> listaProductos = this.productoServices.searchAllInverso();                       
+                    request.setAttribute("listaProductos", listaProductos);
+                    rd = request.getRequestDispatcher("paginaPrincipal.jsp");  
+                }
+            }else{
+                List<ProductoBasicoDTO> listaProductos = this.productoServices.searchByKeywords(search);
                 request.setAttribute("listaProductos", listaProductos);
-                rd = request.getRequestDispatcher("productosAdmin.jsp");
-            } else {                        
-                List<ProductoBasicoDTO> listaProductos = this.productoServices.searchAllInverso();                       
-                request.setAttribute("listaProductos", listaProductos);
-                rd = request.getRequestDispatcher("paginaPrincipal.jsp");  
+
+                rd = request.getRequestDispatcher("paginaPrincipal.jsp");
             }
             rd.forward(request, response);
         }
+            
         
     }
 
