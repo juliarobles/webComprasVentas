@@ -6,10 +6,10 @@
 package comprasventasweb.servlet;
 
 import comprasventasweb.dto.ProductoBasicoDTO;
+import comprasventasweb.dto.ProductoDTO;
 import comprasventasweb.dto.UsuarioDTO;
 import comprasventasweb.service.ProductoService;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -47,13 +47,17 @@ public class ProductosListar extends HttpServlet {
         usuario = (UsuarioDTO)session.getAttribute("usuario");
         if (usuario == null) { 
             response.sendRedirect("login.jsp");
-        } else {                        
-            List<ProductoBasicoDTO> listaProductos = this.productoServices.searchAllInverso();
-            
-                                      
-            request.setAttribute("listaProductos", listaProductos);
-
-            RequestDispatcher rd = request.getRequestDispatcher("paginaPrincipal.jsp");
+        } else {
+            RequestDispatcher rd;
+            if (usuario.getAdministrador()){
+                List<ProductoDTO> listaProductos = this.productoServices.searchAllInverso2();                       
+                request.setAttribute("listaProductos", listaProductos);
+                rd = request.getRequestDispatcher("productosAdmin.jsp");
+            } else {                        
+                List<ProductoBasicoDTO> listaProductos = this.productoServices.searchAllInverso();                       
+                request.setAttribute("listaProductos", listaProductos);
+                rd = request.getRequestDispatcher("paginaPrincipal.jsp");  
+            }
             rd.forward(request, response);
         }
         

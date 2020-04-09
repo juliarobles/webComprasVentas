@@ -54,7 +54,18 @@ public class ProductoService {
             }
         }
         return listaDTO;
-    }    
+    }  
+    
+    protected List<ProductoDTO> convertToDTO2 (List<Producto> listaProductos) {
+        List<ProductoDTO> listaDTO = null;
+        if (listaProductos != null) {
+            listaDTO = new ArrayList<>();
+            for (Producto p : listaProductos) {
+                listaDTO.add(p.getDTO());
+            }
+        }
+        return listaDTO;
+    }
     
     public List<ProductoBasicoDTO> searchAll () {
         List<Producto> listaProductos = this.productoFacade.findAll();
@@ -64,6 +75,11 @@ public class ProductoService {
     public List<ProductoBasicoDTO> searchAllInverso () {
         List<Producto> listaProductos = this.productoFacade.findAllInverso();
         return this.convertToDTO(listaProductos);
+    }
+    
+    public List<ProductoDTO> searchAllInverso2 () {
+        List<Producto> listaProductos = this.productoFacade.findAllInverso();
+        return this.convertToDTO2(listaProductos);
     }
     
     public void createOrUpdate (String id, String vendedor, String titulo, String descripcion, String precio, String subcategoria,
