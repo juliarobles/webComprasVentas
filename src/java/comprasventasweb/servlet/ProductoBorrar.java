@@ -54,7 +54,7 @@ public class ProductoBorrar extends HttpServlet {
             } else {
                 boolean ok = this.productoService.remove(str);
                 if (ok) { 
-                    response.sendRedirect("ProductosListar");                       
+                    response.sendRedirect("PerfilUsuario");                       
                 } else {
                     response.sendRedirect("menuPrincipal.jsp");                    
                 }       

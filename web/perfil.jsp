@@ -26,10 +26,13 @@
         List<ProductoBasicoDTO> productos = (List)request.getAttribute("productosUsuario");
      %>
     <body>
-        <a href="ProductosListar">&#8592 Volver al menú principal </a> 
-        <img id="avatar" src=<%= user.getFoto() %> width="200" height="200">
+        <link rel="stylesheet" href="CSS/perfil.css">
+        <a class="volver" href="ProductosListar">&#8592 Volver al menú principal </a></br>
+        <div class="todo">
+        <img class="avatar" id="avatar" src=<%= user.getFoto() %> width="200" height="200">
         <h1> <%= user.getNombre() %> </h1>
-        <h2> <%= user.getUsuario() %> </h2>
+        <h2> @<%= user.getUsuario() %> </h2>
+        <h3> Mis productos </h3>
         <%
         if (productos == null || productos.isEmpty()) {
         %>          
@@ -39,13 +42,12 @@
             SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
             SimpleDateFormat hora = new SimpleDateFormat("HH:mm");
         %>
-        <table border="1">
+        <table>
         <tr>
-            <th>ID</th>
+            <th>FOTO</th>
             <th>TITULO</th>
             <th>DESCRIPCION</th>
             <th>PRECIO</th>         
-            <th>FOTO</th>
             <th>MEDIA</th>
             <th>FECHA Y HORA</th>
             <th></th>
@@ -53,17 +55,26 @@
         </tr>
         <%    
             for (ProductoBasicoDTO producto : productos) {
+                String valoracion = "Sin valoraciones", precio = "";
+                if(producto.getValoracionmedia() != -1){
+                    valoracion = producto.getValoracionmedia()+"";
+                }
+                Float p = producto.getPrecio();
+                if(p % 1 == 0){
+                    precio = p.intValue() + "";
+                } else {
+                    precio = p + "";
+                }
         %>
         <tr>
-            <td><img src=<%= producto.getFoto() %> width="200" height="200"></td>
-            <td><%= producto.getId() %></td>
+            <td width="100px" height="100px"><img class="imagen" src=<%= producto.getFoto() %>></td>
             <td><%= producto.getTitulo()  %></td>
-            <td><%= producto.getDescripcion() %></td>
-            <td><%= producto.getPrecio() %></td>     
-            <td><%= producto.getValoracionmedia() %></td> 
+            <td width="300px"><%= producto.getDescripcion() %></td>
+            <td><%= precio %>€</td>     
+            <td><%= valoracion %></td> 
             <td><%= (fecha.format(producto.getFecha()) + " " + hora.format(producto.getHora()) )%></td>
-            <td><a href="ProductoEditar?id=<%= producto.getId() %>">Editar</a></td>
-            <td><a href="ProductoBorrar?id=<%= producto.getId() %>">Borrar</a></td>
+            <td><a class="editar" href="ProductoEditar?id=<%= producto.getId() %>">Editar</a></td>
+            <td><a class="borrar" href="ProductoBorrar?id=<%= producto.getId() %>" onclick="return confirm('¿Estas seguro?');">Borrar</a></td>
         </tr>
         <%
             }// for
@@ -72,5 +83,6 @@
         <%
         }//if
         %>
+        </div>
     </body>
 </html>

@@ -51,16 +51,17 @@
             //Aqui va el si no es nulo noseque entonces rellenar todo (para el editar)
             //Recuerda coger el id de categoria y no la categoria entera
         %>
-        <form action="ProductoGuardar">
+        
+        <script type="text/javascript" src="javascript/comprobacionesProducto.js"></script>
+        <form action="ProductoGuardar" onsubmit="return comprobar()">
             <input type="hidden" name="editar" value="<%= editar %>" />
             <input type="hidden" name="id" value="<%= id %>" />
             <input type="hidden" name="vendedor" value="<%= vendedor %>" />
             <script type="text/javascript" src="javascript/subcategoria.js"></script>
-            <script type="text/javascript" src="javascript/comprobacionesProducto.js"></script>
             <table>
                 <tr>
                     <td>Titulo</td>
-                    <td><input type="text" name="titulo" value="<%= titulo %>" size="30" minlength="1" maxlength="100" required/></td> 
+                    <td><input type="text" id="titulo" name="titulo" value="<%= titulo %>" size="30" minlength="1" maxlength="100" pattern="[a-zA-Z0-9àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,'-]{1,100}" required/></td>
                 </tr>
                 <tr>
                     <td>Descripcion</td>
@@ -123,10 +124,10 @@
                 </tr>
                 <tr>
                     <td>Etiquetas</td>
-                    <td><input type="text" name="etiquetas" value="<%= etiquetas %>" size="30" maxlength="200" /></td>
+                    <td><input type="text" name="etiquetas" value="<%= etiquetas %>" size="30" maxlength="200" pattern="[A-Za-z0-9# ]+" /></td>
                 </tr>
             </table>
-            <button type="submit" onclick="comprobar()">Publicar producto</button>
+            <button type="submit">Publicar producto</button>
         </form>
     </body>
 </html>
