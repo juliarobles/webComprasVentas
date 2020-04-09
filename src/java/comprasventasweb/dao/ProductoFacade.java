@@ -42,9 +42,10 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     }
     
     public List<Producto> findByKeywords(String search) {        
-        Query q = this.getEntityManager().createNamedQuery("Producto.findByKeywords");
-        q.setParameter("titulo", search);
         
+        Query q = this.getEntityManager().createNamedQuery("Producto.findByKeywords");
+        q.setParameter("titulo", "%"+search+"%");
+            
         return q.getResultList();
     }
     
