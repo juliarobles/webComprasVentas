@@ -88,7 +88,7 @@ public class RegistrarUsuario extends HttpServlet {
              HttpSession sesion = request.getSession();
              usu = this.usuarioService.buscarPorCorreo(correo);
              sesion.setAttribute("usuario", usu);
-             destino = "paginaPrincipal.jsp";
+             destino = "ProductosListar";
          }
          
          RequestDispatcher rd ;

@@ -28,9 +28,9 @@
         if(usuario != null){
             //Aqui redireccionaremos la pagina al inicio de la aplicacion
             if(usuario.getAdministrador()){
-                response.sendRedirect("ProductosListar");
-            } else {
                 response.sendRedirect("PrincipalAdmin");
+            } else {
+                response.sendRedirect("ProductosListar");
             }
             //Con esto redireccionaremos al menu si en efecto hay usuario en la sesion
             return;

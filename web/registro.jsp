@@ -45,22 +45,22 @@
             <table>
                 <tr>
         <td>Usuario:</td>
-        <td><input type="text" maxlength ="50" size="50" name="usuario"></td> 
+        <td><input type="text" maxlength ="50" size="50" name="usuario" pattern="[A-Za-z0-9]+" required></td> 
         <td><%=statusUsuario%></td>
     </tr>
         <tr>
         <td>Correo electrónico:</td>
-        <td><input type="text" maxlength ="100" size="50" name="correo"></td> 
+        <td><input type="email" maxlength ="100" size="50" name="correo" required></td> 
         <td><%=statusCorreo%></td>
     </tr>
         <tr>
         <td>Nombre:</td>
-        <td><input type="text" maxlength ="100" size="50" name="nombre"></td> 
+        <td><input type="text" maxlength ="100" size="50" name="nombre" pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,'-]{1,100}" required></td> 
         <td><%=statusNombre%></td>
     </tr>
         <tr>
         <td>Contraseña:</td>
-        <td><input type="password" maxlength ="50" size="50" name="pass"></td> 
+        <td><input type="password" minlength="8" maxlength ="50" size="50" name="pass" pattern="[A-Za-z0-9!?-]{8,50}" required></td> 
         <td><%=statusContraseña%></td>
     </tr>
     <tr>
