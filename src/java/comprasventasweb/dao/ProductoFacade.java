@@ -66,6 +66,7 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         }
         producto.setEtiquetaList(new ArrayList<>());
         em.persist(producto);
+    
     }
 */
     
