@@ -22,12 +22,20 @@
 
         SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat hora = new SimpleDateFormat("HH:mm");
+        
     %>
     <body>
+        <% String busqueda = ""; %>
+        
         <img class="headerImagen" src="imagenes/logo.png" width="800" height="100">
         <a href="CerrarSesion">Cerrar sesión</a>
         <a href="ProductoCrear">Nuevo producto</a>
         <a href="PerfilUsuario">Perfil</a>
+        <form action="ProductosListar">
+            <input type="text" name="busqueda" value="<%=busqueda%>" placeholder="Search.."  size="30" max="30" maxlength="100">
+        </form>
+        
+        
         <br>
         <%
         if (productos == null || productos.isEmpty()) {

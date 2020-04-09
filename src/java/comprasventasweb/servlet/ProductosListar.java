@@ -43,19 +43,34 @@ public class ProductosListar extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         UsuarioDTO usuario;
+        String search;
+        search = (String)request.getParameter("busqueda");
         
         usuario = (UsuarioDTO)session.getAttribute("usuario");
         if (usuario == null) { 
             response.sendRedirect("login.jsp");
-        } else {                        
-            List<ProductoBasicoDTO> listaProductos = this.productoServices.searchAllInverso();
+        } else {
+            
+            if(search == null){
+                List<ProductoBasicoDTO> listaProductos = this.productoServices.searchAllInverso();
             
                                       
-            request.setAttribute("listaProductos", listaProductos);
+                request.setAttribute("listaProductos", listaProductos);
 
-            RequestDispatcher rd = request.getRequestDispatcher("paginaPrincipal.jsp");
-            rd.forward(request, response);
+                RequestDispatcher rd = request.getRequestDispatcher("paginaPrincipal.jsp");
+                rd.forward(request, response);
+            }else{
+                List<ProductoBasicoDTO> listaProductos = this.productoServices.searchByKeywords(search);
+                request.setAttribute("listaProductos", listaProductos);
+
+                RequestDispatcher rd = request.getRequestDispatcher("paginaPrincipal.jsp");
+                rd.forward(request, response);
+            }
+            
+            
+            
         }
+            
         
     }
 
