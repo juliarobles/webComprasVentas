@@ -10,6 +10,8 @@ import comprasventasweb.dto.UsuarioDTO;
 import comprasventasweb.entity.Usuario;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -20,6 +22,8 @@ import javax.ejb.Stateless;
 
 @Stateless
 public class UsuarioService {
+    
+    private static final Logger LOG = Logger.getLogger(UsuarioService.class.getName());
     
     @EJB
     private UsuarioFacade usuarioFacade; 
@@ -107,6 +111,22 @@ public class UsuarioService {
             this.usuarioFacade.edit(usuarioMod);
         } 
       
+    }
+    
+    
+    public boolean remove (String userId) {     
+        
+        // Busco al cliente a través de su clave primaria.
+        // Como la clave primaria de la entidad Customer es de tipo Integer, 
+        // tengo que hacer la transformación en la llamada a "find".        
+        Usuario usuario = this.usuarioFacade.find(new Integer(userId));
+        if (usuario == null) { //Esta situación no debería darse
+            LOG.log(Level.SEVERE, "No se ha encontrado el cliente a borrar");
+            return false;
+        } else {
+            this.usuarioFacade.remove(usuario);
+            return true;
+        }
     }
   
 }
