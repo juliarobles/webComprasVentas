@@ -38,7 +38,12 @@ body, html {
   background-size: cover;
   position: relative;
 }
-
+.palabrasPrincipales{
+    color:#009966;
+    font-weight: bold;
+    font-size: 20px;
+  
+}
 .enlace {
     color: #4CAF50;
     text-decoration: none;
@@ -46,11 +51,20 @@ body, html {
    
     
 }
+
+
+.iniciarSesion{
+    color:#009966;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 15px;
+    line-break: auto;
+}
 /* Add styles to the form container */
 .container {
-  position: absolute;
-  margin-right:auto;
-
+ position: absolute;
+  right: 0;
+  margin: 20px;
   max-width: 300px;
   padding: 16px;
   background-color: white;
@@ -60,7 +74,7 @@ body, html {
   input[type=text], input[type=password] {
   width: 100%;
   padding: 15px;
-  margin: 5px 0 22px 0;
+  margin: 5px 0 8px 0;
   border: none;
   background: #f1f1f1;
 }
@@ -83,4 +97,12 @@ input[type=text]:focus, input[type=password]:focus {
 
 .btn:hover {
   opacity: 1;
+}
+
+.error{
+    color:red;
+    font-weight: normal;
+    line-height: 6px;
+    font-size: 15px;
+    text-align: center;
 }

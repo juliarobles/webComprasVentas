@@ -79,7 +79,7 @@
            <input type="text" placeholder="Introduzca su correo" name="usuario" required>
            
            <label for="clave" class="palabrasPrincipales"><b>Contraseña</b></label>
-             <input type="password" placeholder="Introduzca su clave" name="clave" required>
+             <input type="password" placeholder="Introduzca su contraseña" name="clave" required>
              
              <button type="submit" class="btn">Login</button>
              <h3 class="error"><%= status %></h3>

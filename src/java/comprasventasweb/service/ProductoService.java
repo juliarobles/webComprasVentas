@@ -151,6 +151,11 @@ public class ProductoService {
         return this.convertToDTO(listaProductos);
     }
     
+    public List<ProductoBasicoDTO> searchByEtiquetas(String search) {
+        List<Producto> listaProductos = this.productoFacade.findByEtiquetas(search);
+        return this.convertToDTO(listaProductos);
+    }
+    
     public ProductoDTO searchById(String str){
         
         Producto producto = this.productoFacade.find(new Integer(str));

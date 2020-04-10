@@ -25,7 +25,10 @@
         
     %>
     <body>
-        <% String busqueda = ""; %>
+        <% String busqueda = "";
+           String busquedaEtiquetas = "";
+        %>
+        
         
         <img class="headerImagen" src="imagenes/logo.png" width="800" height="100">
         <a href="CerrarSesion">Cerrar sesión</a>
@@ -35,7 +38,11 @@
             <input type="text" name="busqueda" value="<%=busqueda%>" placeholder="Search.."  size="30" max="30" maxlength="100">
         </form>
         
+        <form action="ProductosListar">
+            <input type="text" name="busquedaEtiquetas" value="<%=busquedaEtiquetas%>" placeholder="Etiquetas.."  size="30" max="30" maxlength="100">
+        </form>
         
+       
         <br>
         <%
         if (productos == null || productos.isEmpty()) {

@@ -39,13 +39,25 @@
         }
         //String prueba = "hola";
         %>
-        <div>
-            <h1>¡Bienvenido!</h1>
-        <h3>Introduce tus datos</h3>
-        <form method="post" action="RegistrarUsuario">
+        <div class="fondo">
+           
+        <form method="post" action="RegistrarUsuario" class="container">
+             <h1 class="iniciarSesion">¡Bienvenido!</h1>
+        <h3 class="palabrasPrincipales">Introduce tus datos</h3>
             
-            
-            
+               <label for="usuario" class="palabrasPrincipales"><b>Usuario</b></label>
+           <input type="text" placeholder="Introduzca su usuario" name="usuario" required>
+           <p class="error"><%=statusUsuario%></p>
+               <label for="correo" class="palabrasPrincipales"><b>Correo</b></label>
+           <input type="text" placeholder="Introduzca su correo" name="correo" required>
+           <p class="error"><%=statusCorreo%></p>
+            <label for="nombre" class="palabrasPrincipales"><b>Nombre</b></label>
+           <input type="text" placeholder="Introduzca su nombre" name="nombre" required>
+           <p class="error"><%=statusNombre%></p>
+            <label for="pass" class="palabrasPrincipales"><b>Contraseña</b></label>
+           <input type="password" placeholder="Introduzca su contraseña" name="pass" required>
+           <p class="error"><%=statusContraseña%></p>
+           <button class="btn" type="submit">Registrarse</button>
          <!--   <table>
                 <tr>
         <td>Usuario:</td>
