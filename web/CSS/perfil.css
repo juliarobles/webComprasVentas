@@ -38,6 +38,10 @@ td {
     min-height: 100px;
 }
 
+.eti{
+     max-width: 120px;
+}
+
 .imagen{
     width: 100px;
     height: 100px;

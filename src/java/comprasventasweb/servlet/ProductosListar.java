@@ -5,9 +5,11 @@
  */
 package comprasventasweb.servlet;
 
+import comprasventasweb.dto.CategoriaDTO;
 import comprasventasweb.dto.ProductoBasicoDTO;
 import comprasventasweb.dto.ProductoDTO;
 import comprasventasweb.dto.UsuarioDTO;
+import comprasventasweb.service.CategoriaService;
 import comprasventasweb.service.ProductoService;
 import java.io.IOException;
 import java.util.List;
@@ -32,6 +34,9 @@ public class ProductosListar extends HttpServlet {
 
     @EJB
     private ProductoService productoServices;
+    
+    @EJB
+    private CategoriaService categoriaService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,29 +51,35 @@ public class ProductosListar extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         UsuarioDTO usuario;
-        String search;
-        search = (String)request.getParameter("busqueda");
-        String searchEtiquetas;
-        searchEtiquetas = (String)request.getParameter("busquedaEtiquetas");
+        RequestDispatcher rd;
+        
+        String search = (String)request.getParameter("busqueda");
+        String searchEtiquetas = (String)request.getParameter("busquedaEtiquetas");
+        String categoria = (String) request.getParameter("categoria");
+        if(categoria == ""){
+            categoria = null;
+        }
         
         usuario = (UsuarioDTO)session.getAttribute("usuario");
         if (usuario == null) { 
             response.sendRedirect("login.jsp");
-        } else {
-            RequestDispatcher rd;
-            if(search == null && searchEtiquetas == null){
-                if (usuario.getAdministrador()){
-                    List<ProductoDTO> listaProductos = this.productoServices.searchAllInverso2();                       
-                    request.setAttribute("listaProductos", listaProductos);
-                    rd = request.getRequestDispatcher("productosAdmin.jsp");
-                } else {                        
-                    List<ProductoBasicoDTO> listaProductos = this.productoServices.searchAllInverso();                       
-                    request.setAttribute("listaProductos", listaProductos);
-                    rd = request.getRequestDispatcher("paginaPrincipal.jsp");  
-                }
-            }else if(searchEtiquetas == null){
+            
+        } else if (usuario.getAdministrador()){
+            List<ProductoDTO> listaProductos = this.productoServices.searchAllInverso2();                       
+            request.setAttribute("listaProductos", listaProductos);
+            rd = request.getRequestDispatcher("productosAdmin.jsp");
+            rd.forward(request, response);
+            
+        }else {
+            
+            List<ProductoBasicoDTO> listaProductos;
+            
+            if(search == null && searchEtiquetas == null && categoria == null){                          
+                listaProductos = this.productoServices.searchAllInverso();                       
+                            
+            }else if(searchEtiquetas == null && categoria == null){
                 String[] words = search.split(" ");
-                List<ProductoBasicoDTO> listaProductos = this.productoServices.searchByKeywords(words[0]);
+                listaProductos = this.productoServices.searchByKeywords(words[0]);
                 for(int i=1; i<words.length; i++){
                     //System.out.println(word);
                     List<ProductoBasicoDTO> listaWord = this.productoServices.searchByKeywords(words[i]);
@@ -76,12 +87,20 @@ public class ProductosListar extends HttpServlet {
                         listaProductos.add(p);
                     }
                 }
-                request.setAttribute("listaProductos", listaProductos);
-
-                rd = request.getRequestDispatcher("paginaPrincipal.jsp");
+                
+            } else if (searchEtiquetas == null){
+                int id = Integer.parseInt(categoria.substring(1, categoria.length()));
+                if(categoria.charAt(0) == 'B'){
+                    listaProductos = this.productoServices.searchBySubcategory(id);
+                    request.setAttribute("subcategoria", id+"");
+                }else{
+                    listaProductos = this.productoServices.searchByCategory(id);
+                    request.setAttribute("categoria", id+"");
+                }
+                
             }else{
                 String[] words = searchEtiquetas.split(" ");
-                List<ProductoBasicoDTO> listaProductos = this.productoServices.searchByEtiquetas(words[0]);
+                listaProductos = this.productoServices.searchByEtiquetas(words[0]);
                 for(int i=1; i<words.length; i++){
                     //System.out.println(word);
                     List<ProductoBasicoDTO> listaWord = this.productoServices.searchByEtiquetas(words[i]);
@@ -89,12 +108,16 @@ public class ProductosListar extends HttpServlet {
                         listaProductos.add(p);
                     }
                 }
-                request.setAttribute("listaProductos", listaProductos);
-
-                rd = request.getRequestDispatcher("paginaPrincipal.jsp");
             }
+            
+            List<CategoriaDTO> categorias = this.categoriaService.searchAll(); 
+            request.setAttribute("listaCategorias", categorias);
+            
+            request.setAttribute("listaProductos", listaProductos);
+            rd = request.getRequestDispatcher("paginaPrincipal.jsp");
             rd.forward(request, response);
         }
+        
             
         
     }

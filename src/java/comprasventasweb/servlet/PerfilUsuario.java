@@ -5,11 +5,10 @@
  */
 package comprasventasweb.servlet;
 
-import comprasventasweb.dto.CategoriaDTO;
-import comprasventasweb.dto.ProductoBasicoDTO;
+
+import comprasventasweb.dto.ProductoDTO;
 import comprasventasweb.dto.UsuarioDTO;
 import comprasventasweb.service.ProductoService;
-import comprasventasweb.service.UsuarioService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -52,7 +51,7 @@ public class PerfilUsuario extends HttpServlet {
             
             UsuarioDTO user = (UsuarioDTO)session.getAttribute("usuario");
             
-            List<ProductoBasicoDTO> productosUsuario = this.productoService.searchByUser(user);
+            List<ProductoDTO> productosUsuario = this.productoService.searchByUser(user);
             request.setAttribute("productosUsuario", productosUsuario);
             
             RequestDispatcher rd = request.getRequestDispatcher("perfil.jsp");

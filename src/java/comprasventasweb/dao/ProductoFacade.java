@@ -5,8 +5,10 @@
  */
 package comprasventasweb.dao;
 
+import comprasventasweb.entity.Categoria;
 import comprasventasweb.entity.Etiqueta;
 import comprasventasweb.entity.Producto;
+import comprasventasweb.entity.Subcategoria;
 import comprasventasweb.entity.Usuario;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +46,7 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     public List<Producto> findByKeywords(String search) {        
         
         Query q = this.getEntityManager().createNamedQuery("Producto.findByKeywords");
-        q.setParameter("titulo", "%#"+search+"%");
+        q.setParameter("titulo", "%"+search+"%");
             
         return q.getResultList();
     }
@@ -61,22 +63,6 @@ public class ProductoFacade extends AbstractFacade<Producto> {
        Query q = this.getEntityManager().createNamedQuery("Producto.findAllInverso");
        return q.getResultList(); 
     }
-
-    /*
-    public void vaciarEtiquetas(Producto producto) {
-        EntityManager em = this.getEntityManager();
-        List<Producto> lista;
-        for(Etiqueta et : producto.getEtiquetaList()){
-            lista = et.getProductoList();
-            lista.remove(producto);
-            et.setProductoList(lista);
-            em.persist(et);
-        }
-        producto.setEtiquetaList(new ArrayList<>());
-        em.persist(producto);
-    
-    }
-*/
     
     public void vaciarEtiquetas(Producto producto) {
          EntityManager em = this.getEntityManager();
@@ -84,6 +70,20 @@ public class ProductoFacade extends AbstractFacade<Producto> {
          em.persist(producto);
     }
     
+    public List<Producto> findBySubcategory(Subcategoria id) {        
+        
+        Query q = this.getEntityManager().createNamedQuery("Producto.findBySubcategory");
+        q.setParameter("id", id);
+            
+        return q.getResultList();
+    }
     
+    public List<Producto> findByCategory(Categoria id) {        
+        
+        Query q = this.getEntityManager().createNamedQuery("Producto.findByCategory");
+        q.setParameter("id", id);
+            
+        return q.getResultList();
+    }
     
 }

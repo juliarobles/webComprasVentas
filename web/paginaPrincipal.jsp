@@ -6,6 +6,8 @@
                  un boton para acceder a su perfil con los productos vendidos por el propio usuario y con otro para añadir un nuevo producto
 --%>
 
+<%@page import="comprasventasweb.dto.SubcategoriaBasicaDTO"%>
+<%@page import="comprasventasweb.dto.CategoriaDTO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="comprasventasweb.dto.ProductoBasicoDTO"%>
 <%@page import="java.util.List"%>
@@ -19,6 +21,7 @@
     </head>
     <%
         List<ProductoBasicoDTO> productos = (List)request.getAttribute("listaProductos");
+        List<CategoriaDTO> categorias = (List) request.getAttribute("listaCategorias");
 
         SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat hora = new SimpleDateFormat("HH:mm");
@@ -27,13 +30,24 @@
     <body>
         <% String busqueda = "";
            String busquedaEtiquetas = "";
+           int categoria = -1;
+           String cate = (String) request.getAttribute("categoria");
+           int subcategoria = -1;
+           String subcate = (String) request.getAttribute("subcategoria");
+           if(subcate != null){
+               subcategoria = Integer.parseInt(subcate);
+           } else if (cate != null) {
+               categoria = Integer.parseInt(cate);
+           }
+           request.removeAttribute("subcategoria");
+           request.removeAttribute("categoria");
         %>
         
+        <div class="header">
+        <img class="headerImagen" src="imagenes/logoblanco.png" width="800" height="100">
+        </div>
+        <div class="navbar" id="navbar">
         
-        <img class="headerImagen" src="imagenes/logo.png" width="800" height="100">
-        <a href="CerrarSesion">Cerrar sesión</a>
-        <a href="ProductoCrear">Nuevo producto</a>
-        <a href="PerfilUsuario">Perfil</a>
         <form action="ProductosListar">
             <input type="text" name="busqueda" value="<%=busqueda%>" placeholder="Search.."  size="30" max="30" maxlength="100">
         </form>
@@ -41,8 +55,37 @@
         <form action="ProductosListar">
             <input type="text" name="busquedaEtiquetas" value="<%=busquedaEtiquetas%>" placeholder="Etiquetas.."  size="30" max="30" maxlength="100">
         </form>
-        
+        <form action="ProductosListar">
+            <select id = "categoria" name="categoria" onchange="this.form.submit()">
+                            <option value="">Todo</option>
+                        <%
+                            
+                            for (CategoriaDTO cat : categorias) {
+                                String seleccionado = "";
+                                if (categoria != -1 && categoria == cat.getId()) {
+                                    seleccionado = "selected";
+                                } 
+    %>
+                            <option <%= seleccionado %> value=<%= "A" + cat.getId() %>><%= cat.getNombre() %></option>
+    <%                          for(SubcategoriaBasicaDTO sub : cat.getSubcategoriaList()){
+                                    seleccionado = "";
+                                    if (subcategoria != -1 && subcategoria == sub.getId()) {
+                                        seleccionado = "selected";
+                                    } 
+    %>
+                            <option <%= seleccionado %> value=<%= "B" + sub.getId() %>><%= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + sub.getNombre() %></option>
+    <%
+                                }
+                            }
+    %>  
+            </select>
+        </form>
        
+        <a href="CerrarSesion">Cerrar sesión</a>
+            <a href="ProductoCrear">Nuevo producto</a>
+            <a href="PerfilUsuario">Perfil</a>
+        </div>    
+            
         <br>
         <%
         if (productos == null || productos.isEmpty()) {
@@ -68,7 +111,7 @@
                 }
         %>
         <div class="item">
-           <a href="PerfilUsuario" class="card">
+           <a href="verProducto" class="card">
             <div class="imagen">
                 <img src=<%= producto.getFoto() %>>
             </div>
@@ -121,5 +164,6 @@
         <%
         }//if
         %>
+        <script type="text/javascript" src="javascript/navbar.js"></script>
     </body>
 </html>

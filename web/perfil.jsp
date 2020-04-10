@@ -6,8 +6,9 @@
                  Si nos sobra tiempo haremos un boton para que edite el perfil
 --%>
 
+<%@page import="comprasventasweb.dto.EtiquetaDTO"%>
+<%@page import="comprasventasweb.dto.ProductoDTO"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="comprasventasweb.dto.ProductoBasicoDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="comprasventasweb.dto.UsuarioDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -15,7 +16,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Perfil</title>
     </head>
     <%
         UsuarioDTO user = (UsuarioDTO)session.getAttribute("usuario");
@@ -23,7 +24,7 @@
             response.sendRedirect("login.jsp");  
             return;
         }
-        List<ProductoBasicoDTO> productos = (List)request.getAttribute("productosUsuario");
+        List<ProductoDTO> productos = (List)request.getAttribute("productosUsuario");
      %>
     <body>
         <link rel="stylesheet" href="CSS/formularios.css">
@@ -48,6 +49,8 @@
             <th>FOTO</th>
             <th>TITULO</th>
             <th>DESCRIPCION</th>
+            <th>SUBCATEGORIA</th>
+            <th>ETIQUETAS</th>
             <th>PRECIO</th>         
             <th>MEDIA</th>
             <th>FECHA Y HORA</th>
@@ -55,7 +58,7 @@
             <th></th>
         </tr>
         <%    
-            for (ProductoBasicoDTO producto : productos) {
+            for (ProductoDTO producto : productos) {
                 String valoracion = "Sin valoraciones", precio = "";
                 if(producto.getValoracionmedia() != -1){
                     valoracion = producto.getValoracionmedia()+"";
@@ -71,6 +74,15 @@
             <td width="100px" height="100px"><img class="imagen" src=<%= producto.getFoto() %>></td>
             <td><%= producto.getTitulo()  %></td>
             <td width="300px"><%= producto.getDescripcion() %></td>
+            <td><%= producto.getCategoria().getNombre()  %></td>
+            <td class="eti">
+                <%  for(EtiquetaDTO et : producto.getEtiquetas()){
+                %>
+                <a href="ProductosListar?busquedaEtiquetas=<%= et.getNombre()%>">#<%= et.getNombre()%></a>
+                <%
+                }
+                %>
+            </td>
             <td><%= precio %>€</td>     
             <td><%= valoracion %></td> 
             <td><%= (fecha.format(producto.getFecha()) + " " + hora.format(producto.getHora()) )%></td>

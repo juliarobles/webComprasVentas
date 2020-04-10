@@ -123,7 +123,7 @@
                 </tr>
                 <tr>
                     <td>Precio</td>
-                    <td><input type="number" name="precio" value="<%= precio %>" size="30" min="0" maxlength="50" required/></td> 
+                    <td><input type="number" step="any" name="precio" value="<%= precio %>"  min="0" maxlength="50" required/></td> 
                 </tr>
                 <tr>
                     <td>Foto</td>

@@ -5,6 +5,7 @@
     */
 package comprasventasweb.service;
 
+import comprasventasweb.dao.CategoriaFacade;
 import comprasventasweb.dao.EtiquetaFacade;
 import comprasventasweb.dao.ProductoFacade;
 import comprasventasweb.dao.SubcategoriaFacade;
@@ -41,6 +42,9 @@ public class ProductoService {
     
     @EJB
     private SubcategoriaFacade subcategoriaFacade;
+    
+    @EJB
+    private CategoriaFacade categoriaFacade;
     
     @EJB
     private EtiquetaFacade etiquetaFacade;
@@ -141,9 +145,9 @@ public class ProductoService {
         
     }
 
-    public List<ProductoBasicoDTO> searchByUser(UsuarioDTO user) {
+    public List<ProductoDTO> searchByUser(UsuarioDTO user) {
         List<Producto> listaProductos = this.productoFacade.findByUserId(this.usuarioFacade.find(user.getId()));
-        return this.convertToDTO(listaProductos);
+        return this.convertToDTO2(listaProductos);
     }
     
     public List<ProductoBasicoDTO> searchByKeywords(String search) {
@@ -190,5 +194,15 @@ public class ProductoService {
             this.productoFacade.remove(producto);
             return true;
         }
+    }
+
+    public List<ProductoBasicoDTO> searchBySubcategory(int id) {
+        List<Producto> listaProductos = this.productoFacade.findBySubcategory(this.subcategoriaFacade.find(id));
+        return this.convertToDTO(listaProductos);
+    }
+
+    public List<ProductoBasicoDTO> searchByCategory(int id) {
+        List<Producto> listaProductos = this.productoFacade.findByCategory(this.categoriaFacade.find(id));
+        return this.convertToDTO(listaProductos);
     }
 }
