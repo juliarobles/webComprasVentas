@@ -39,7 +39,6 @@
         
         <table border="1">
             <tr>
-              <th>Acciones</th>
               <th>Título</th>
               <th>Descripción</th>
               <th>Precio</th>
@@ -50,14 +49,14 @@
               <th>Etiquetas</th>
               <th>Categoría</th>
               <th>Vendedor</th>
+              <th></th>
+              <th></th>
+              <th></th>
             </tr>
             <% 
                 for(ProductoDTO prod : productos){ 
             %>
             <tr>
-              <td><a href="VerProducto">Consultar
-              <br><a href="ProductoEditar">Editar
-              <br><a href="ProductoBorrar">Eliminar</td>
               <td><%= prod.getTitulo()%></td>
               <td><%= prod.getDescripcion()%></td>
               <td><%= prod.getPrecio()%></td>
@@ -65,9 +64,12 @@
               <td><%= fecha.format(prod.getFecha())%></td>
               <td><a href="<%= prod.getFoto() %>" target="_blank">Ver foto</td>
               <td><%= prod.getValoracionmedia()%></td>
-              <td><%= prod.getEtiquetas()%></td>
+              <td><%= prod.getEtiquetas() %></td>
               <td><%= prod.getCategoria().getNombre() %></td>
-              <td><a href="PerfilUsuario"><%= prod.getVendedor().getUsuario() %></td>
+              <td><%= prod.getVendedor().getUsuario() %></td>
+              <td><a href="VerProducto?id=<%= prod.getId() %>">Consultar</td>
+              <td><a href="ProductoEditar?id=<%= prod.getId() %>">Editar</a></td>
+              <td><a href="ProductoBorrar?id=<%= prod.getId() %>" onclick="return confirm('¿Estás seguro?');">Borrar</a></td>
             </tr>
             <% 
                 } 

@@ -7,10 +7,10 @@ package comprasventasweb.servlet;
 
 import comprasventasweb.dto.CategoriaDTO;
 import comprasventasweb.dto.ProductoDTO;
+import comprasventasweb.dto.UsuarioDTO;
 import comprasventasweb.service.CategoriaService;
 import comprasventasweb.service.ProductoService;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,19 +51,27 @@ public class ProductoEditar extends HttpServlet {
             throws ServletException, IOException {
         
         HttpSession session = request.getSession();
+        UsuarioDTO usuario;
         
-        if (session.getAttribute("usuario")==null) { // Se ha llamado al servlet sin haberse autenticado
+        usuario = (UsuarioDTO)session.getAttribute("usuario");
+        
+        if (usuario==null) { // Se ha llamado al servlet sin haberse autenticado
             response.sendRedirect("login.jsp");            
         } else {        
-            String str = request.getParameter("id");
+            String str = request.getParameter("id"), destino;
+            if(usuario.getAdministrador()){
+                destino = "principalAdmin.jsp";
+            } else {
+                destino = "menuPrincipal.jsp";
+            }
             if (str == null) {
                 LOG.log(Level.SEVERE, "No se ha encontrado el producto a editar");
-                response.sendRedirect("menuPrincipal.jsp");            
+                response.sendRedirect(destino);            
             } else {
                 ProductoDTO producto = this.productoService.searchById(str);
                 if (producto == null) { //Esta situación no debería darse
                     LOG.log(Level.SEVERE, "No se ha encontrado el cliente a editar");
-                    response.sendRedirect("menuPrincipal.jsp");
+                    response.sendRedirect(destino);
                 } else {
                     List<CategoriaDTO> categorias = this.categoriaService.searchAll();
                     

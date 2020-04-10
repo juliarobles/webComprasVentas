@@ -59,7 +59,11 @@ public class ProductoGuardar extends HttpServlet {
 
             String editar = request.getParameter("editar");
             if(editar != null && editar.equals("1")){
-                response.sendRedirect("PerfilUsuario");
+                if(user.getAdministrador()){
+                    response.sendRedirect("ProductosListar");
+                } else {
+                    response.sendRedirect("PerfilUsuario"); 
+                }
             } else {
                 response.sendRedirect("ProductosListar");
             }      

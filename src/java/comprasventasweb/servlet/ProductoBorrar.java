@@ -5,9 +5,9 @@
  */
 package comprasventasweb.servlet;
 
+import comprasventasweb.dto.UsuarioDTO;
 import comprasventasweb.service.ProductoService;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -42,40 +42,29 @@ public class ProductoBorrar extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+        UsuarioDTO user = (UsuarioDTO)session.getAttribute("usuario");
         String str;
         
-        if (session.getAttribute("usuario")==null) { // Se ha llamado al servlet sin haberse autenticado
+        if (user==null) { // Se ha llamado al servlet sin haberse autenticado
             response.sendRedirect("login.jsp");            
         } else {        
             str = request.getParameter("id");
             if (str == null) {
                 LOG.log(Level.SEVERE, "No se ha encontrado el producto a borrar");
-                response.sendRedirect("menu.jsp");            
+                response.sendRedirect("ProductosListar");  
             } else {
                 boolean ok = this.productoService.remove(str);
                 if (ok) { 
-                    response.sendRedirect("PerfilUsuario");                       
+                    if(user.getAdministrador()){
+                        response.sendRedirect("ProductosListar"); 
+                    } else {
+                        response.sendRedirect("PerfilUsuario"); 
+                    }                      
                 } else {
-                    response.sendRedirect("menuPrincipal.jsp");                    
+                    response.sendRedirect("ProductosListar");                    
                 }       
             }
         }
-        /* Lo que habia antes:
-        
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            // TODO output your page here. You may use following sample code. 
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ProductoBorrar</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ProductoBorrar at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-        */
         
     }
 
