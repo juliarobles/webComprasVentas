@@ -5,13 +5,20 @@
  */
 package comprasventasweb.servlet;
 
+import javax.ejb.EJB;
+import comprasventasweb.dto.UsuarioDTO;
+import comprasventasweb.service.ProductoService;
+import comprasventasweb.service.UsuarioService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -19,7 +26,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "UsuarioBorrar", urlPatterns = {"/UsuarioBorrar"})
 public class UsuarioBorrar extends HttpServlet {
-
+private static final Logger LOG = Logger.getLogger(UsuarioBorrar.class.getName());
+    
+    @EJB
+    private UsuarioService usuarioService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,9 +41,36 @@ public class UsuarioBorrar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        UsuarioDTO user = (UsuarioDTO)session.getAttribute("usuario");
+        String str;   
+        
+        if (user==null) { // Se ha llamado al servlet sin haberse autenticado
+            response.sendRedirect("login.jsp");            
+        } else {        
+            str = request.getParameter("id");
+            if (str == null) {
+                LOG.log(Level.SEVERE, "No se ha encontrado el usuario a borrar");
+                response.sendRedirect("UsuarioListar");  
+            } else {
+                boolean ok = this.usuarioService.remove(str);
+                System.out.println("Hasta aqui");
+                if (ok) { 
+                    if(user.getAdministrador()){
+                        response.sendRedirect("UsuarioListar"); 
+                    } else { //no deberia darse nunca
+                        response.sendRedirect("PerfilUsuario"); 
+                    }                      
+                } else {
+                    response.sendRedirect("UsuarioListar");                    
+                }       
+            }
+        }
+        
+    }
+        /*response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+             TODO output your page here. You may use following sample code. 
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -44,7 +81,8 @@ public class UsuarioBorrar extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
         }
-    }
+        */
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
