@@ -14,6 +14,7 @@
         <title>Iniciar sesi&oacute;n</title>
     </head>
     <body>
+          <link rel="stylesheet" href="CSS/login.css">
         <%
         //Lo primero es crear el usuario donde guardaremos los datos para comprobar su existencia
         UsuarioDTO usuario;
@@ -47,14 +48,17 @@
             status = "";//Si no hay estado lo igualamos a esto para que no de error
         } 
         %>
-        <h2>Iniciar sesi&oacute;n</h2>
+        
         <!--
         Nota 1: Esto solo esta puesto para que yo pudiera acceder a lo que hacia, puedes quitarlo sin miedo
         Nota 2: Cuando tengas que crear el usuario recuerda usar UsuarioDTO y no Usuario
         -->
-        
-        <form method="post" action="Autenticar">
-            <table>
+        <div class="fondo">
+             <form method="post" action="Autenticar" class="container">
+                  <h1 class="iniciarSesion">Iniciar sesi&oacute;n</h1>
+        <!--    
+       
+        <table>
                 <tr>
                     <td>Email:</td>
                     <td><input type="text" name="usuario"/></td>                
@@ -69,12 +73,21 @@
                 <tr>                
                     <td colspan="2"><%= status %></td>                    
                 </tr>
-            </table>
+            </table>-->
+        
+         <label for="usuario" class="palabrasPrincipales"><b>Correo</b></label>
+           <input type="text" placeholder="Introduzca su correo" name="usuario" required>
+           
+           <label for="clave" class="palabrasPrincipales"><b>Contraseña</b></label>
+             <input type="password" placeholder="Introduzca su clave" name="clave" required>
+             
+             <button type="submit" class="btn">Login</button>
+             <h3 class="error"><%= status %></h3>
+             
+             <a  href="registro.jsp" class="enlace"><p class="enlace">¿No tienes cuenta? </p>  </a> <!-- Quiero ponerlo en el centro :( -->
+             <a class="enlace" href="verProducto"><p class="enlace">Ver producto(pruebas)</p></a>
         </form> 
-        <form>
-            <tr>
-            <a href="registro.jsp">¿No tienes cuenta?</a>
-            </tr>
-        </form>
+        </div>
+       
     </body>
 </html>

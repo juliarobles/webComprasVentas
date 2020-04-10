@@ -13,7 +13,7 @@
         <title>Nuevo usuario</title>
     </head>
     <body>
-        
+        <link rel="stylesheet" href="CSS/registro.css">
         <%
         //Poner las cosas que se tiene que comprobar al hacer el registro
         //Nombre, correo (comprobar requerimientos), contraseña, nombre de usuario
@@ -39,10 +39,14 @@
         }
         //String prueba = "hola";
         %>
-        <h1>¡Bienvenido!</h1>
+        <div>
+            <h1>¡Bienvenido!</h1>
         <h3>Introduce tus datos</h3>
         <form method="post" action="RegistrarUsuario">
-            <table>
+            
+            
+            
+         <!--   <table>
                 <tr>
         <td>Usuario:</td>
         <td><input type="text" maxlength ="50" size="50" name="usuario" pattern="[A-Za-z0-9]+" required></td> 
@@ -67,8 +71,10 @@
         <td><input type="submit" value="Enviar"></td>
     </tr> 
         
-            </table>
+            </table>-->
         </form>
+        </div>
+        
     
     
      <!--
