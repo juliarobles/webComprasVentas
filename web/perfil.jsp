@@ -26,6 +26,7 @@
         List<ProductoBasicoDTO> productos = (List)request.getAttribute("productosUsuario");
      %>
     <body>
+        <link rel="stylesheet" href="CSS/formularios.css">
         <link rel="stylesheet" href="CSS/perfil.css">
         <a class="volver" href="ProductosListar">&#8592 Volver al menú principal </a></br>
         <div class="todo">

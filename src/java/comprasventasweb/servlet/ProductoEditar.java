@@ -77,7 +77,9 @@ public class ProductoEditar extends HttpServlet {
                     
                     request.setAttribute("listaCategorias", categorias);
                     request.setAttribute("producto", producto);
-                    
+                    if(!usuario.getAdministrador()){
+                        request.setAttribute("destino", "PerfilUsuario");
+                    } 
                     RequestDispatcher rd = request.getRequestDispatcher("creacionProducto.jsp");
                     rd.forward(request, response);
                 }       

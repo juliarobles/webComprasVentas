@@ -5,6 +5,7 @@
     Funcion    : Aqui se podrá crear un nuevo producto o editar uno existente, 
 --%>
 
+<%@page import="comprasventasweb.dto.UsuarioDTO"%>
 <%@page import="comprasventasweb.dto.EtiquetaDTO"%>
 <%@page import="comprasventasweb.dto.SubcategoriaBasicaDTO"%>
 <%@page import="comprasventasweb.dto.ProductoDTO"%>
@@ -19,12 +20,16 @@
         <title>Nuevo producto</title>
     </head>
     <body>
-        <%
+        <%           
             String id = "", titulo = "", descripcion = "", precio = "", foto = "", vendedor = "", etiquetas = "";
             int categoria = -1, subcategoria = -1;
             //Vendedor nunca puede ser null, ya hemos iniciado sesion con un usuario, pero como aun no esta implementado el login
             //no puedo hacer esto. Pondremos a pepito propietario de todo por ahora.
             List<CategoriaDTO> categorias = (List) request.getAttribute("listaCategorias");
+            String destino = (String) request.getAttribute("destino");
+            if(destino == null){
+                destino = "ProductosListar";
+            }
             
             ProductoDTO producto = (ProductoDTO)request.getAttribute("producto");
             String editar = null;
@@ -51,8 +56,10 @@
             //Aqui va el si no es nulo noseque entonces rellenar todo (para el editar)
             //Recuerda coger el id de categoria y no la categoria entera
         %>
-        
+        <link rel="stylesheet" href="CSS/formularios.css">
         <script type="text/javascript" src="javascript/comprobacionesProducto.js"></script>
+        <a class="volver" href=<%= destino %>>&#8592 Volver atrás </a></br>
+        <div class="todo">
         <form action="ProductoGuardar" onsubmit="return comprobar()">
             <input type="hidden" name="editar" value="<%= editar %>" />
             <input type="hidden" name="id" value="<%= id %>" />
@@ -129,5 +136,6 @@
             </table>
             <button type="submit">Publicar producto</button>
         </form>
+        </div>
     </body>
 </html>
