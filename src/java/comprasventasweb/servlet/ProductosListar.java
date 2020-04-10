@@ -24,12 +24,15 @@ import javax.servlet.http.HttpSession;
  *
  * @author Usuario
  */
+
+
+
 @WebServlet(name = "ProductosListar", urlPatterns = {"/ProductosListar"})
 public class ProductosListar extends HttpServlet {
 
     @EJB
     private ProductoService productoServices;
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,13 +48,15 @@ public class ProductosListar extends HttpServlet {
         UsuarioDTO usuario;
         String search;
         search = (String)request.getParameter("busqueda");
+        String searchEtiquetas;
+        searchEtiquetas = (String)request.getParameter("busquedaEtiquetas");
         
         usuario = (UsuarioDTO)session.getAttribute("usuario");
         if (usuario == null) { 
             response.sendRedirect("login.jsp");
         } else {
             RequestDispatcher rd;
-            if(search == null){
+            if(search == null && searchEtiquetas == null){
                 if (usuario.getAdministrador()){
                     List<ProductoDTO> listaProductos = this.productoServices.searchAllInverso2();                       
                     request.setAttribute("listaProductos", listaProductos);
@@ -61,8 +66,29 @@ public class ProductosListar extends HttpServlet {
                     request.setAttribute("listaProductos", listaProductos);
                     rd = request.getRequestDispatcher("paginaPrincipal.jsp");  
                 }
+            }else if(searchEtiquetas == null){
+                String[] words = search.split(" ");
+                List<ProductoBasicoDTO> listaProductos = this.productoServices.searchByKeywords(words[0]);
+                for(int i=1; i<words.length; i++){
+                    //System.out.println(word);
+                    List<ProductoBasicoDTO> listaWord = this.productoServices.searchByKeywords(words[i]);
+                    for (ProductoBasicoDTO p : listaWord) {   
+                        listaProductos.add(p);
+                    }
+                }
+                request.setAttribute("listaProductos", listaProductos);
+
+                rd = request.getRequestDispatcher("paginaPrincipal.jsp");
             }else{
-                List<ProductoBasicoDTO> listaProductos = this.productoServices.searchByKeywords(search);
+                String[] words = searchEtiquetas.split(" ");
+                List<ProductoBasicoDTO> listaProductos = this.productoServices.searchByEtiquetas(words[0]);
+                for(int i=1; i<words.length; i++){
+                    //System.out.println(word);
+                    List<ProductoBasicoDTO> listaWord = this.productoServices.searchByEtiquetas(words[i]);
+                    for (ProductoBasicoDTO p : listaWord) {   
+                        listaProductos.add(p);
+                    }
+                }
                 request.setAttribute("listaProductos", listaProductos);
 
                 rd = request.getRequestDispatcher("paginaPrincipal.jsp");
