@@ -53,8 +53,9 @@
         Nota 1: Esto solo esta puesto para que yo pudiera acceder a lo que hacia, puedes quitarlo sin miedo
         Nota 2: Cuando tengas que crear el usuario recuerda usar UsuarioDTO y no Usuario
         -->
-        <div class="fondo">
+        <div class="fondo">    
              <form method="post" action="Autenticar" class="container">
+                 <img class="headerImagen" src="imagenes/logo.png" width="200" height="50">
                   <h1 class="iniciarSesion">Iniciar sesi&oacute;n</h1>
         <!--    
        
