@@ -55,7 +55,7 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         
         Query q = this.getEntityManager().createNamedQuery("Producto.findByEtiquetas");
         q.setParameter("etiqueta", "%"+search+"%");
-            
+        System.out.println(q.getResultList()); //Para ver si devulve algo   
         return q.getResultList();
     }
     
