@@ -12,6 +12,7 @@ import comprasventasweb.entity.Usuario;
 import comprasventasweb.entity.Valoracion;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -102,6 +103,32 @@ public class ProductoBasicoDTO {
     public void setVendedor(UsuarioDTO vendedor) {
         this.vendedor = vendedor;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ProductoBasicoDTO other = (ProductoBasicoDTO) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+    
     
     
 }

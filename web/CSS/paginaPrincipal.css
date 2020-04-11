@@ -43,11 +43,14 @@ and open the template in the editor.
   }
 
 .headerImagen {
-    display:block;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 50px;
-  padding-bottom: 40px;
+    display:inline;
+    float:left;
+  /*margin-left: auto;
+  margin-right: auto;*/
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 30px;
+  padding-right: 50px;
   object-fit: contain;
 }
 
@@ -186,8 +189,12 @@ valoracion{
   overflow: hidden;
   background-color: #003257;
   z-index: 100;
+  position: fixed;
+  top: 0;
+  /*
   margin: 0px;
   padding-bottom: 5px;
+  */
   width: 100%;
 }
 
@@ -202,13 +209,32 @@ form {
   display: block;
   color: white;
   text-align: center;
-  padding: 14px;
+  padding: 14px 16px;
   text-decoration: none;
+  margin-top: 2px;
+  margin-right: 10px;
+}
+
+.navbar a:hover {
+    color: #d4d4d4;
+}
+
+a.Crear {
+    border-radius: 16px;
+    border: 0.5px solid white;
+    padding: 7px 10px;
+    margin-top: 8px;
+    margin-right: 20px;
+}
+
+a.Crear:hover {
+    color: #003257;
+    background: white;
 }
 
 /* Page content */
-.content {
-  padding: 16px;
+.main {
+  margin-top: 80px;
 }
 
 /* The sticky class is added to the navbar with JS when it reaches its scroll position */
@@ -226,18 +252,46 @@ form {
 /* Style the search box inside the navigation bar */
 .navbar input[type=text], .navbar select {
   float: left;
-  padding: 6px;
-  margin-top: 8px;
-  margin-right: 16px;
-  margin-left: 16px;
   font-size: 17px;
   border: none;
+ 
   
 }
 
+.navbar input[type=text] {
+     border-radius: 0px 20px 20px 0px;
+    -moz-border-radius: 0px 20px 20px 0px;
+    -webkit-border-radius: 0px 20px 20px 0px;
+    margin-left: 0px;
+    height: 20px;
+    width: 30%;
+    margin-top: 8px;
+    margin-right: 16px;
+    padding: 6px;
+}
+
 .navbar select {
-  margin-top: 6px;
-  margin-right: 8px;
+  margin-right: 0px;
+  margin-top: 8px;
+  height: 32px;
+  font-size: 15px;
+   
+}
+
+.selectBuscar{
+     border-radius: 20px 0px 0px 20px;
+    -moz-border-radius: 20px 0px 0px 20px;
+    -webkit-border-radius: 20px 0px 0px 20px;
+    padding-left: 9px;
+    padding-right: 5px;
+}
+
+.categorias {
+    border-radius: 20px 20px 20px 20px;
+    -moz-border-radius: 20px 20px 20px 20px;
+    -webkit-border-radius: 20px 20px 20px 20px;
+    padding-left: 9px;
+    padding-right: 9px;
 }
 
 /* When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */

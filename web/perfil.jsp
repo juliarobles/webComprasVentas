@@ -78,7 +78,7 @@
             <td class="eti">
                 <%  for(EtiquetaDTO et : producto.getEtiquetas()){
                 %>
-                <a href="ProductosListar?busquedaEtiquetas=<%= et.getNombre()%>">#<%= et.getNombre()%></a>
+                <a href="ProductosListar?busqueda=<%= et.getNombre()%>&selectBuscar=Etiqueta">#<%= et.getNombre()%></a>
                 <%
                 }
                 %>

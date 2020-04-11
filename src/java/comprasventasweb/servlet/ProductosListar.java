@@ -12,6 +12,7 @@ import comprasventasweb.dto.UsuarioDTO;
 import comprasventasweb.service.CategoriaService;
 import comprasventasweb.service.ProductoService;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -53,13 +54,6 @@ public class ProductosListar extends HttpServlet {
         UsuarioDTO usuario;
         RequestDispatcher rd;
         
-        String search = (String)request.getParameter("busqueda");
-        String searchEtiquetas = (String)request.getParameter("busquedaEtiquetas");
-        String categoria = (String) request.getParameter("categoria");
-        if(categoria == ""){
-            categoria = null;
-        }
-        
         usuario = (UsuarioDTO)session.getAttribute("usuario");
         if (usuario == null) { 
             response.sendRedirect("login.jsp");
@@ -72,23 +66,66 @@ public class ProductosListar extends HttpServlet {
             
         }else {
             
-            List<ProductoBasicoDTO> listaProductos;
+            String search = (String)request.getParameter("busqueda");
+            //String searchEtiquetas = (String)request.getParameter("busquedaEtiquetas");
+            String select = (String) request.getParameter("selectBuscar");
+            String categoria = (String) request.getParameter("categoria");
+            if(categoria == ""){
+                categoria = null;
+            }
             
-            if(search == null && searchEtiquetas == null && categoria == null){                          
-                listaProductos = this.productoServices.searchAllInverso();                       
-                            
-            }else if(searchEtiquetas == null && categoria == null){
-                String[] words = search.split(" ");
-                listaProductos = this.productoServices.searchByKeywords(words[0]);
-                for(int i=1; i<words.length; i++){
-                    //System.out.println(word);
-                    List<ProductoBasicoDTO> listaWord = this.productoServices.searchByKeywords(words[i]);
-                    for (ProductoBasicoDTO p : listaWord) {   
-                        listaProductos.add(p);
-                    }
+            if(search == null || search.trim().equals("") || select == null){
+                select = "";
+                search = "";
+            }
+            
+            List<ProductoBasicoDTO> listaProductos = new ArrayList<>();
+            String[] words;
+            
+            if(categoria == null){
+                switch(select) {
+                    case "TituloDescripcion":
+                        words = search.split(" ");
+                        for(int i=0; i<words.length; i++){
+                            List<ProductoBasicoDTO> listaWord = this.productoServices.searchByKeywords(words[i]);
+                            listaProductos.removeAll(listaWord);
+                            listaProductos.addAll(listaWord);
+                        }
+                        break;
+                    
+                    case "Titulo":
+                        break;
+                    
+                    case "Descripcion":
+                        break;
+                    
+                    case "Etiqueta":
+                        words = search.split(" ");
+                        String pal;
+                        for(int i=0; i<words.length; i++){
+                            pal = words[i];
+                            if(pal != null && pal.length() > 1 && pal.charAt(0) == '#'){
+                                pal = pal.substring(1, pal.length());
+                            }
+                            List<ProductoBasicoDTO> listaWord = this.productoServices.searchByEtiquetas(pal);
+                            listaProductos.removeAll(listaWord);
+                            listaProductos.addAll(listaWord);
+                        }
+                        break;
+                    
+                    case "FechaHora":
+                        break;
+                    
+                    case "Fecha":
+                        break;
+                    
+                    case "Hora":
+                        break;
+                    
+                    default:
+                        listaProductos = this.productoServices.searchAllInverso(); 
                 }
-                
-            } else if (searchEtiquetas == null){
+            } else {
                 int id = Integer.parseInt(categoria.substring(1, categoria.length()));
                 if(categoria.charAt(0) == 'B'){
                     listaProductos = this.productoServices.searchBySubcategory(id);
@@ -97,18 +134,10 @@ public class ProductosListar extends HttpServlet {
                     listaProductos = this.productoServices.searchByCategory(id);
                     request.setAttribute("categoria", id+"");
                 }
-                
-            }else{
-                String[] words = searchEtiquetas.split(" ");
-                listaProductos = this.productoServices.searchByEtiquetas(words[0]);
-                for(int i=1; i<words.length; i++){
-                    //System.out.println(word);
-                    List<ProductoBasicoDTO> listaWord = this.productoServices.searchByEtiquetas(words[i]);
-                    for (ProductoBasicoDTO p : listaWord) {   
-                        listaProductos.add(p);
-                    }
-                }
             }
+            
+            request.setAttribute("selectBusqueda", select);
+            request.setAttribute("busqueda", search);
             
             List<CategoriaDTO> categorias = this.categoriaService.searchAll(); 
             request.setAttribute("listaCategorias", categorias);

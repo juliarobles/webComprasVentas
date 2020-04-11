@@ -28,8 +28,11 @@
         
     %>
     <body>
-        <% String busqueda = "";
-           String busquedaEtiquetas = "";
+        <% String busqueda = (String) request.getAttribute("busqueda");
+            if(busqueda == null){
+                busqueda = "";
+            }
+           String sel = (String) request.getAttribute("selectBusqueda");
            int categoria = -1;
            String cate = (String) request.getAttribute("categoria");
            int subcategoria = -1;
@@ -41,23 +44,46 @@
            }
            request.removeAttribute("subcategoria");
            request.removeAttribute("categoria");
+           
+           String[][] buscar = {{"TituloDescripcion", "Título y descripción"}, {"Titulo","Título"}, {"Descripcion","Descripción"}, {"Etiqueta","Etiquetas"}, 
+                            {"FechaHora", "Fecha y hora"}, {"Fecha","Fecha"}, {"Hora","Hora"}};
+
         %>
         
-        <div class="header">
-        <img class="headerImagen" src="imagenes/logoblanco.png" width="800" height="100">
-        </div>
+        <!--<div class="header">
+        
+        </div>-->
         <div class="navbar" id="navbar">
-        
+        <img class="headerImagen" src="imagenes/logoblanco.png" width="100" height="30">
+        <script type="text/javascript" src="javascript/buscador.js"></script> 
         <form action="ProductosListar">
-            <input type="text" name="busqueda" value="<%=busqueda%>" placeholder="Search.."  size="30" max="30" maxlength="100">
+            <select class="selectBuscar" id="selectBuscar" name="selectBuscar" onchange="changePlaceholder()">
+                <%
+                    for(String[] m : buscar){
+                        String seleccionado = "";
+                        if(sel!= null && sel.equals(m[0])){
+                            seleccionado = "selected";
+                        }
+                %>
+                    <option <%= seleccionado %> value=<%= m[0] %>><%= m[1]%></option>
+                <%
+                    }
+                %>
+                <!--
+                <option value="TituloDescripcion">Título y descripción</option>
+                <option value="Titulo">Título</option>
+                <option value="Descripcion">Descripción</option>
+                <option value="Etiqueta">Etiquetas</option>
+                <option value="FechaHora">Fecha y hora</option>
+                <option value="Fecha">Fecha</option>
+                <option value="Hora">Hora</option>-->
+            </select>
+            <input type="text" name="busqueda" id="busqueda" value="<%=busqueda%>" placeholder="" size="30" maxlength="300" minlength="1" required>
         </form>
         
         <form action="ProductosListar">
-            <input type="text" name="busquedaEtiquetas" value="<%=busquedaEtiquetas%>" placeholder="Etiquetas.."  size="30" max="30" maxlength="100">
-        </form>
-        <form action="ProductosListar">
-            <select id = "categoria" name="categoria" onchange="this.form.submit()">
-                            <option value="">Todo</option>
+            <select class="categorias" id = "categoria" name="categoria" onchange="this.form.submit()">
+                            <option value="">Todas las categorías</option>
                         <%
                             
                             for (CategoriaDTO cat : categorias) {
@@ -80,13 +106,12 @@
     %>  
             </select>
         </form>
-       
-        <a href="CerrarSesion">Cerrar sesión</a>
-            <a href="ProductoCrear">Nuevo producto</a>
+            <a href="CerrarSesion">Cerrar sesión</a>
             <a href="PerfilUsuario">Perfil</a>
+            <a class="Crear" href="ProductoCrear">Nuevo producto</a>
         </div>    
             
-        <br>
+        <div class="main">
         <%
         if (productos == null || productos.isEmpty()) {
         %>          
@@ -164,6 +189,7 @@
         <%
         }//if
         %>
-        <script type="text/javascript" src="javascript/navbar.js"></script>
+        <!--<script type="text/javascript" src="javascript/navbar.js"></script>-->
+        </div>
     </body>
 </html>

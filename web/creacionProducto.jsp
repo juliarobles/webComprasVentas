@@ -131,7 +131,7 @@
                 </tr>
                 <tr>
                     <td>Etiquetas</td>
-                    <td><input type="text" name="etiquetas" value="<%= etiquetas %>" size="30" maxlength="200" pattern="[A-Za-z0-9# ]+" /></td>
+                    <td><input type="text" name="etiquetas" value="<%= etiquetas %>" placeholder="#etiqueta1 #etiqueta2" size="30" maxlength="200" pattern="([#]{1}[a-zA-Z0-9]{1,200}[ ]{0,200}){0,200}" /></td>
                 </tr>
             </table>
             <button type="submit">Publicar producto</button>
