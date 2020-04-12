@@ -12,8 +12,13 @@ import comprasventasweb.dto.UsuarioDTO;
 import comprasventasweb.service.CategoriaService;
 import comprasventasweb.service.ProductoService;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -81,22 +86,36 @@ public class ProductosListar extends HttpServlet {
             
             List<ProductoBasicoDTO> listaProductos = new ArrayList<>();
             String[] words;
+            String inicio;
+            String end;
             
             if(categoria == null){
                 switch(select) {
                     case "TituloDescripcion":
                         words = search.split(" ");
                         for(int i=0; i<words.length; i++){
-                            List<ProductoBasicoDTO> listaWord = this.productoServices.searchByKeywords(words[i]);
+                            List<ProductoBasicoDTO> listaWord = this.productoServices.searchByTituloDescripcion(words[i]);
                             listaProductos.removeAll(listaWord);
                             listaProductos.addAll(listaWord);
                         }
                         break;
                     
                     case "Titulo":
+                        words = search.split(" ");
+                        for(int i=0; i<words.length; i++){
+                            List<ProductoBasicoDTO> listaWord = this.productoServices.searchByTitulo(words[i]);
+                            listaProductos.removeAll(listaWord);
+                            listaProductos.addAll(listaWord);
+                        }
                         break;
                     
                     case "Descripcion":
+                        words = search.split(" ");
+                        for(int i=0; i<words.length; i++){
+                            List<ProductoBasicoDTO> listaWord = this.productoServices.searchByDescripcion(words[i]);
+                            listaProductos.removeAll(listaWord);
+                            listaProductos.addAll(listaWord);
+                        }
                         break;
                     
                     case "Etiqueta":
@@ -114,12 +133,36 @@ public class ProductosListar extends HttpServlet {
                         break;
                     
                     case "FechaHora":
+                        words = search.split("-"); //Solo puede haber 2 elementos
+                        inicio = words[0];
+                        if(search.contains("-")){//Fechas entre inicio y end
+                            end = words[1];
+                            listaProductos = this.productoServices.searchByFechaHoraEntre(inicio, end);
+                        }else{//Fecha concreta
+                            listaProductos = this.productoServices.searchByFechaHora(inicio);
+                        }
                         break;
                     
-                    case "Fecha":
+                    case "Fecha": 
+                        words = search.split("-"); //Solo puede haber 2 elementos
+                        inicio = words[0];
+                        if(search.contains("-")){//Fechas entre inicio y end
+                            end = words[1];
+                            listaProductos = this.productoServices.searchByFechaEntre(inicio, end);
+                        }else{//Fecha concreta
+                            listaProductos = this.productoServices.searchByFecha(inicio);
+                        }
                         break;
                     
                     case "Hora":
+                        words = search.split("-"); //Solo puede haber 2 elementos
+                        inicio = words[0];
+                        if(search.contains("-")){//Fechas entre inicio y end
+                            end = words[1];
+                            listaProductos = this.productoServices.searchByHoraEntre(inicio, end);
+                        }else{//Fecha concreta
+                            listaProductos = this.productoServices.searchByHora(inicio);
+                        }
                         break;
                     
                     default:

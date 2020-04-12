@@ -150,8 +150,48 @@ public class ProductoService {
         return this.convertToDTO2(listaProductos);
     }
     
-    public List<ProductoBasicoDTO> searchByKeywords(String search) {
-        List<Producto> listaProductos = this.productoFacade.findByKeywords(search);
+    public List<ProductoBasicoDTO> searchByTituloDescripcion(String search) {
+        List<Producto> listaProductos = this.productoFacade.findByTituloDescripcion(search);
+        return this.convertToDTO(listaProductos);
+    }
+    
+    public List<ProductoBasicoDTO> searchByTitulo(String search) {
+        List<Producto> listaProductos = this.productoFacade.findByTitulo(search);
+        return this.convertToDTO(listaProductos);
+    }
+    
+    public List<ProductoBasicoDTO> searchByDescripcion(String search) {
+        List<Producto> listaProductos = this.productoFacade.findByDescripcion(search);
+        return this.convertToDTO(listaProductos);
+    }
+    
+    public List<ProductoBasicoDTO> searchByFecha(String search) {
+        List<Producto> listaProductos = this.productoFacade.findByFecha(search);
+        return this.convertToDTO(listaProductos);
+    }
+    
+    public List<ProductoBasicoDTO> searchByHora(String search) {
+        List<Producto> listaProductos = this.productoFacade.findByHora(search);
+        return this.convertToDTO(listaProductos);
+    }
+    
+    public List<ProductoBasicoDTO> searchByFechaHora(String search) {
+        List<Producto> listaProductos = this.productoFacade.findByFechaHora(search);
+        return this.convertToDTO(listaProductos);
+    }
+    
+    public List<ProductoBasicoDTO> searchByFechaEntre(String inicio, String end) {
+        List<Producto> listaProductos = this.productoFacade.findByFechaEntre(inicio, end);
+        return this.convertToDTO(listaProductos);
+    }
+    
+    public List<ProductoBasicoDTO> searchByHoraEntre(String inicio, String end) {
+        List<Producto> listaProductos = this.productoFacade.findByHoraEntre(inicio, end);
+        return this.convertToDTO(listaProductos);
+    }
+    
+    public List<ProductoBasicoDTO> searchByFechaHoraEntre(String inicio, String end) {
+        List<Producto> listaProductos = this.productoFacade.findByFechaHoraEntre(inicio, end);
         return this.convertToDTO(listaProductos);
     }
     

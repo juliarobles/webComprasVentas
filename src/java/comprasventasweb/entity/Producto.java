@@ -48,14 +48,15 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Producto.findByCategory", query = "SELECT p FROM Producto p, Subcategoria s WHERE p.categoria = s AND s.categoriaPadre = :id")
     , @NamedQuery(name = "Producto.findById", query = "SELECT p FROM Producto p WHERE p.id = :id")
     , @NamedQuery(name = "Producto.findByVendedor", query = "SELECT p FROM Producto p WHERE p.vendedor = :user")
-    , @NamedQuery(name = "Producto.findByTitulo", query = "SELECT p FROM Producto p WHERE p.titulo = :titulo")
-    , @NamedQuery(name = "Producto.findByDescripcion", query = "SELECT p FROM Producto p WHERE p.descripcion = :descripcion")
+    , @NamedQuery(name = "Producto.findByTitulo", query = "SELECT p FROM Producto p WHERE p.titulo LIKE :titulo")
+    , @NamedQuery(name = "Producto.findByDescripcion", query = "SELECT p FROM Producto p WHERE p.descripcion LIKE :descripcion")
     , @NamedQuery(name = "Producto.findByEtiquetas", query = "SELECT p FROM Producto p, Etiqueta e WHERE p.etiquetaList = e AND e.nombre = :etiqueta ")
     , @NamedQuery(name = "Producto.findByPrecio", query = "SELECT p FROM Producto p WHERE p.precio = :precio")
     , @NamedQuery(name = "Producto.findByHora", query = "SELECT p FROM Producto p WHERE p.hora = :hora")
     , @NamedQuery(name = "Producto.findByFecha", query = "SELECT p FROM Producto p WHERE p.fecha = :fecha")
+    , @NamedQuery(name = "Producto.findByFechaEntre", query = "SELECT p FROM Producto p WHERE p.fecha >= :inicio AND p.fecha <= :end")
     , @NamedQuery(name = "Producto.findByFoto", query = "SELECT p FROM Producto p WHERE p.foto = :foto")
-    , @NamedQuery(name = "Producto.findByKeywords", query = "SELECT p FROM Producto p WHERE p.titulo LIKE :titulo OR p.descripcion LIKE :titulo")
+    , @NamedQuery(name = "Producto.findByTituloDescripcion", query = "SELECT p FROM Producto p WHERE p.titulo LIKE :titulo OR p.descripcion LIKE :titulo")
     , @NamedQuery(name = "Producto.findByValoracionmedia", query = "SELECT p FROM Producto p WHERE p.valoracionmedia = :valoracionmedia")})
 public class Producto implements Serializable {
 
