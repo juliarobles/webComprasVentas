@@ -7,6 +7,8 @@
                  podrá valorar ni comentar. Lo mismo con el editar producto y el correspondiente servlet.
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="comprasventasweb.dto.EtiquetaDTO"%>
 <%@page import="comprasventasweb.dto.ProductoDTO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.List"%>
@@ -64,7 +66,12 @@
               <td><%= fecha.format(prod.getFecha())%></td>
               <td><a href="<%= prod.getFoto() %>" target="_blank">Ver foto</td>
               <td><%= prod.getValoracionmedia()%></td>
-              <td><%= prod.getEtiquetas() %></td>
+              <% 
+                List<String> etiquetas = new ArrayList<String>();
+                for(EtiquetaDTO e : prod.getEtiquetas()){
+                        etiquetas.add(e.getNombre());
+              }%>
+              <td><%= etiquetas.toString() %></td>
               <td><%= prod.getCategoria().getNombre() %></td>
               <td><%= prod.getVendedor().getUsuario() %></td>
               <td><a href="VerProducto?id=<%= prod.getId() %>">Consultar</td>
