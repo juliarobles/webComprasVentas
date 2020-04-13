@@ -17,7 +17,12 @@
         List<UsuarioDTO> usuarios = (List)request.getAttribute("listaUsuario");
     %>
     <body>
-        <h1>NOMBRE WEB A DECIDIR AUN</h1>
+        <a id="top"></a>
+        <center><img class="headerImagen" src="imagenes/logo.png" width="800" height="100"></center>
+        <br>
+        <a href="PrincipalAdmin">Menú de Administración</a> 
+        <a href="CerrarSesion">Cerrar sesión</a>
+        <h1>Lista de usuarios</h1>
         <%
         if (usuarios == null || usuarios.isEmpty()) {
         %>          
@@ -27,12 +32,12 @@
         %>
         <table border="1">
         <tr>
-            <th>ID</th>
-            <th>USUARIO</th>
-            <th>EMAIL</th>
-            <th>NOMBRE</th>
-            <th>ADMINISTRADOR</th>
-            <th>FOTO</th>
+            <th>Id</th>
+            <th>Usuario</th>
+            <th>Email</th>
+            <th>Nombre</th>
+            <th>Administrador</th>
+            <th>Foto</th>
             <th></th>
             <th></th>
         </tr>
@@ -50,11 +55,17 @@
             <% }else{%>
             <td>No</td>
             <%}%>
-            <td><img src=<%= usuario.getFoto() %> width="200" height="200"></td>
+            <td><a href="<%= usuario.getFoto() %>" target="_blank">Ver foto</td>
             <td><a href="UsuarioEditar?id=<%= usuario.getId() %>">Editar</a></td>
             <td><a href="UsuarioBorrar?id=<%= usuario.getId() %>">Borrar</a></td>
 <%
             }
+%>
+        </table>
+        <a href="PrincipalAdmin">Menú de Administración</a> 
+        <a href="CerrarSesion">Cerrar sesión</a>
+        <a href="#top">Ir arriba</a>
+<%
         }
 %>                     
                      

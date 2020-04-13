@@ -136,7 +136,7 @@
                 }
         %>
         <div class="item">
-           <a href="VerProducto" class="card">
+           <a href="VerProducto?id=<%= producto.getId() %>" class="card">
             <div class="imagen">
                 <img src=<%= producto.getFoto() %>>
             </div>

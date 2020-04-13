@@ -83,6 +83,8 @@ fecha{
     text-transform: uppercase;
     color: #363636;
     text-decoration: none;
+    white-space: normal;
+    word-wrap: break-word;
 }
 
 .descripcionCard {
@@ -90,6 +92,8 @@ fecha{
     line-height: 22px;
     margin-bottom: 18px;
     color: #999;
+    white-space: normal;
+    word-wrap: break-word;
 }
 
 .bottom{

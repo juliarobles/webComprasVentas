@@ -38,6 +38,8 @@ public class VerProducto extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+            String id = request.getParameter("id"); //Te dejo esto aqui para que saques el producto correspondiente
             //Arreglar cuando se añada el acceso al producto
             ProductoDTO pr;
             pr = this.productoService.searchById("1");

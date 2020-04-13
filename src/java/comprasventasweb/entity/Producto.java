@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Producto.findAll", query = "SELECT p FROM Producto p")
-    , @NamedQuery(name = "Producto.findAllInverso", query = "SELECT p FROM Producto p ORDER BY p.id DESC")
+    , @NamedQuery(name = "Producto.findAllInverso", query = "SELECT p FROM Producto p ORDER BY p.fecha DESC, p.hora DESC")
     , @NamedQuery(name = "Producto.findBySubcategory", query = "SELECT p FROM Producto p WHERE p.categoria = :id")
     , @NamedQuery(name = "Producto.findByCategory", query = "SELECT p FROM Producto p, Subcategoria s WHERE p.categoria = s AND s.categoriaPadre = :id")
     , @NamedQuery(name = "Producto.findById", query = "SELECT p FROM Producto p WHERE p.id = :id")

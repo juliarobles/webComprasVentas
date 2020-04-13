@@ -23,6 +23,9 @@
         <title><%=pr.getTitulo()%></title>
     </head>
     <body>
+        <link rel="stylesheet" href="CSS/formularios.css">
+        <a class="volver" href="ProductosListar">&#8592 Volver al menú principal </a></br>
+        <div class="todo">
         <table>
             <tr>
                 <td><img src="<%=pr.getFoto()%>"></td>   
@@ -52,7 +55,7 @@
                 <td><%=pr.getVendedor().getNombre()%></a></td> 
             </tr>
         </table>
-        
+        </div>
         
         
     </body>

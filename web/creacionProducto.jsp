@@ -57,8 +57,10 @@
             //Recuerda coger el id de categoria y no la categoria entera
         %>
         <link rel="stylesheet" href="CSS/formularios.css">
+        <link rel="stylesheet" href="CSS/producto.css">
         <script type="text/javascript" src="javascript/comprobacionesProducto.js"></script>
         <a class="volver" href=<%= destino %>>&#8592 Volver atrás </a></br>
+        
         <div class="todo">
         <form action="ProductoGuardar" onsubmit="return comprobar()">
             <input type="hidden" name="editar" value="<%= editar %>" />
@@ -67,15 +69,18 @@
             <script type="text/javascript" src="javascript/subcategoria.js"></script>
             <table>
                 <tr>
-                    <td>Titulo</td>
-                    <td><input type="text" id="titulo" name="titulo" value="<%= titulo %>" size="30" minlength="1" maxlength="100" pattern="[a-zA-Z0-9àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,'-]{1,100}" required/></td>
+                    <h1>Crear nuevo producto</h1>
                 </tr>
                 <tr>
-                    <td>Descripcion</td>
-                    <td><input type="text" name="descripcion" value="<%= descripcion %>" size="30" maxlength="500" /></td> 
+                    <td class="titulo">Título</td>
+                    <td><input type="text" id="titulo" name="titulo" value="<%= titulo %>" size="30" placeholder="Título" minlength="1" maxlength="100" pattern="[a-zA-Z0-9àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,'-]{1,100}" required/></td>
                 </tr>
                 <tr>
-                    <td>Categoria</td>
+                    <td class="titulo" class="descripcion">Descripción</td>
+                    <td><textarea type="text" name="descripcion" value="<%= descripcion %>" size="30"  placeholder="Descripción" maxlength="500" /><%= descripcion %></textarea></td> 
+                </tr>
+                <tr>
+                    <td class="titulo">Categoria</td>
                     <td>
                         <select id = "categoria" name="categoria" onchange="cargarSubcategorias();">
                             <option value="">Seleccione una categoria...</option>
@@ -97,7 +102,7 @@
                     </td> 
                 </tr>
                 <tr>
-                    <td>Subcategoria</td>
+                    <td class="titulo">Subcategoria</td>
                     <td>
                         <select id="subcategoria" name="subcategoria" required>
                             <%
@@ -122,16 +127,19 @@
                     </td> 
                 </tr>
                 <tr>
-                    <td>Precio</td>
-                    <td><input type="number" step="any" name="precio" value="<%= precio %>"  min="0" maxlength="50" required/></td> 
+                    <td class="titulo">Precio</td>
+                    <td><input type="number" step="any" name="precio" value="<%= precio %>"  placeholder="Precio" min="0" maxlength="50" required/></td> 
                 </tr>
                 <tr>
-                    <td>Foto</td>
-                    <td><input type="url" name="foto" value="<%= foto %>" size="30" maxlength="520" /></td>
+                    <td class="titulo">Foto</td>
+                    <td><input type="url" name="foto" value="<%= foto %>" size="30" maxlength="520" placeholder="URL de la imagen" /></td>
                 </tr>
                 <tr>
-                    <td>Etiquetas</td>
+                    <td class="titulo">Etiquetas</td>
                     <td><input type="text" name="etiquetas" value="<%= etiquetas %>" placeholder="#etiqueta1 #etiqueta2" size="30" maxlength="200" pattern="([#]{1}[a-zA-Z0-9]{1,200}[ ]{0,200}){0,200}" /></td>
+                </tr>
+                <tr>
+                    
                 </tr>
             </table>
             <button type="submit">Publicar producto</button>

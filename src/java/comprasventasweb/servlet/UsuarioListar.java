@@ -52,7 +52,7 @@ public class UsuarioListar extends HttpServlet {
                                       
             request.setAttribute("listaUsuario", listaUsuarios);
 
-            RequestDispatcher rd = request.getRequestDispatcher("usuarios.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("usuariosAdmin.jsp");
             rd.forward(request, response);
         }
     }
