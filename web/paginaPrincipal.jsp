@@ -136,7 +136,7 @@
                 }
         %>
         <div class="item">
-           <a href="verProducto" class="card">
+           <a href="VerProducto" class="card">
             <div class="imagen">
                 <img src=<%= producto.getFoto() %>>
             </div>
