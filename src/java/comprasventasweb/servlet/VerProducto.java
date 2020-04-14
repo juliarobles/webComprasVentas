@@ -45,28 +45,27 @@ public class VerProducto extends HttpServlet {
             UsuarioDTO user = (UsuarioDTO)session.getAttribute("usuario");
             if (user==null) { // Se ha llamado al servlet sin haberse autenticado
                 response.sendRedirect("login.jsp");            
-            } 
-            String id = request.getParameter("id");
-            if(id == null){
-                LOG.log(Level.SEVERE, "No se ha encontrado el producto");
-                response.sendRedirect("ProductosListar");  
             } else {
-                //Arreglar cuando se añada el acceso al producto
-                ProductoDTO pr = null;
-                pr = this.productoService.searchById(id);
-                if (pr == null) {
+                String id = request.getParameter("id");
+                if(id == null){
                     LOG.log(Level.SEVERE, "No se ha encontrado el producto");
                     response.sendRedirect("ProductosListar");  
                 } else {
-                    HttpSession sesion = request.getSession();
-                    sesion.setAttribute("producto", pr);
+                    //Arreglar cuando se añada el acceso al producto
+                    ProductoDTO pr = null;
+                    pr = this.productoService.searchById(id);
+                    if (pr == null) {
+                        LOG.log(Level.SEVERE, "No se ha encontrado el producto");
+                        response.sendRedirect("ProductosListar");  
+                    } else {
+                        HttpSession sesion = request.getSession();
+                        sesion.setAttribute("producto", pr);
 
-                    RequestDispatcher rd = request.getRequestDispatcher("verProducto.jsp");
-                    rd.forward(request, response);
+                        RequestDispatcher rd = request.getRequestDispatcher("verProducto.jsp");
+                        rd.forward(request, response);
+                    }
                 }
             }
-
-            
         }
     
 
