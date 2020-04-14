@@ -56,8 +56,29 @@
             <td>No</td>
             <%}%>
             <td><a href="<%= usuario.getFoto() %>" target="_blank">Ver foto</td>
+            <%
+                if(usuario.getAdministrador()){
+            %>
+            <td>No permitido</td>
+            <%
+                } else {
+            %>
             <td><a href="UsuarioEditar?id=<%= usuario.getId() %>">Editar</a></td>
+            <%
+                }
+            %>
+            <%
+                if(usuario.getAdministrador()){
+            %>
+            <td>No permitido</td>
+            <%
+                } else {
+            %>
             <td><a href="UsuarioBorrar?id=<%= usuario.getId() %>">Borrar</a></td>
+            <%
+                }
+            %>
+            
 <%
             }
 %>

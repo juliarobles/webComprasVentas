@@ -5,8 +5,10 @@
  */
 package comprasventasweb.service;
 
+import comprasventasweb.dao.ProductoFacade;
 import comprasventasweb.dao.UsuarioFacade;
 import comprasventasweb.dto.UsuarioDTO;
+import comprasventasweb.entity.Producto;
 import comprasventasweb.entity.Usuario;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,12 @@ public class UsuarioService {
     
     @EJB
     private UsuarioFacade usuarioFacade; 
+    
+    @EJB
+    private ProductoFacade productoFacade;
+    
+    @EJB
+    private ProductoService productoService;
     
     protected List<UsuarioDTO> convertToDTO (List<Usuario> listaUsuarios){
        List<UsuarioDTO> listaDTO = null;
@@ -124,6 +132,9 @@ public class UsuarioService {
             LOG.log(Level.SEVERE, "No se ha encontrado el cliente a borrar");
             return false;
         } else {
+            for(Producto p : this.productoFacade.findByUserId(usuario)){
+                this.productoService.remove(p.getId()+"");
+            }
             this.usuarioFacade.remove(usuario);
             return true;
         }

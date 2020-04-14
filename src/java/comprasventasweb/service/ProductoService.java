@@ -231,6 +231,7 @@ public class ProductoService {
             LOG.log(Level.SEVERE, "No se ha encontrado el cliente a borrar");
             return false;
         } else {
+            vaciarEtiquetas(producto);
             this.productoFacade.remove(producto);
             return true;
         }
