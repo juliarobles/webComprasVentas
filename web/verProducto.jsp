@@ -6,18 +6,21 @@
                  Se mantendrá el botón del perfil y el añadir producto. Además aqui se podrá comentar y valorar el producto.
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="comprasventasweb.dto.ProductoDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-           <%
-            HttpSession sesion = request.getSession();
-            ProductoDTO pr = (ProductoDTO)sesion.getAttribute("producto");
-            //De primeras supondremos que producto no es null, si da error pues se arregla y listo (o ponemos una ventana 
+        <%
+        HttpSession sesion = request.getSession();
+        ProductoDTO pr = (ProductoDTO)sesion.getAttribute("producto");
+        //De primeras supondremos que producto no es null, si da error pues se arregla y listo (o ponemos una ventana 
         //de ha ocurrido un error)
         //Vamos a poner que ponga un producto aleatorio, luego descomentaremos las lineas de arriba
         
+            SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat hora = new SimpleDateFormat("HH:mm");
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title><%=pr.getTitulo()%></title>
@@ -39,9 +42,9 @@
                  <td><%=pr.getPrecio() + " €"%></td> 
             </tr>
                 <tr>
-                <td><h3>Fecha</h3></td>   
-                 <td><%=pr.getFecha()%></td>
-                 <td><%=pr.getHora()%></td>
+                <td><h3>Fecha</h3></td>
+                 <td><%=fecha.format(pr.getFecha())%></td>
+                 <td><%=hora.format(pr.getHora())%></td>
             </tr>
             <tr>
                 <td><h3>Valoración</h3></td>   

@@ -5,12 +5,13 @@
  */
 package comprasventasweb.servlet;
 
-import comprasventasweb.dao.ProductoFacade;
 import comprasventasweb.dto.ProductoDTO;
+import comprasventasweb.dto.UsuarioDTO;
 import comprasventasweb.service.ProductoService;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.ejb.EJB;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,6 +28,7 @@ import javax.servlet.http.HttpSession;
 public class VerProducto extends HttpServlet {
     @EJB
     private ProductoService productoService;
+    private static final Logger LOG = Logger.getLogger(VerProducto.class.getName());
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,15 +41,31 @@ public class VerProducto extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-            String id = request.getParameter("id"); //Te dejo esto aqui para que saques el producto correspondiente
-            //Arreglar cuando se añada el acceso al producto
-            ProductoDTO pr;
-            pr = this.productoService.searchById("1");
-            HttpSession sesion = request.getSession();
-            sesion.setAttribute("producto", pr);
-            
-            RequestDispatcher rd = request.getRequestDispatcher("verProducto.jsp");
-            rd.forward(request, response);
+            HttpSession session = request.getSession();
+            UsuarioDTO user = (UsuarioDTO)session.getAttribute("usuario");
+            if (user==null) { // Se ha llamado al servlet sin haberse autenticado
+                response.sendRedirect("login.jsp");            
+            } else {
+                String id = request.getParameter("id");
+                if(id == null){
+                    LOG.log(Level.SEVERE, "No se ha encontrado el producto");
+                    response.sendRedirect("ProductosListar");  
+                } else {
+                    //Arreglar cuando se añada el acceso al producto
+                    ProductoDTO pr = null;
+                    pr = this.productoService.searchById(id);
+                    if (pr == null) {
+                        LOG.log(Level.SEVERE, "No se ha encontrado el producto");
+                        response.sendRedirect("ProductosListar");  
+                    } else {
+                        HttpSession sesion = request.getSession();
+                        sesion.setAttribute("producto", pr);
+
+                        RequestDispatcher rd = request.getRequestDispatcher("verProducto.jsp");
+                        rd.forward(request, response);
+                    }
+                }
+            }
         }
     
 
