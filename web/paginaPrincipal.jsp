@@ -115,7 +115,23 @@
         <%
         if (productos == null || productos.isEmpty()) {
         %>          
-            <h2>Ningún producto ha sido publicado todavía</h2>
+        <center>
+            <%
+                if(!busqueda.isEmpty()){
+            %>
+                <h2>No se han encontrado productos que coincidan con su búsqueda </h2>
+            <%
+               } else if (categoria != -1 || subcategoria != -1){
+            %>
+                <h2>No se han encontrado productos de la categoría seleccionada</h2>
+            <%
+                } else {
+            %>
+                <h2>Ningún producto ha sido publicado todavía</h2>
+            <%
+                }
+            %>
+        </center>
          <%
         } else {
         %>
