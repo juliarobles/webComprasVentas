@@ -19,17 +19,37 @@
         <title>Perfil</title>
     </head>
     <%
-        UsuarioDTO user = (UsuarioDTO)session.getAttribute("usuario");
-         if (user == null) {
+        UsuarioDTO usu = (UsuarioDTO)session.getAttribute("usuario");
+         if (usu == null) {
             response.sendRedirect("login.jsp");  
             return;
         }
+        
+        UsuarioDTO user = (UsuarioDTO)request.getAttribute("usuario");
+        if(user != null && !usu.getAdministrador()){
+            response.sendRedirect("login.jsp");  
+            return;
+        } else if (!usu.getAdministrador()) {
+            user = usu;
+        }
+         
         List<ProductoDTO> productos = (List)request.getAttribute("productosUsuario");
      %>
     <body>
         <link rel="stylesheet" href="CSS/formularios.css">
         <link rel="stylesheet" href="CSS/perfil.css">
-        <a class="volver" href="ProductosListar">&#8592 Volver al menú principal </a></br>
+        <%
+            if(usu.getAdministrador()){
+        %>
+            <a class="volver" href="UsuarioListar">&#8592 Volver atrás </a></br>
+        <%
+            } else {
+        %>
+            <a class="volver" href="ProductosListar">&#8592 Volver al menú principal </a></br>
+        <%
+            }
+        %>
+        
         <div class="todo">
         <img class="avatar" id="avatar" src=<%= user.getFoto() %> width="200" height="200">
         <h1> <%= user.getNombre() %> </h1>

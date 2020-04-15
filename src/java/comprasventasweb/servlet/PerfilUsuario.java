@@ -9,9 +9,12 @@ package comprasventasweb.servlet;
 import comprasventasweb.dto.ProductoDTO;
 import comprasventasweb.dto.UsuarioDTO;
 import comprasventasweb.service.ProductoService;
+import comprasventasweb.service.UsuarioService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,8 +31,13 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "PerfilUsuario", urlPatterns = {"/PerfilUsuario"})
 public class PerfilUsuario extends HttpServlet {
 
+    private static final Logger LOG = Logger.getLogger(PerfilUsuario.class.getName());
+    
     @EJB
     private ProductoService productoService;
+    
+    @EJB
+    private UsuarioService usuarioService;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -50,6 +58,22 @@ public class PerfilUsuario extends HttpServlet {
         } else {
             
             UsuarioDTO user = (UsuarioDTO)session.getAttribute("usuario");
+            
+            if(user.getAdministrador()){
+                String id = (String)request.getParameter("id");
+                if (id == null) {
+                    LOG.log(Level.SEVERE, "No se ha recibido id");
+                    response.sendRedirect("principalAdmin.jsp");            
+                } else {
+                    user = this.usuarioService.searchByUserId(Integer.parseInt(id));
+                    if (user == null) { //Esta situación no debería darse
+                        LOG.log(Level.SEVERE, "No se ha encontrado el usuario a editar");
+                        response.sendRedirect("principalAdmin.jsp");
+                    }else{
+                        request.setAttribute("usuario", user);
+                    }    
+                }
+            }
             
             List<ProductoDTO> productosUsuario = this.productoService.searchByUser(user);
             request.setAttribute("productosUsuario", productosUsuario);

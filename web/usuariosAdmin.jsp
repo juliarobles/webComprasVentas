@@ -41,6 +41,7 @@
             <th>Foto</th>
             <th></th>
             <th></th>
+            <th></th>
         </tr>
         <%    
             for (UsuarioDTO usuario : usuarios) {
@@ -64,6 +65,17 @@
             <%
                 } else {
             %>
+            <td><a href="PerfilUsuario?id=<%= usuario.getId() %>">Consultar</a></td>
+            <%
+                }
+            %>
+            <%
+                if(usuario.getAdministrador()){
+            %>
+            <td>No permitido</td>
+            <%
+                } else {
+            %>
             <td><a href="UsuarioEditar?id=<%= usuario.getId() %>">Editar</a></td>
             <%
                 }
@@ -75,7 +87,7 @@
             <%
                 } else {
             %>
-            <td><a href="UsuarioBorrar?id=<%= usuario.getId() %>">Borrar</a></td>
+            <td><a href="UsuarioBorrar?id=<%= usuario.getId() %>" onclick="return confirm('¿Estás seguro? Esta acción no se puede deshacer');">Borrar</a></td>
             <%
                 }
             %>

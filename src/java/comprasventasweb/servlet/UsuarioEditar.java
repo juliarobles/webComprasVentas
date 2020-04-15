@@ -46,12 +46,12 @@ public class UsuarioEditar extends HttpServlet {
         if (session.getAttribute("usuario")==null) { // Se ha llamado al servlet sin haberse autenticado
             response.sendRedirect("login.jsp");            
         } else {        
-            Integer ID = (Integer) request.getAttribute("id");
+            String ID = (String) request.getParameter("id");
             if (ID == null) {
-                LOG.log(Level.SEVERE, "No se ha encontrado el usuario a editar");
+                LOG.log(Level.SEVERE, "No se ha recibido id");
                 response.sendRedirect("principalAdmin.jsp");            
             } else {
-                UsuarioDTO usuario = this.usuarioService.searchByUserId(ID);
+                UsuarioDTO usuario = this.usuarioService.searchByUserId(Integer.parseInt(ID));
                 if (usuario == null) { //Esta situación no debería darse
                     LOG.log(Level.SEVERE, "No se ha encontrado el usuario a editar");
                     response.sendRedirect("principalAdmin.jsp");

@@ -45,18 +45,22 @@
              <h1 class="iniciarSesion">¡Bienvenido!</h1>
         <h3 class="palabrasPrincipales">Introduce tus datos</h3>
             
-               <label for="usuario" class="palabrasPrincipales"><b>Usuario</b></label>
+           <label for="usuario" class="palabrasPrincipales" maxlength ="50" pattern="[A-Za-z0-9]+" required><b>Usuario</b></label>
            <input type="text" placeholder="Introduzca su usuario" name="usuario" required>
            <p class="error"><%=statusUsuario%></p>
-               <label for="correo" class="palabrasPrincipales"><b>Correo</b></label>
-           <input type="text" placeholder="Introduzca su correo" name="correo" required>
+           
+           <label for="correo" class="palabrasPrincipales"><b>Correo</b></label>
+           <input type="email" maxlength ="100" placeholder="Introduzca su correo" name="correo" required>
            <p class="error"><%=statusCorreo%></p>
-            <label for="nombre" class="palabrasPrincipales"><b>Nombre</b></label>
-           <input type="text" placeholder="Introduzca su nombre" name="nombre" required>
+           
+           <label for="nombre" class="palabrasPrincipales"><b>Nombre</b></label>
+           <input type="text" placeholder="Introduzca su nombre" name="nombre" maxlength ="100" pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,'-]{1,100}" required>
            <p class="error"><%=statusNombre%></p>
-            <label for="pass" class="palabrasPrincipales"><b>Contraseña</b></label>
-           <input type="password" placeholder="Introduzca su contraseña" name="pass" required>
+           
+           <label for="pass" class="palabrasPrincipales"><b>Contraseña</b></label>
+           <input type="password" placeholder="Introduzca su contraseña" name="pass" minlength="8" maxlength ="50" pattern="[A-Za-z0-9!?-]{8,50}" required>
            <p class="error"><%=statusContraseña%></p>
+           
            <button class="btn" type="submit">Registrarse</button>
          <!--   <table>
                 <tr>
