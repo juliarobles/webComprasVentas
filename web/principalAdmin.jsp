@@ -13,12 +13,17 @@
         <title>Menú de administración</title>
     </head>
     <body>
-        <center><img class="headerImagen" src="imagenes/logo.png" width="800" height="100"></center>
-        <br><a href="CerrarSesion">Cerrar sesión</a>
-        <h1> Acceder a... </h1>
-        <ul>
-            <li><a href="ProductosListar">Lista de productos</a>
-            <li><a href="UsuarioListar">Lista de usuarios</a>
-        </ul>
+        <link rel="stylesheet" href="CSS/formularios.css">
+        <link rel="stylesheet" href="CSS/menuAdmin.css">
+        <img class="headerImagen" src="imagenes/logoblancoGRANDE.png">
+        
+        <div class="todo">
+            <table>
+                <tr><td><h2> Acceder a </h2></td></tr>
+                <tr><td><a class="boton" href="ProductosListar">Lista de productos</a></td></tr>
+                <tr><td><a class="boton" href="UsuarioListar">Lista de usuarios</a></td></tr>
+                <tr><td><a class="cerrar" href="CerrarSesion">Cerrar sesión</a></td></tr>
+            </table>
+        </div>
     </body>
 </html>

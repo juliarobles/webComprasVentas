@@ -25,8 +25,9 @@
         SimpleDateFormat hora = new SimpleDateFormat("HH:mm");
         %>
     <body>
+        <link rel="stylesheet" href="CSS/menuAdmin.css">
         <a id="top"></a>
-        <center><img class="headerImagen" src="imagenes/logo.png" width="800" height="100"></center>
+        <img class="headerImagen" src="imagenes/logo.png" width="800" height="100">
         <br>
         <a href="PrincipalAdmin">Menú de Administración</a> 
         <a href="CerrarSesion">Cerrar sesión</a>

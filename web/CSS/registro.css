@@ -74,6 +74,9 @@ body, html {
   max-width: 300px;
   padding: 16px;
   background-color: white;
+  -webkit-border-radius: 3px 5px 1px 4px; 
+    -moz-border-radius: 6px; 
+    border-radius: 5px;
 }
 
 /* Full-width input fields */
