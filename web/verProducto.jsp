@@ -30,7 +30,7 @@
         <link rel="stylesheet" href="CSS/verProducto.css">
         <a class="volver" href="ProductosListar">&#8592 Volver al menú principal </a></br>
         <div class="todo">
-            <div class="contenido" style="margin: 15px">
+            <div class="contenido1" >
                 <img class="imagen" src="<%=pr.getFoto()%>">
             </div>
             <div class="contenido" style="height: 90px" >
@@ -66,6 +66,10 @@
                     
                 </div>
             </div>
+                    <div class="contenedorVertical">
+                        <div class="contenidoVertical"><h1 class="margen">Vendedor: <%=pr.getVendedor().getNombre()%></h1></div>
+                        <div class="contenidoVertical"><p><%=pr.getDescripcion()%></p>
+                    </div>
         </div>
         
         
