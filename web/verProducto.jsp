@@ -26,38 +26,46 @@
         <title><%=pr.getTitulo()%></title>
     </head>
     <body>
-        <link rel="stylesheet" href="CSS/formularios.css">
+       <link rel="stylesheet" href="CSS/formularios.css">
+        <link rel="stylesheet" href="CSS/verProducto.css">
         <a class="volver" href="ProductosListar">&#8592 Volver al menú principal </a></br>
         <div class="todo">
-        <table>
-            <tr>
-                <td><img src="<%=pr.getFoto()%>"></td>   
-            </tr>
-            <tr>
-                <td><h3>Descripción del producto</h3></td>   
-                 <td><%=pr.getDescripcion()%></td> 
-            </tr>
-              <tr>
-                <td><h3>Precio</h3></td>   
-                 <td><%=pr.getPrecio() + " €"%></td> 
-            </tr>
-                <tr>
-                <td><h3>Fecha</h3></td>
-                 <td><%=fecha.format(pr.getFecha())%></td>
-                 <td><%=hora.format(pr.getHora())%></td>
-            </tr>
-            <tr>
-                <td><h3>Valoración</h3></td>   
-            </tr>
-            <tr>  
-                 <td><%=pr.getValoracionmedia()%></td> 
-            </tr>
-              
-            <tr>
-                <td><h3>Vendedor</h3></td>   
-                <td><%=pr.getVendedor().getNombre()%></a></td> 
-            </tr>
-        </table>
+            <div class="contenido" style="margin: 15px">
+                <img class="imagen" src="<%=pr.getFoto()%>">
+            </div>
+            <div class="contenido" style="height: 90px" >
+                <div class="contenidoIzquierda">
+                    <div class="contenedorVertical" style="margin-left: 35px">
+                           <div class="contenidoVertical" 
+                                style="float:left;" ><h1 ><%=pr.getTitulo()%></h1></div>
+                           <div class="contenidoVertical" style="margin-left: 20px" style="float:left;" >
+                               <h1 style="font-size: 25px">➤<%=pr.getCategoria().getNombre()%></h1></div>
+                    </div>
+                </div> 
+                
+                <div class="contenidoDerecha">
+                    
+                    <div class="contenedorVertical">
+                        <div class="centrado"   ><h1 >Valoraci&oacute;n</h1></div>
+                        <div class="contenidoVertical"  >
+                            <form style="width:100%">
+                    <p class="clasificacion">
+    <input id="radio1" type="radio" name="estrellas" value="5"><!--
+    --><label class="estrella" for="radio1">★</label><!--
+    --><input id="radio2" type="radio" name="estrellas" value="4"><!--
+    --><label class="estrella"  for="radio2">★</label><!--
+    --><input id="radio3" type="radio" name="estrellas" value="3"><!--
+    --><label class="estrella" for="radio3">★</label><!--
+    --><input id="radio4" type="radio" name="estrellas" value="2"><!--
+    --><label class="estrella" for="radio4">★</label><!--
+    --><input id="radio5" type="radio" name="estrellas" value="1"><!--
+    --><label class="estrella" for="radio5">★</label>
+                    </p>
+                    </form></div>
+                    </div>    
+                    
+                </div>
+            </div>
         </div>
         
         

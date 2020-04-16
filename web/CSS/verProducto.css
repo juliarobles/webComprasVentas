@@ -1,0 +1,216 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 16-abr-2020, 10:04:20
+    Author     : danim
+*/
+input, select, textarea {
+    background-color:  #e6e6e6;
+    padding: 10px;
+    border-radius: 20px 20px 20px 20px;
+    -moz-border-radius: 20px 20px 20px 20px;
+    -webkit-border-radius: 20px 20px 20px 20px;
+    border:none;
+    width: 450px;
+}
+
+body{
+    height: 100%;
+    
+}
+
+.container {
+                display:block;
+                justify-content: space-around ;
+                background-color:black;
+		width:90%;
+		height:90%;
+                margin:20px;
+}
+select {
+    width: 470px;
+}
+
+
+#form {
+  width: 250px;
+  margin: 0 auto;
+  height: 35px;
+ 
+}
+
+
+/*Codigo copiado estrellas valoracion*/
+#form p {
+  text-align: center;
+   font-size: 20px;
+}
+
+#form label {
+  font-size: 50px;
+}
+
+.estrella{
+    font-size: 35px;
+}
+input[type="radio"] {
+  display: none;
+}
+
+label {
+  color: grey;
+}
+
+.clasificacion {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+  margin-top: 5px;
+  margin-bottom : 5px;
+}
+
+label:hover,
+label:hover ~ label {
+  color: orange;
+}
+
+input[type="radio"]:checked ~ label {
+  color: orange;
+}
+
+/*Aqui acaba copiado de la valoracion*/
+
+
+
+table {
+    display: flex;
+    margin: 0 auto;
+}
+
+td {
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-bottom: 8px;
+    text-align: left;
+}
+.contenidoIzquierda{
+		display:flex;
+		width:50%;
+		float:left;
+		margin: 0px;
+                background-color: transparent;
+                
+	}
+
+.contenidoDerecha{
+                display:flex;
+		width:50%;
+		float:right;
+		margin: 0px;
+                justify-content: center;
+                background-color: transparent;
+        }
+        
+titulo{
+          color:#003257;
+          font-weight: bold;
+          font-size: 40px;
+          text-align: center;
+        }
+.imagen{
+    width: 270px;
+    height: 270px;
+    object-fit: cover;
+    background-color: black;
+     -webkit-border-radius: 3px 5px 1px 4px; 
+    -moz-border-radius: 6px; 
+    border-radius: 5px;
+    
+        }
+.contenido{
+		display:flex;
+		width:100%;
+		justify-content: center;
+		margin: 0px;
+                background-color: transparent;
+	}
+
+.titulo {
+    text-align: right;
+}
+
+textarea {
+    height: 100px;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+
+button {
+    text-decoration: none;
+    background-color: transparent;
+    color:#003257;
+    padding: 10px;
+    border-radius: 20px 20px 20px 20px;
+    -moz-border-radius: 20px 20px 20px 20px;
+    -webkit-border-radius: 20px 20px 20px 20px;
+    border: 2px solid  #003257;
+    margin: 0 auto;
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 300px;
+    justify-content: center;
+    
+}
+
+button:hover {
+    color:white;
+    background-color: #003257;
+}
+
+.todo {
+    width: 98%;
+    margin:0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.contenidoVertical{
+    height: 50%;
+    display:flex;
+    flex-direction: row;
+    background-color: transparent;
+    width:100%;
+     text-align: center;
+}
+.contenidoVertical>verticalIzquierda{
+     height: 50%;
+    display:flex;
+    flex-direction: row;
+    background-color: transparent;
+    width:100%;
+    text-align: left;
+    float:left;
+}
+.contenedorVertical{
+    width:100%;
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background-color: transparent;
+}
+.contenidoVertical>centrado{
+   justify-content: center;
+}
+h1 {
+    color: #003257;
+    font-size: 30px;
+    text-align: center;
+    vertical-align: middle;
+    margin:0;
+}
+
+
