@@ -88,6 +88,7 @@ public class ProductosListar extends HttpServlet {
             String[] words;
             String inicio;
             String end;
+            String formato;
             
             if(categoria == null){
                 switch(select) {
@@ -133,38 +134,46 @@ public class ProductosListar extends HttpServlet {
                         break;
                     
                     case "FechaHora":
-                        words = search.split("-"); //Solo puede haber 2 elementos
+                        words = search.split("-");
                         inicio = words[0];
-                        if(search.contains("-")){//Fechas entre inicio y end
-                            end = words[1];
-                            listaProductos = this.productoServices.searchByFechaHoraEntre(inicio, end);
-                        }else{//Fecha concreta
-                            listaProductos = this.productoServices.searchByFechaHora(inicio);
-                        }
-                        break;
-                    
-                    case "Fecha": 
-                        words = search.split("-"); //Solo puede haber 2 elementos
-                        inicio = words[0];
-                        if(search.contains("-")){//Fechas entre inicio y end
+                        formato = "\\d{2}/\\d{2}/\\d{4}\\s{1,}\\d{2}:\\d{2}";
+                        if(search.matches(formato)){ //Fecha concreta
+                            listaProductos = this.productoServices.searchByFecha(inicio);
+                        }else if(search.matches(formato +"\\s*-\\s*"+ formato)){ //Periodo entre dos fechas
                             end = words[1];
                             listaProductos = this.productoServices.searchByFechaEntre(inicio, end);
-                        }else{//Fecha concreta
-                            listaProductos = this.productoServices.searchByFecha(inicio);
+                        }else{ //Formato incorrecto
+                            listaProductos = null;
                         }
                         break;
                     
-                    case "Hora":
-                        words = search.split("-"); //Solo puede haber 2 elementos
+                    case "Fecha":
+                        words = search.split("-");
                         inicio = words[0];
-                        if(search.contains("-")){//Fechas entre inicio y end
+                        formato = "\\d{2}/\\d{2}/\\d{4}";
+                        if(search.matches(formato)){ //Fecha concreta
+                            listaProductos = this.productoServices.searchByFecha(inicio);
+                        }else if(search.matches(formato +"\\s*-\\s*"+ formato)){ //Periodo entre dos fechas
+                            end = words[1];
+                            listaProductos = this.productoServices.searchByFechaEntre(inicio, end);
+                        }else{ //Formato incorrecto
+                            listaProductos = null;
+                        }
+                        break;
+                        
+                    case "Hora":
+                        words = search.split("-");
+                        inicio = words[0];
+                        formato = "\\d{2}:\\d{2}";
+                        if(search.matches(formato)){ //Hora concreta del dia actual
+                            listaProductos = this.productoServices.searchByHora(inicio);
+                        }else if(search.matches(formato + "\\s*-\\s*" + formato)){ //Periodo entre dos horas del dia actual
                             end = words[1];
                             listaProductos = this.productoServices.searchByHoraEntre(inicio, end);
-                        }else{//Fecha concreta
-                            listaProductos = this.productoServices.searchByHora(inicio);
+                        }else{ //Formato Incorrecto
+                            listaProductos = null;
                         }
                         break;
-                    
                     default:
                         listaProductos = this.productoServices.searchAllInverso(); 
                 }

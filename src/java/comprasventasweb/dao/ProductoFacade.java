@@ -77,7 +77,7 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     public List<Producto> findByFecha(String search) {        
         
         Query q = this.getEntityManager().createNamedQuery("Producto.findByFecha");
-        Date date; 
+        Date date;
         try {
             date = new SimpleDateFormat("dd/MM/yyyy").parse(search);
             q.setParameter("fecha", date);
