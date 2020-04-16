@@ -6,6 +6,9 @@
                  Se mantendrá el botón del perfil y el añadir producto. Además aqui se podrá comentar y valorar el producto.
 --%>
 
+<%@page import="comprasventasweb.dto.ComentarioDTO"%>
+<%@page import="comprasventasweb.entity.Comentario"%>
+<%@page import="java.util.List"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="comprasventasweb.dto.ProductoDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -49,29 +52,48 @@
                         <div class="centrado"   ><h1 >Valoraci&oacute;n</h1></div>
                         <div class="contenidoVertical"  >
                             <form style="width:100%">
-                    <p class="clasificacion">
-    <input id="radio1" type="radio" name="estrellas" value="5"><!--
-    --><label class="estrella" for="radio1">★</label><!--
-    --><input id="radio2" type="radio" name="estrellas" value="4"><!--
-    --><label class="estrella"  for="radio2">★</label><!--
-    --><input id="radio3" type="radio" name="estrellas" value="3"><!--
-    --><label class="estrella" for="radio3">★</label><!--
-    --><input id="radio4" type="radio" name="estrellas" value="2"><!--
-    --><label class="estrella" for="radio4">★</label><!--
-    --><input id="radio5" type="radio" name="estrellas" value="1"><!--
-    --><label class="estrella" for="radio5">★</label>
-                    </p>
-                    </form></div>
-                    </div>    
-                    
+                                <p class="clasificacion">
+                                    <input id="radio1" type="radio" name="estrellas" value="5"><!--
+                                    --><label class="estrella" for="radio1">★</label><!--
+                                    --><input id="radio2" type="radio" name="estrellas" value="4"><!--
+                                    --><label class="estrella"  for="radio2">★</label><!--
+                                    --><input id="radio3" type="radio" name="estrellas" value="3"><!--
+                                    --><label class="estrella" for="radio3">★</label><!--
+                                    --><input id="radio4" type="radio" name="estrellas" value="2"><!--
+                                    --><label class="estrella" for="radio4">★</label><!--
+                                    --><input id="radio5" type="radio" name="estrellas" value="1"><!--
+                                    --><label class="estrella" for="radio5">★</label>
+                                </p>
+                            </form>
+                        </div>
+                    </div>  
                 </div>
             </div>
-                    <div class="contenedorVertical">
-                        <div class="contenidoVertical"><h1 class="margen">Vendedor: <%=pr.getVendedor().getNombre()%></h1></div>
-                        <div class="contenidoVertical"><p><%=pr.getDescripcion()%></p>
-                    </div>
+            <div class="contenedorVertical">
+                <div class="contenidoVertical"><h1 class="margen">Vendedor: <%=pr.getVendedor().getNombre()%></h1></div>
+                <div class="contenidoVertical"><p><%=pr.getDescripcion()%></p></div>
+            </div>
+            <div class ="comentarios">
+                <h1>Opiniones</h1>
+                <%
+                List<ComentarioDTO> comentarios = (List)request.getAttribute("listaComentarios");
+                if (comentarios == null || comentarios.isEmpty()) {
+                %>          
+            <h2>Ninguna opinión ha sido publicada todavía</h2>
+                <% 
+                } else {
+                    for(ComentarioDTO c : comentarios){%>
+                        <hr>
+                        Autor: <%=c.getUsuario().getNombre()%><br>
+                        Fecha: <%= fecha.format(c.getFecha()) + " " + hora.format(c.getHora()) %><br><br>
+                        <%= c.getTexto() %><br>
+                <%
+                    }
+                    
+                }
+                %>
+            </div>
         </div>
-        
         
     </body>
 </html>

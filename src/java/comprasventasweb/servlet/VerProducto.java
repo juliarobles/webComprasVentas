@@ -5,10 +5,13 @@
  */
 package comprasventasweb.servlet;
 
+import comprasventasweb.dto.ComentarioDTO;
 import comprasventasweb.dto.ProductoDTO;
 import comprasventasweb.dto.UsuarioDTO;
+import comprasventasweb.service.ComentarioService;
 import comprasventasweb.service.ProductoService;
 import java.io.IOException;
+import java.util.List;
 import javax.ejb.EJB;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +31,10 @@ import javax.servlet.http.HttpSession;
 public class VerProducto extends HttpServlet {
     @EJB
     private ProductoService productoService;
+    
+    @EJB
+    private ComentarioService comentarioService;
+        
     private static final Logger LOG = Logger.getLogger(VerProducto.class.getName());
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -52,14 +59,15 @@ public class VerProducto extends HttpServlet {
                     response.sendRedirect("ProductosListar");  
                 } else {
                     //Arreglar cuando se añada el acceso al producto
-                    ProductoDTO pr = null;
-                    pr = this.productoService.searchById(id);
+                    ProductoDTO pr = this.productoService.searchById(id);
                     if (pr == null) {
                         LOG.log(Level.SEVERE, "No se ha encontrado el producto");
                         response.sendRedirect("ProductosListar");  
                     } else {
                         HttpSession sesion = request.getSession();
                         sesion.setAttribute("producto", pr);
+                        List<ComentarioDTO> listaComentarios = this.comentarioService.searchByProducto(pr); 
+                        request.setAttribute("listaComentarios", listaComentarios);
 
                         RequestDispatcher rd = request.getRequestDispatcher("verProducto.jsp");
                         rd.forward(request, response);

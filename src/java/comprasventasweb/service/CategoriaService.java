@@ -6,11 +6,8 @@
 package comprasventasweb.service;
 
 import comprasventasweb.dao.CategoriaFacade;
-import comprasventasweb.dao.SubcategoriaFacade;
 import comprasventasweb.dto.CategoriaDTO;
-import comprasventasweb.dto.SubcategoriaDTO;
 import comprasventasweb.entity.Categoria;
-import comprasventasweb.entity.Subcategoria;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;

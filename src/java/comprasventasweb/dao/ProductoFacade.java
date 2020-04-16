@@ -43,6 +43,19 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         super(Producto.class);
     }
     
+    public Producto findById(Integer id){
+        Query q = this.getEntityManager().createNamedQuery("Producto.findById");
+        q.setParameter("id", id);
+        Producto p = null;
+        
+        List<Producto> lista = q.getResultList();
+        if(lista != null && !lista.isEmpty()){ //Comprobamos si no peta y si está vacía o no
+             p = lista.get(0);                //devolvemos el primer resultado que deberia de ser el único
+        }
+        
+        return p;
+    }
+    
     public List<Producto> findByUserId(Usuario user) {        
         Query q = this.getEntityManager().createNamedQuery("Producto.findByVendedor");
         q.setParameter("user", user);

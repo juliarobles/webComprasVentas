@@ -5,6 +5,7 @@
  */
 package comprasventasweb.entity;
 
+import comprasventasweb.dto.ComentarioDTO;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -36,7 +37,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Comentario.findById", query = "SELECT c FROM Comentario c WHERE c.id = :id")
     , @NamedQuery(name = "Comentario.findByTexto", query = "SELECT c FROM Comentario c WHERE c.texto = :texto")
     , @NamedQuery(name = "Comentario.findByHora", query = "SELECT c FROM Comentario c WHERE c.hora = :hora")
-    , @NamedQuery(name = "Comentario.findByFecha", query = "SELECT c FROM Comentario c WHERE c.fecha = :fecha")})
+    , @NamedQuery(name = "Comentario.findByFecha", query = "SELECT c FROM Comentario c WHERE c.fecha = :fecha")
+    , @NamedQuery(name = "Comentario.findByProducto", query = "SELECT c FROM Comentario c WHERE c.producto = :producto")})
 public class Comentario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -152,6 +154,17 @@ public class Comentario implements Serializable {
     @Override
     public String toString() {
         return "comprasventasweb.entity.Comentario[ id=" + id + " ]";
+    }
+    
+    public ComentarioDTO getDTO(){
+        ComentarioDTO c = new ComentarioDTO();
+        c.setFecha(fecha);
+        c.setHora(hora);
+        c.setId(id);
+        c.setTexto(texto);
+        c.setProducto(producto.getDTO());
+        c.setUsuario(usuario.getDTO());
+        return c;
     }
     
 }
