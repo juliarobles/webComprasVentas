@@ -40,7 +40,7 @@ public class RegistrarUsuario extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String statusTotal = null, usuario,nombre, correo, pass, destino = "registro.jsp"; //Añadir foto y admin ver qué valor es el de usuario normla
+        String statusTotal = null, usuario,nombre, correo, foto, pass, destino = "registro.jsp"; //Añadir foto y admin ver qué valor es el de usuario normla
         Boolean comprobar = true;
         //String [] status;
         //Si sobra tiempo hacerlo con arrays 
@@ -82,9 +82,10 @@ public class RegistrarUsuario extends HttpServlet {
              comprobar = false;
          }
          
+         foto = request.getParameter("foto");
          
          if(comprobar){
-             this.usuarioService.create(usuario, correo, nombre, pass, false);
+             this.usuarioService.create(usuario, correo, nombre, pass, false, foto);
              HttpSession sesion = request.getSession();
              usu = this.usuarioService.buscarPorCorreo(correo);
              sesion.setAttribute("usuario", usu);

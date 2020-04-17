@@ -76,7 +76,7 @@ public class UsuarioService {
         }
     }
 
-    public void create(String usuario, String correo, String nombre, String pass, boolean b) {    
+    public void create(String usuario, String correo, String nombre, String pass, boolean b, String foto) {    
         //Actualizar cuando se pueda y si es necesario a createOrUpdate
         Usuario user;
         user = new Usuario(0);
@@ -86,7 +86,7 @@ public class UsuarioService {
         user.setEmail(correo);
         user.setNombre(nombre);
         user.setPassword(pass);
-        user.setFoto("");
+        user.setFoto(foto);
         this.usuarioFacade.create(user);
         
     }

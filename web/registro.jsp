@@ -61,6 +61,9 @@
            <input type="password" placeholder="Introduzca su contraseña" name="pass" minlength="8" maxlength ="50" pattern="[A-Za-z0-9!?-]{8,50}" required>
            <p class="error"><%=statusContraseña%></p>
            
+           <label for="foto" class="palabrasPrincipales"><b>Foto de perfil</b></label>
+           <input type="url" placeholder="Introduzca la URL de la imagen" name="foto" maxlength ="512">
+           
            <button class="btn" type="submit">Registrarse</button>
          <!--   <table>
                 <tr>
