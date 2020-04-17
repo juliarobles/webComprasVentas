@@ -5,6 +5,7 @@
  */
 package comprasventasweb.entity;
 
+import comprasventasweb.dto.ValoracionDTO;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -29,7 +30,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Valoracion.findAll", query = "SELECT v FROM Valoracion v")
     , @NamedQuery(name = "Valoracion.findByNota", query = "SELECT v FROM Valoracion v WHERE v.nota = :nota")
     , @NamedQuery(name = "Valoracion.findByProducto", query = "SELECT v FROM Valoracion v WHERE v.valoracionPK.producto = :producto")
-    , @NamedQuery(name = "Valoracion.findByUsuario", query = "SELECT v FROM Valoracion v WHERE v.valoracionPK.usuario = :usuario")})
+    , @NamedQuery(name = "Valoracion.findByUsuario", query = "SELECT v FROM Valoracion v WHERE v.valoracionPK.usuario = :usuario")
+    , @NamedQuery(name = "Valoracion.findByProductoYUsuario",
+            query = "SELECT v FROM Valoracion v WHERE v.valoracionPK.usuario = :usuario and v.valoracionPK.producto = :producto")})
 public class Valoracion implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -117,6 +120,14 @@ public class Valoracion implements Serializable {
     @Override
     public String toString() {
         return "comprasventasweb.entity.Valoracion[ valoracionPK=" + valoracionPK + " ]";
+    }
+
+    public ValoracionDTO getDTO() {
+       ValoracionDTO res = new ValoracionDTO();
+       res.setProducto(producto1.getDTO());
+       res.setUsuario(usuario1.getDTO());
+       res.setValor(nota);
+       return res;
     }
     
 }

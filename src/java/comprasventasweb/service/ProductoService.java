@@ -10,12 +10,15 @@ import comprasventasweb.dao.EtiquetaFacade;
 import comprasventasweb.dao.ProductoFacade;
 import comprasventasweb.dao.SubcategoriaFacade;
 import comprasventasweb.dao.UsuarioFacade;
+import comprasventasweb.dao.ValoracionFacade;
 import comprasventasweb.dto.ProductoBasicoDTO;
 import comprasventasweb.dto.ProductoDTO;
 import comprasventasweb.dto.UsuarioDTO;
+import comprasventasweb.dto.ValoracionDTO;
 import comprasventasweb.entity.Etiqueta;
 import comprasventasweb.entity.Producto;
 import comprasventasweb.entity.Subcategoria;
+import comprasventasweb.entity.Usuario;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,7 +54,10 @@ public class ProductoService {
     
     @EJB
     private EtiquetaService etiquetaService;
+ 
     
+   
+      
     
     protected List<ProductoBasicoDTO> convertToDTO (List<Producto> listaProductos) {
         List<ProductoBasicoDTO> listaDTO = null;

@@ -5,10 +5,15 @@
  */
 package comprasventasweb.dao;
 
+import comprasventasweb.dto.ValoracionDTO;
+import comprasventasweb.entity.Producto;
+import comprasventasweb.entity.Usuario;
 import comprasventasweb.entity.Valoracion;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,4 +34,20 @@ public class ValoracionFacade extends AbstractFacade<Valoracion> {
         super(Valoracion.class);
     }
     
+     public List<Valoracion> searchByProductoYUser(int user, int pr) {        
+        Query q = this.getEntityManager().createNamedQuery("Valoracion.findByProductoYUsuario");
+        q.setParameter("usuario", user);
+        q.setParameter("producto", pr);
+        return q.getResultList();
+    } 
+
+  
+
+
+
+    public List<Valoracion> obtenerListaValoraciones(int producto) {
+       Query q = this.getEntityManager().createNamedQuery("Valoracion.findByProducto");
+       q.setParameter("producto", producto);
+       return q.getResultList();
+    }
 }
