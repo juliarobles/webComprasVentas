@@ -66,7 +66,7 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     public List<Producto> findByTituloDescripcion(String search) {        
         
         Query q = this.getEntityManager().createNamedQuery("Producto.findByTituloDescripcion");
-        q.setParameter("titulo", "%"+search+"%");
+        q.setParameter("titulo", "%"+search.toUpperCase()+"%");
             
         return q.getResultList();
     }
@@ -74,7 +74,7 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     public List<Producto> findByTitulo(String search) {        
         
         Query q = this.getEntityManager().createNamedQuery("Producto.findByTitulo");
-        q.setParameter("titulo", "%"+search+"%");
+        q.setParameter("titulo", "%"+search.toUpperCase()+"%");
             
         return q.getResultList();
     }
@@ -82,7 +82,7 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     public List<Producto> findByDescripcion(String search) {        
         
         Query q = this.getEntityManager().createNamedQuery("Producto.findByDescripcion");
-        q.setParameter("descripcion", "%"+search+"%");
+        q.setParameter("descripcion", "%"+search.toUpperCase()+"%");
             
         return q.getResultList();
     }
@@ -103,14 +103,15 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     
     public List<Producto> findByHora(String search) {        
         
-        Query q = this.getEntityManager().createNamedQuery("Producto.findByFecha");
-        Date date; 
+        Query q = this.getEntityManager().createNamedQuery("Producto.findByHora");
+        Date date1, date2; 
         try {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
-            LocalDateTime now = LocalDateTime.now();
-            String nueva = dtf.format(now)+" "+search;
-            date = new SimpleDateFormat("dd/MM/yyyy kk:mm").parse(nueva);
-            q.setParameter("fecha", date);
+            String uno = search + ":00";
+            String dos = search + ":59";
+            date1 = new SimpleDateFormat("kk:mm:ss").parse(uno);
+            date2 = new SimpleDateFormat("kk:mm:ss").parse(dos);
+            q.setParameter("hora1", date1);
+            q.setParameter("hora2", date2);
         } catch (ParseException ex) {
             Logger.getLogger(ProductoFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -120,11 +121,13 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     
     public List<Producto> findByFechaHora(String search) {        
         
-        Query q = this.getEntityManager().createNamedQuery("Producto.findByFecha");
-        Date date; 
+        Query q = this.getEntityManager().createNamedQuery("Producto.findByFechaHora");
+        Date date1, date2, hora1, hora2; 
         try {
-            date = new SimpleDateFormat("dd/MM/yyyy kk:mm").parse(search);
-            q.setParameter("fecha", date);
+            date1 = new SimpleDateFormat("dd/MM/yyyy kk:mm:ss").parse(search+":00");
+            date2 = new SimpleDateFormat("dd/MM/yyyy kk:mm:ss").parse(search+":59");
+            q.setParameter("fecha1", date1);
+            q.setParameter("fecha2", date2);
         } catch (ParseException ex) {
             Logger.getLogger(ProductoFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -152,18 +155,16 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     
     public List<Producto> findByHoraEntre(String inicio, String end) {        
         
-        Query q = this.getEntityManager().createNamedQuery("Producto.findByFechaEntre");
-        Date date;
+        Query q = this.getEntityManager().createNamedQuery("Producto.findByHora");
+        Date date1;
         Date date2; 
         try {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
-            LocalDateTime now = LocalDateTime.now();
-            String nueva1 = dtf.format(now)+" "+inicio;
-            String nueva2 = dtf.format(now)+" "+end;
-            date = new SimpleDateFormat("dd/MM/yyyy kk:mm").parse(nueva1);
-            date2 = new SimpleDateFormat("dd/MM/yyyy kk:mm").parse(nueva2);
-            q.setParameter("inicio", date);
-            q.setParameter("end", date2);
+            String uno = inicio+":00";
+            String dos = end +":59";
+            date1 = new SimpleDateFormat("kk:mm:ss").parse(uno);
+            date2 = new SimpleDateFormat("kk:mm:ss").parse(dos);
+            q.setParameter("hora1", date1);
+            q.setParameter("hora2", date2);
             
         } catch (ParseException ex) {
             Logger.getLogger(ProductoFacade.class.getName()).log(Level.SEVERE, null, ex);
@@ -174,14 +175,14 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     
     public List<Producto> findByFechaHoraEntre(String inicio, String end) {        
         
-        Query q = this.getEntityManager().createNamedQuery("Producto.findByFechaEntre");
+        Query q = this.getEntityManager().createNamedQuery("Producto.findByFechaHora");
         Date date;
         Date date2; 
         try {
-            date = new SimpleDateFormat("dd/MM/yyyy kk:mm").parse(inicio);
-            date2 = new SimpleDateFormat("dd/MM/yyyy kk:mm").parse(end);
-            q.setParameter("inicio", date);
-            q.setParameter("end", date2);
+            date = new SimpleDateFormat("dd/MM/yyyy kk:mm:ss").parse(inicio+":00");
+            date2 = new SimpleDateFormat("dd/MM/yyyy kk:mm:ss").parse(end+":59");
+            q.setParameter("fecha1", date);
+            q.setParameter("fecha2", date2);
             
         } catch (ParseException ex) {
             Logger.getLogger(ProductoFacade.class.getName()).log(Level.SEVERE, null, ex);
@@ -194,7 +195,7 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     public List<Producto> findByEtiquetas(String search) {        
         
         Query q = this.getEntityManager().createNamedQuery("Producto.findByEtiquetas");
-        q.setParameter("etiqueta", search);
+        q.setParameter("etiqueta", search.toUpperCase());
         //System.out.println(q.getResultList()); //Para ver si devulve algo   
         return q.getResultList();
     }

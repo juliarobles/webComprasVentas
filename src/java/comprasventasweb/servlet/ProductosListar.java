@@ -133,7 +133,7 @@ public class ProductosListar extends HttpServlet {
                         inicio = words[0];
                         formato = "\\d{2}/\\d{2}/\\d{4}\\s{1,}\\d{2}:\\d{2}";
                         if(search.matches(formato)){ //Fecha concreta
-                            listaProductos = this.productoServices.searchByFecha(inicio);
+                            listaProductos = this.productoServices.searchByFechaHora(inicio);
                         }else if(search.matches(formato +"\\s*-\\s*"+ formato)){ //Periodo entre dos fechas
                             end = words[1];
                             listaProductos = this.productoServices.searchByFechaEntre(inicio, end);
@@ -158,12 +158,13 @@ public class ProductosListar extends HttpServlet {
                         
                     case "Hora":
                         words = search.split("-");
-                        inicio = words[0];
+                        inicio = words[0].trim();
                         formato = "\\d{2}:\\d{2}";
                         if(search.matches(formato)){ //Hora concreta del dia actual
                             listaProductos = this.productoServices.searchByHora(inicio);
                         }else if(search.matches(formato + "\\s*-\\s*" + formato)){ //Periodo entre dos horas del dia actual
-                            end = words[1];
+                            end = words[1].trim();
+                            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa la fecha esssssssssss '" + end + "'");
                             listaProductos = this.productoServices.searchByHoraEntre(inicio, end);
                         }else{ //Formato Incorrecto
                             listaProductos = null;

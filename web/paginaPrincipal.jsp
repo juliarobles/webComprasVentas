@@ -78,7 +78,7 @@
                 <option value="Fecha">Fecha</option>
                 <option value="Hora">Hora</option>-->
             </select>
-            <input type="text" name="busqueda" id="busqueda" value="<%=busqueda%>" placeholder="" size="30" maxlength="300" minlength="1" required>
+            <input type="text" name="busqueda" id="busqueda" value="<%=busqueda%>" placeholder="" size="30" maxlength="300">
         </form>
         
         <form action="ProductosListar">
