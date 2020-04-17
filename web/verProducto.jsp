@@ -51,20 +51,23 @@
                     <div class="contenedorVertical">
                         <div class="centrado"   ><h1 >Valoraci&oacute;n</h1></div>
                         <div class="contenidoVertical"  >
-                            <form style="width:100%">
+                                <form method="post" action="GuardarValoracion" style="width:100%">
                                 <p class="clasificacion">
-                                    <input id="radio1" type="radio" name="estrellas" value="5"><!--
+                                    <input id="radio1" type="radio" name="estrellas" value="5" onclick="javascript:submit()"><!--
                                     --><label class="estrella" for="radio1">★</label><!--
-                                    --><input id="radio2" type="radio" name="estrellas" value="4"><!--
+                                    --><input id="radio2" type="radio" name="estrellas" value="4"onclick="javascript:submit()"><!--
                                     --><label class="estrella"  for="radio2">★</label><!--
-                                    --><input id="radio3" type="radio" name="estrellas" value="3"><!--
+                                    --><input id="radio3" type="radio" name="estrellas" value="3"onclick="javascript:submit()"><!--
                                     --><label class="estrella" for="radio3">★</label><!--
-                                    --><input id="radio4" type="radio" name="estrellas" value="2"><!--
+                                    --><input id="radio4" type="radio" name="estrellas" value="2"onclick="javascript:submit()"><!--
                                     --><label class="estrella" for="radio4">★</label><!--
-                                    --><input id="radio5" type="radio" name="estrellas" value="1"><!--
+                                    --><input id="radio5" type="radio" name="estrellas" value="1"onclick="javascript:submit()"><!--
                                     --><label class="estrella" for="radio5">★</label>
+                                    
                                 </p>
+                                
                             </form>
+                            
                         </div>
                     </div>  
                 </div>

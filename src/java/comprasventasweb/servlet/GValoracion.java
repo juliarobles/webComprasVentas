@@ -7,7 +7,6 @@ package comprasventasweb.servlet;
 
 import comprasventasweb.dto.ProductoDTO;
 import comprasventasweb.dto.UsuarioDTO;
-import comprasventasweb.service.ProductoService;
 import comprasventasweb.service.ValoracionService;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,12 +23,9 @@ import javax.servlet.http.HttpSession;
  *
  * @author danim
  */
-@WebServlet(name = "GuardarValoracion", urlPatterns = {"/GuardarValoracion"})
-public class GuardarValoracion extends HttpServlet {
+@WebServlet(name = "GValoracion", urlPatterns = {"/GValoracion"})
+public class GValoracion extends HttpServlet {
 
-    
-    @EJB
-    private ValoracionService valoracionService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,16 +35,15 @@ public class GuardarValoracion extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    @EJB
+    private ValoracionService valoracionService;
+   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("He entrado en guardarValoracion");
-        
-        
          HttpSession sesion = request.getSession();
         ProductoDTO pr = (ProductoDTO)sesion.getAttribute("producto");
         int valoracion = Integer.parseInt(request.getParameter("estrellas"));
         UsuarioDTO usu = (UsuarioDTO)sesion.getAttribute("usuario");
-        System.out.println(pr.getTitulo() + " " + valoracion + " " + usu.getNombre());
         this.valoracionService.valorar(valoracion, pr, usu);
         
         RequestDispatcher rd = request.getRequestDispatcher("verProducto.jsp");

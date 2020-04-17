@@ -14,14 +14,21 @@ import comprasventasweb.dto.ValoracionDTO;
 import comprasventasweb.entity.Producto;
 import comprasventasweb.entity.Usuario;
 import comprasventasweb.entity.Valoracion;
+import comprasventasweb.entity.ValoracionPK;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author danim
  */
+
+@Stateless
 public class ValoracionService {
+    
+        private static final Logger LOG = Logger.getLogger(ValoracionService.class.getName());
      @EJB
      private ValoracionFacade valoracionFacade;
      
@@ -31,33 +38,32 @@ public class ValoracionService {
      @EJB
      private UsuarioFacade usuarioFacade;
      
-     @EJB 
-     private ProductoService productoService;
-     
-     @EJB
-     private UsuarioService usuarioService;
+
      
       public void createOrUpdate (int nota, int usuario, int producto) {
-        Valoracion val= this.valoracionFacade.searchByProductoYUser(usuario, producto).get(0);
+        List<Valoracion> val= this.valoracionFacade.searchByProductoYUser(usuario, producto);
         
         boolean esCrearNuevo = false;
-        
-        if ( val ==null ) { // Estamos en el caso de creación de un nuevo cliente
-            val = new Valoracion(); // Aunque el id es autoincremental, hay ocasiones en las que
+        Valoracion valoracion;
+        if ( val.isEmpty() || val == null ) { // Estamos en el caso de creación de un nuevo cliente
+             valoracion = new Valoracion(new ValoracionPK(producto, usuario)); // Aunque el id es autoincremental, hay ocasiones en las que
                                        // si no se le da un valor por defecto, da un error al guardarlo.
             esCrearNuevo = true;
-        } 
+        } else{
+            valoracion = this.valoracionFacade.searchByProductoYUser(usuario, producto).get(0);
+        }
 
         
-        val.setNota(nota);
-        val.setProducto1(this.productoFacade.find(producto+""));
-        val.setUsuario1(this.usuarioFacade.find(usuario));
+        valoracion.setNota(nota);
+        System.out.println("Informacion valoracion: " +producto + " " + usuario);
+        valoracion.setProducto1(this.productoFacade.find(producto));
+        valoracion.setUsuario1(this.usuarioFacade.find(usuario));
        
         
         if (esCrearNuevo) {
-            this.valoracionFacade.create(val);
+            this.valoracionFacade.create(valoracion);
         } else {
-            this.valoracionFacade.edit(val);
+            this.valoracionFacade.edit(valoracion);
         } 
     }
          
@@ -65,11 +71,7 @@ public class ValoracionService {
     
     public void valorar(int v, ProductoDTO pr, UsuarioDTO usu){
         //Primero tenemos que ver si el usuario ha valorado ya antes este producto
-        
-       
             this.createOrUpdate(v, usu.getId(), pr.getId());
-        
-        
         //Finalmente actualizamos la media de las valoraciones
             actualizarMedia(pr.getId());
     }
