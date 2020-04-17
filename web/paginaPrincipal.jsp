@@ -54,7 +54,8 @@
         
         </div>-->
         <div class="navbar" id="navbar">
-        <img class="headerImagen" src="imagenes/logoblanco.png" width="100" height="30">
+            <a href="ProductosListar?busqueda= &selectBuscar= ">
+                <img class="headerImagen" src="imagenes/logoblanco.png" width="100" height="30"> </a>
         <script type="text/javascript" src="javascript/buscador.js"></script> 
         <form action="ProductosListar">
             <select class="selectBuscar" id="selectBuscar" name="selectBuscar" onchange="changePlaceholder()">
@@ -106,8 +107,8 @@
     %>  
             </select>
         </form>
-            <a href="CerrarSesion">Cerrar sesión</a>
-            <a href="PerfilUsuario">Perfil</a>
+            <a class="link" href="CerrarSesion">Cerrar sesión</a>
+            <a class="link" href="PerfilUsuario">Perfil</a>
             <a class="Crear" href="ProductoCrear">Nuevo producto</a>
         </div>    
             

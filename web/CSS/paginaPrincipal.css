@@ -50,7 +50,7 @@ and open the template in the editor.
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 30px;
-  padding-right: 50px;
+  padding-right: 30px;
   object-fit: contain;
 }
 
@@ -208,7 +208,7 @@ form {
 }
 
 /* Navbar links */
-.navbar a {
+.link, .Crear {
   float: right;
   display: block;
   color: white;
@@ -219,7 +219,7 @@ form {
   margin-right: 10px;
 }
 
-.navbar a:hover {
+.link a:hover {
     color: #d4d4d4;
 }
 
@@ -300,7 +300,7 @@ a.Crear:hover {
 
 /* When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */
 @media screen and (max-width: 600px) {
-  .navbar a, .navbar input[type=text] {
+  .link, .navbar input[type=text] {
     float: none;
     display: block;
     text-align: left;
