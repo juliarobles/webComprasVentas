@@ -51,7 +51,7 @@ public class GuardarValoracion extends HttpServlet {
         System.out.println(pr.getTitulo() + " " + valoracion + " " + usu.getNombre());
         this.valoracionService.valorar(valoracion, pr, usu);
         
-        RequestDispatcher rd = request.getRequestDispatcher("verProducto.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("VerProducto");
         rd.forward(request, response);
         
     }

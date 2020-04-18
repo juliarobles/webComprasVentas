@@ -39,6 +39,7 @@ public class ValoracionService {
      private UsuarioFacade usuarioFacade;
      
 
+ 
      
       public void createOrUpdate (int nota, int usuario, int producto) {
         List<Valoracion> val= this.valoracionFacade.searchByProductoYUser(usuario, producto);
@@ -90,5 +91,14 @@ public class ValoracionService {
         Producto pr =this.productoFacade.find(producto);
        pr.setValoracionmedia(media);
        this.productoFacade.edit(pr);
+    }
+
+    public int searchValoracion(Integer user, Integer producto) {
+        List<Valoracion> val = this.valoracionFacade.searchByProductoYUser(user, producto);
+        if(val == null || val.isEmpty()){
+            return -1;
+        } else {
+            return val.get(0).getNota();
+        }
     }
 }

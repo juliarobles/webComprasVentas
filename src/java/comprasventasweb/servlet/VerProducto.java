@@ -10,6 +10,7 @@ import comprasventasweb.dto.ProductoDTO;
 import comprasventasweb.dto.UsuarioDTO;
 import comprasventasweb.service.ComentarioService;
 import comprasventasweb.service.ProductoService;
+import comprasventasweb.service.ValoracionService;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
@@ -34,6 +35,9 @@ public class VerProducto extends HttpServlet {
     
     @EJB
     private ComentarioService comentarioService;
+    
+    @EJB
+    private ValoracionService valoracionService;
         
     private static final Logger LOG = Logger.getLogger(VerProducto.class.getName());
     /**
@@ -68,6 +72,8 @@ public class VerProducto extends HttpServlet {
                         sesion.setAttribute("producto", pr);
                         List<ComentarioDTO> listaComentarios = this.comentarioService.searchByProducto(pr); 
                         request.setAttribute("listaComentarios", listaComentarios);
+                        int valoracion = this.valoracionService.searchValoracion(user.getId(), pr.getId());
+                        request.setAttribute("valoracion", valoracion);
 
                         RequestDispatcher rd = request.getRequestDispatcher("verProducto.jsp");
                         rd.forward(request, response);

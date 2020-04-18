@@ -61,9 +61,7 @@ input[type="radio"] {
   display: none;
 }
 
-label {
-  color: grey;
-}
+
 
 .clasificacion {
   direction: rtl;

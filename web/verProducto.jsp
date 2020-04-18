@@ -18,6 +18,7 @@
         <%
         HttpSession sesion = request.getSession();
         ProductoDTO pr = (ProductoDTO)sesion.getAttribute("producto");
+        Integer valoracion = (Integer)request.getAttribute("valoracion");
         //De primeras supondremos que producto no es null, si da error pues se arregla y listo (o ponemos una ventana 
         //de ha ocurrido un error)
         //Vamos a poner que ponga un producto aleatorio, luego descomentaremos las lineas de arriba
@@ -31,6 +32,7 @@
     <body>
        <link rel="stylesheet" href="CSS/formularios.css">
         <link rel="stylesheet" href="CSS/verProducto.css">
+        <script type="text/javascript" src="javascript/ponerEstrellas.js"></script>
         <a class="volver" href="ProductosListar">&#8592 Volver al menú principal </a></br>
         <div class="todo">
             <div class="contenido1" >
@@ -49,20 +51,21 @@
                 <div class="contenidoDerecha">
                     
                     <div class="contenedorVertical">
+                        <input type="hidden" id="val" name="val" value="<%= valoracion %>" />
                         <div class="centrado"   ><h1 >Valoraci&oacute;n</h1></div>
                         <div class="contenidoVertical"  >
-                                <form method="post" action="GuardarValoracion" style="width:100%">
+                                <form method="post" action="GuardarValoracion?id=<%= pr.getId() %>" style="width:100%">
                                 <p class="clasificacion">
                                     <input id="radio1" type="radio" name="estrellas" value="5" onclick="javascript:submit()"><!--
-                                    --><label class="estrella" for="radio1">★</label><!--
+                                    --><label id="valor5" class="estrella" for="radio1">★</label><!--
                                     --><input id="radio2" type="radio" name="estrellas" value="4"onclick="javascript:submit()"><!--
-                                    --><label class="estrella"  for="radio2">★</label><!--
+                                    --><label id="valor4" class="estrella"  for="radio2">★</label><!--
                                     --><input id="radio3" type="radio" name="estrellas" value="3"onclick="javascript:submit()"><!--
-                                    --><label class="estrella" for="radio3">★</label><!--
+                                    --><label id="valor3" class="estrella" for="radio3">★</label><!--
                                     --><input id="radio4" type="radio" name="estrellas" value="2"onclick="javascript:submit()"><!--
-                                    --><label class="estrella" for="radio4">★</label><!--
+                                    --><label id="valor2" class="estrella" for="radio4">★</label><!--
                                     --><input id="radio5" type="radio" name="estrellas" value="1"onclick="javascript:submit()"><!--
-                                    --><label class="estrella" for="radio5">★</label>
+                                    --><label id="valor1" class="estrella" for="radio5">★</label>
                                     
                                 </p>
                                 
