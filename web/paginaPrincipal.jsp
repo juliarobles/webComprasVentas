@@ -147,9 +147,9 @@
                     precio = p + "";
                 }
                 if(producto.getValoracionmedia() < 0){
-                    valoracion = "-";
+                    valoracion = "";
                 } else {
-                    valoracion = producto.getValoracionmedia() + "";
+                    valoracion = producto.getValoracionmedia() + "★";
                 }
         %>
         <div class="item">
@@ -160,7 +160,7 @@
             <article>
                 <div class ="top">
                    <vendedor>@<%= producto.getVendedor().getUsuario() %></vendedor>
-                   <valoracion><%= valoracion %>★</valoracion>
+                   <valoracion><%= valoracion %></valoracion>
                 </div>
                 <h4 class="tituloCard"><%= producto.getTitulo()  %></h1>
                 <p class = "descripcionCard"><%= producto.getDescripcion() %></p>
@@ -173,40 +173,15 @@
            </a>
         </div>
         
-        
-        <!--
-        <tr>
-            <td><%= producto.getId() %></td>
-            <td><%= producto.getTitulo()  %></td>
-            <td><%= producto.getDescripcion() %></td>
-            <td><%= producto.getPrecio() %></td>
-            <% try{
-                     %>
-                     <td><img src=<%= producto.getFoto() %> width="200" height="200"></td>
-                     <% } catch(Exception e){
-                     %>
-                    <td><%= producto.getFoto() %></td>
-                    <%
-                        }
-                     %>
-            
-            <td><%= producto.getValoracionmedia() %></td> 
-            <td><%= producto.getVendedor().getUsuario() %></td>
-            <td><%= producto.getFecha() %></td> 
-            <td><%= producto.getHora() %></td>
-        </tr>
-        -->
         <%
             }// for
         %>
-        <!--
-        </table>
-        -->
+
         </div>
         <%
         }//if
         %>
-        <!--<script type="text/javascript" src="javascript/navbar.js"></script>-->
+
         </div>
     </body>
 </html>

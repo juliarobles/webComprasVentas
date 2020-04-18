@@ -122,12 +122,15 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     public List<Producto> findByFechaHora(String search) {        
         
         Query q = this.getEntityManager().createNamedQuery("Producto.findByFechaHora");
-        Date date1, date2, hora1, hora2; 
+        String[] fh1 = search.split(" ");
+        Date date, hora1, hora2; 
         try {
-            date1 = new SimpleDateFormat("dd/MM/yyyy kk:mm:ss").parse(search+":00");
-            date2 = new SimpleDateFormat("dd/MM/yyyy kk:mm:ss").parse(search+":59");
-            q.setParameter("fecha1", date1);
-            q.setParameter("fecha2", date2);
+            date = new SimpleDateFormat("dd/MM/yyyy").parse(fh1[0]);
+            hora1 = new SimpleDateFormat("kk:mm:ss").parse(fh1[1]+":00");
+            hora2 = new SimpleDateFormat("kk:mm:ss").parse(fh1[1]+":59"); 
+            q.setParameter("fecha", date);
+            q.setParameter("hora1", hora1);
+            q.setParameter("hora2", hora2);
         } catch (ParseException ex) {
             Logger.getLogger(ProductoFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -175,15 +178,19 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     
     public List<Producto> findByFechaHoraEntre(String inicio, String end) {        
         
-        Query q = this.getEntityManager().createNamedQuery("Producto.findByFechaHora");
-        Date date;
-        Date date2; 
+        Query q = this.getEntityManager().createNamedQuery("Producto.findByFechaHoraEntre");
+        String[] fh1 = inicio.split(" ");
+        String[] fh2 = end.split(" ");
+        Date date1, date2, hora1, hora2; 
         try {
-            date = new SimpleDateFormat("dd/MM/yyyy kk:mm:ss").parse(inicio+":00");
-            date2 = new SimpleDateFormat("dd/MM/yyyy kk:mm:ss").parse(end+":59");
-            q.setParameter("fecha1", date);
+            date1 = new SimpleDateFormat("dd/MM/yyyy").parse(fh1[0]);
+            date2 = new SimpleDateFormat("dd/MM/yyyy").parse(fh2[0]);
+            hora1 = new SimpleDateFormat("kk:mm:ss").parse(fh1[1]+":00");
+            hora2 = new SimpleDateFormat("kk:mm:ss").parse(fh2[1]+":59"); 
+            q.setParameter("fecha1", date1);
             q.setParameter("fecha2", date2);
-            
+            q.setParameter("hora1", hora1);
+            q.setParameter("hora2", hora2);
         } catch (ParseException ex) {
             Logger.getLogger(ProductoFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
