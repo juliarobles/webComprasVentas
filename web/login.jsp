@@ -11,6 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+       
         <title>Iniciar sesi&oacute;n</title>
     </head>
     <body>
@@ -86,7 +87,7 @@
              <h3 class="error"><%= status %></h3>
              
              <a  href="registro.jsp" class="enlace"><p class="enlace">¿No tienes cuenta? </p>  </a> <!-- Quiero ponerlo en el centro :( -->
-             <a class="enlace" href="verProducto"><p class="enlace">Ver producto(pruebas)</p></a>
+             <a class="enlace" href="prueba.jsp"><p class="enlace">Ver producto(pruebas)</p></a>
         </form> 
         </div>
        
