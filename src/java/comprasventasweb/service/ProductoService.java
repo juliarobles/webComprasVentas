@@ -6,6 +6,7 @@
 package comprasventasweb.service;
 
 import comprasventasweb.dao.CategoriaFacade;
+import comprasventasweb.dao.ComentarioFacade;
 import comprasventasweb.dao.EtiquetaFacade;
 import comprasventasweb.dao.ProductoFacade;
 import comprasventasweb.dao.SubcategoriaFacade;
@@ -15,10 +16,12 @@ import comprasventasweb.dto.ProductoBasicoDTO;
 import comprasventasweb.dto.ProductoDTO;
 import comprasventasweb.dto.UsuarioDTO;
 import comprasventasweb.dto.ValoracionDTO;
+import comprasventasweb.entity.Comentario;
 import comprasventasweb.entity.Etiqueta;
 import comprasventasweb.entity.Producto;
 import comprasventasweb.entity.Subcategoria;
 import comprasventasweb.entity.Usuario;
+import comprasventasweb.entity.Valoracion;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,6 +58,11 @@ public class ProductoService {
     @EJB
     private EtiquetaService etiquetaService;
  
+    @EJB
+    private ComentarioFacade comentarioFacade;
+    
+    @EJB
+    private ValoracionFacade valoracionFacade;
     
    
       
@@ -238,6 +246,8 @@ public class ProductoService {
             return false;
         } else {
             vaciarEtiquetas(producto);
+            eliminarComentarios(producto);
+            eliminarValoraciones(producto);
             this.productoFacade.remove(producto);
             return true;
         }
@@ -251,5 +261,17 @@ public class ProductoService {
     public List<ProductoBasicoDTO> searchByCategory(int id) {
         List<Producto> listaProductos = this.productoFacade.findByCategory(this.categoriaFacade.find(id));
         return this.convertToDTO(listaProductos);
+    }
+
+    private void eliminarComentarios(Producto producto) {
+        for(Comentario c : this.comentarioFacade.findByProducto(producto)){
+            this.comentarioFacade.remove(c);
+        }
+    }
+
+    private void eliminarValoraciones(Producto producto) {
+        for(Valoracion v : this.valoracionFacade.findByProducto(producto)){
+            this.valoracionFacade.remove(v);
+        }
     }
 }

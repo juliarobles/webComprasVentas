@@ -7,6 +7,7 @@ package comprasventasweb.dao;
 
 import comprasventasweb.entity.Comentario;
 import comprasventasweb.entity.Producto;
+import comprasventasweb.entity.Usuario;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -35,6 +36,13 @@ public class ComentarioFacade extends AbstractFacade<Comentario> {
     public List<Comentario> findByProducto(Producto producto) {        
         Query q = this.getEntityManager().createNamedQuery("Comentario.findByProducto");
         q.setParameter("producto", producto);
+        
+        return q.getResultList();
+    }
+
+    public Iterable<Comentario> findByUser(Usuario usuario) {
+        Query q = this.getEntityManager().createNamedQuery("Comentario.findByUser");
+        q.setParameter("usuario", usuario);
         
         return q.getResultList();
     }

@@ -60,7 +60,7 @@
                         <td><i>AVISO: Si haces administrador a un usuario no podrás quitarle el acceso admin posteriormente ni borrarlo</i></td>
                     </tr>
                     <tr>
-                        <td>Constraseña</td>
+                        <td>Contraseña</td>
                         <td><input type="text" name="password" value="<%= password %>" size="30" minlength="8" maxlength ="50" pattern="[A-Za-z0-9!?-]{8,50}" required/></td> 
                     </tr>
                 </table>

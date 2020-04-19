@@ -90,21 +90,30 @@ fecha{
 .descripcionCard {
     font-size: 15px;
     line-height: 22px;
-    margin-bottom: 18px;
+    margin-bottom: 40px;
     color: #999;
+    max-height: 92px;
     white-space: normal;
     word-wrap: break-word;
+    overflow:hidden;
+    text-overflow: ellipsis;
 }
 
 .bottom{
     overflow: hidden;
     border-top: 1px solid #eee;
     padding-top: 20px;
+    position: absolute;
+    display:block;
+    bottom:15px;
+    left:20px;
+    right:20px;
 }
 
 bottom div {
     float: left;
     width: 50%;
+    
 }
 
 article {

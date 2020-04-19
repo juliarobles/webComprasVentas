@@ -6,6 +6,8 @@
                  un boton para acceder a su perfil con los productos vendidos por el propio usuario y con otro para añadir un nuevo producto
 --%>
 
+<%@page import="java.math.RoundingMode"%>
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="comprasventasweb.dto.SubcategoriaBasicaDTO"%>
 <%@page import="comprasventasweb.dto.CategoriaDTO"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -137,8 +139,10 @@
         } else {
         %>
         <div class="band">
-        <%    
-            String precio = "", valoracion = "";
+        <%  
+            DecimalFormat df = new DecimalFormat("#.##");
+            df.setRoundingMode(RoundingMode.CEILING);
+            String precio = "", valoracion = "", descripcion = "";
             for (ProductoBasicoDTO producto : productos) {
                 Float p = producto.getPrecio();
                 if(p % 1 == 0){
@@ -149,8 +153,16 @@
                 if(producto.getValoracionmedia() < 0){
                     valoracion = "";
                 } else {
-                    valoracion = producto.getValoracionmedia() + "★";
+                    valoracion = df.format(producto.getValoracionmedia()) + "★";
                 }
+                descripcion = producto.getDescripcion();
+                int max = 115;
+                if(producto.getTitulo().length() > 30) {
+                    max = 80;
+                }
+                if(descripcion.length() > max){
+                    descripcion = descripcion.substring(0, max-3) + "...";
+                } 
         %>
         <div class="item">
            <a href="VerProducto?id=<%= producto.getId() %>" class="card">
@@ -163,7 +175,7 @@
                    <valoracion><%= valoracion %></valoracion>
                 </div>
                 <h4 class="tituloCard"><%= producto.getTitulo()  %></h1>
-                <p class = "descripcionCard"><%= producto.getDescripcion() %></p>
+                <p class = "descripcionCard"><%= descripcion %></p>
                 <div class="bottom">
                     <precio><%= precio %>€</precio>
                     <fecha><%= fecha.format(producto.getFecha()) + " " + hora.format(producto.getHora()) %></fecha>

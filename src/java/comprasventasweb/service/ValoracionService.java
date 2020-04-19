@@ -5,6 +5,7 @@
  */
 package comprasventasweb.service;
 
+import comprasventasweb.dao.ComentarioFacade;
 import comprasventasweb.dao.ProductoFacade;
 import comprasventasweb.dao.UsuarioFacade;
 import comprasventasweb.dao.ValoracionFacade;
@@ -28,7 +29,8 @@ import javax.ejb.Stateless;
 @Stateless
 public class ValoracionService {
     
-        private static final Logger LOG = Logger.getLogger(ValoracionService.class.getName());
+     private static final Logger LOG = Logger.getLogger(ValoracionService.class.getName());
+     
      @EJB
      private ValoracionFacade valoracionFacade;
      
@@ -38,7 +40,8 @@ public class ValoracionService {
      @EJB
      private UsuarioFacade usuarioFacade;
      
-
+     @EJB
+     private ComentarioFacade comentarioFacade;
  
      
       public void createOrUpdate (int nota, int usuario, int producto) {
@@ -80,15 +83,20 @@ public class ValoracionService {
     public void actualizarMedia (int producto){
         List<Valoracion> lista=  this.valoracionFacade.obtenerListaValoraciones(producto);
         float media = 0;
-        for(Valoracion v:lista){
-            if(v.getNota()<=5 && v.getNota()>=0){
-               media+=v.getNota();   
-            }
-          
-         }
-        media = media/lista.size();
-        
-        Producto pr =this.productoFacade.find(producto);
+        if(lista != null && !lista.isEmpty()){ 
+            int tam = 0;
+            for(Valoracion v:lista){
+                if(v.getNota()<=5 && v.getNota()>=0){
+                   media+=v.getNota();
+                   tam++;
+                }
+             }
+            media = media/tam;
+        } else {
+            media = -1;
+        }
+         
+       Producto pr =this.productoFacade.find(producto);
        pr.setValoracionmedia(media);
        this.productoFacade.edit(pr);
     }
@@ -99,6 +107,14 @@ public class ValoracionService {
             return -1;
         } else {
             return val.get(0).getNota();
+        }
+    }
+
+    public void eliminarTodasValoraciones(int usuario) {
+        for(Valoracion v : this.valoracionFacade.findByUser(this.usuarioFacade.find(usuario))){
+            int producto = v.getProducto1().getId();
+            this.valoracionFacade.remove(v);
+            this.actualizarMedia(producto);
         }
     }
 }

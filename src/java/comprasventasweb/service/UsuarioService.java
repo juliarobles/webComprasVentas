@@ -5,9 +5,11 @@
  */
 package comprasventasweb.service;
 
+import comprasventasweb.dao.ComentarioFacade;
 import comprasventasweb.dao.ProductoFacade;
 import comprasventasweb.dao.UsuarioFacade;
 import comprasventasweb.dto.UsuarioDTO;
+import comprasventasweb.entity.Comentario;
 import comprasventasweb.entity.Producto;
 import comprasventasweb.entity.Usuario;
 import java.util.ArrayList;
@@ -35,6 +37,13 @@ public class UsuarioService {
     
     @EJB
     private ProductoService productoService;
+    
+    @EJB
+    private ValoracionService valoracionService;
+    
+    @EJB
+    private ComentarioFacade comentarioFacade;
+   
     
     protected List<UsuarioDTO> convertToDTO (List<Usuario> listaUsuarios){
        List<UsuarioDTO> listaDTO = null;
@@ -135,8 +144,16 @@ public class UsuarioService {
             for(Producto p : this.productoFacade.findByUserId(usuario)){
                 this.productoService.remove(p.getId()+"");
             }
+            this.valoracionService.eliminarTodasValoraciones(usuario.getId());
+            eliminarComentarios(usuario);
             this.usuarioFacade.remove(usuario);
             return true;
+        }
+    }
+
+    private void eliminarComentarios(Usuario usuario) {
+        for(Comentario c : this.comentarioFacade.findByUser(usuario)){
+            this.comentarioFacade.remove(c);
         }
     }
   
