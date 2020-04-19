@@ -274,4 +274,12 @@ public class ProductoService {
             this.valoracionFacade.remove(v);
         }
     }
+
+    public Producto buscarPorId(String string) {
+            Producto producto = this.productoFacade.find(new Integer(string));
+        if (producto != null) {
+            return producto;
+        } else {
+            return null;
+        }    }
 }

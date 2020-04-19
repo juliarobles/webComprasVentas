@@ -156,5 +156,9 @@ public class UsuarioService {
             this.comentarioFacade.remove(c);
         }
     }
+
+    public Usuario buscarPorID(Integer usuario) {
+       return this.usuarioFacade.find(usuario);
+    }
   
 }

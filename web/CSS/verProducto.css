@@ -24,17 +24,37 @@ body{
 
 
 .container {
-                display:block;
-                justify-content: space-around ;
-                background-color:black;
+                margin: 0 auto;
+                padding:15px;
+                display: flex;
+                flex-wrap: wrap;
+                border-color: #e6e6e6;
+                justify-content: center ;
+                background-color: #e6e6e6;
 		width:90%;
 		height:90%;
-                margin:20px;
+                   border-radius:0px 20px 20px 20px;
+    -moz-border-radius: 0px 20px 20px 20px;
+    -webkit-border-radius: 0px 20px 20px 20px;
 }
 select {
     width: 470px;
 }
 
+
+.usuarioComentario{
+    width:80%;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    margin: 8px;
+    margin-top: 14px;
+}
+emisor{
+   color: #003257;
+   font-size: 13px;
+   font-weight: normal;
+}
 
 #form {
   width: 250px;
@@ -68,6 +88,7 @@ input[type="radio"] {
   unicode-bidi: bidi-override;
   margin-top: 5px;
   margin-bottom : 5px;
+ margin:auto;
 }
 
 label:hover,
@@ -189,6 +210,14 @@ button:hover {
     justify-content: center;
 }
 
+.usuarioVendedor{
+    height: fit-content;
+    width:100%;
+    text-align: center;
+    display:flex;
+    flex-direction: row;
+    margin-bottom: 8px;
+}
 .contenidoVertical{
     height: 50%;
     display:flex;
@@ -198,9 +227,21 @@ button:hover {
      text-align: center;
 }
 
+.descripcion{
+    width:95%;
+    word-break: break-all;
+    
+}
 .contMargenAbajo{
     margin-bottom: 20px;
 }
+
+
+.cajaComentarios{
+    width:95%;
+    margin-top: 20px;
+}
+
 
 .contenedorVertical{
     width:100%;
@@ -208,6 +249,7 @@ button:hover {
     flex-direction: column;
     flex-wrap: wrap;
     background-color: transparent;
+    height: auto;
 }
 .contenidoVertical>centrado{
    justify-content: center;
@@ -219,7 +261,9 @@ h1, titulo, comentario {
     vertical-align: middle;
     margin:0;
 }
-
+contenedorComentario{
+    width: 90%;
+}
 titulo{
     color: black;
 }
@@ -238,6 +282,7 @@ categoria{
 
 p{
     color: #999999;
+    
 }
 vendedor:hover{
     color: #00cccc;
@@ -245,16 +290,33 @@ vendedor:hover{
 .margen, vendedor, p{
     margin-left: 35px;
 }
+textoComentario{
+    width: 100%;
+    font-size: 15px;
+    word-break: break-all;
+    color:  #666666;
+}
+
+textoDescripcion{
+   
+    font-size: 15px;
+    word-break: break-all;
+    color:  #666666;
+    
+}
 
 .nuevoComentario{
     width: fit-content;
 }
 
 .tituloComentar{
-    margin-top: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     justify-content: center;
     text-align: center;
     width:100%;
 }
+
+
 
 

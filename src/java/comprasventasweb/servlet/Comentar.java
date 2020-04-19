@@ -5,12 +5,15 @@
  */
 package comprasventasweb.servlet;
 
+import comprasventasweb.dao.ComentarioFacade;
 import comprasventasweb.dto.ProductoDTO;
 import comprasventasweb.dto.UsuarioDTO;
 import comprasventasweb.entity.Producto;
 import comprasventasweb.entity.Usuario;
+import comprasventasweb.service.ComentarioService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,7 +28,10 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "Comentar", urlPatterns = {"/Comentar"})
 public class Comentar extends HttpServlet {
-
+        
+        
+    @EJB
+    private ComentarioService comentarioService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,18 +45,24 @@ public class Comentar extends HttpServlet {
             throws ServletException, IOException {
        System.out.println("He entrado al servlet de comentar");
        
-       //Saco los parámetros del comentario
        HttpSession sesion = request.getSession();
+       //Hacer siempre para comprobar el usuario
+       if(sesion.getAttribute("usuario")==null){
+           response.sendRedirect("login.jsp");
+       }
+       //Saco los parámetros del comentario
+  
        ProductoDTO pr = (ProductoDTO)sesion.getAttribute("producto");
        UsuarioDTO usu = (UsuarioDTO)sesion.getAttribute("usuario");
        String contenido = request.getParameter("comentario");
        
        
+       this.comentarioService.comentario(pr, usu, contenido);
        
        System.out.println(pr.getTitulo()+ " " + usu.getUsuario() + " " + contenido);
        
-       
-       RequestDispatcher rd = request.getRequestDispatcher("verProducto.jsp");
+      
+       RequestDispatcher rd = request.getRequestDispatcher("VerProducto?id=" + pr.getId());
        rd.forward(request, response);
     }
 

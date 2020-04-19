@@ -67,9 +67,7 @@ img.avatar {
   border-radius: 50%;
 }
 
-.container {
-  padding: 16px;
-}
+
 
 span.psw {
   float: right;
@@ -191,12 +189,12 @@ span.psw {
                 </div>
             </div>
             <div class="contenedorVertical">
-                <div class="contenidoVertical"><vendedor>@<%=pr.getVendedor().getNombre()%></vendedor></div>
-                <div class="contenidoVertical"><p><%=pr.getDescripcion()%></p></div>
+                <div class="usuarioVendedor"><vendedor>@<%=pr.getVendedor().getNombre()%></vendedor></div>
+                <div class="descripcion"><textoDescripcion><%=pr.getDescripcion()%></textoDescripcion></div>
             </div>
-            <div class ="comentarios">
+            <div class="cajaComentarios">
                 <h1>Opiniones</h1> 
-                                    <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Comentar</button>
+                      <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Comentar</button>
 
                     <div id="id01" class="modal">
 
@@ -233,18 +231,6 @@ span.psw {
                         }
                     };
                     </script>
-                   
-                   
-
-
-                   
-                   
-                       
-                 
-                   
-                   
-                   
-                
                 <%
                 List<ComentarioDTO> comentarios = (List)request.getAttribute("listaComentarios");
                 if (comentarios == null || comentarios.isEmpty()) {
@@ -253,10 +239,16 @@ span.psw {
                 <% 
                 } else {
                     for(ComentarioDTO c : comentarios){%>
-                        <hr>
-                        Autor: <%=c.getUsuario().getNombre()%><br>
-                        Fecha: <%= fecha.format(c.getFecha()) + " " + hora.format(c.getHora()) %><br><br>
-                        <%= c.getTexto() %><br>
+                    <div class="contenedorComentario" >
+                        <div class="usuarioComentario">
+                            <emisor> @<%=c.getUsuario().getNombre()%> - <%= fecha.format(c.getFecha()) + " - " + hora.format(c.getHora()) %></emisor>
+                        </div>
+                        <div class="container">
+                            <textoComentario><%= c.getTexto() %></textoComentario>
+                                
+                        </div>
+                        
+                    </div>
                 <%
                     }
                     
