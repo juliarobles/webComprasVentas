@@ -6,6 +6,9 @@
                  Si nos sobra tiempo haremos un boton para que edite el perfil
 --%>
 
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="java.math.RoundingMode"%>
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="comprasventasweb.dto.EtiquetaDTO"%>
 <%@page import="comprasventasweb.dto.ProductoDTO"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -63,6 +66,9 @@
         } else {
             SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
             SimpleDateFormat hora = new SimpleDateFormat("HH:mm");
+
+            DecimalFormat df = new DecimalFormat("#.##");
+            df.setRoundingMode(RoundingMode.CEILING);
         %>
         <table>
         <tr>
@@ -81,7 +87,7 @@
             for (ProductoDTO producto : productos) {
                 String valoracion = "Sin valoraciones", precio = "";
                 if(producto.getValoracionmedia() != -1){
-                    valoracion = producto.getValoracionmedia()+"";
+                    valoracion = df.format(producto.getValoracionmedia())+"";
                 }
                 Float p = producto.getPrecio();
                 if(p % 1 == 0){
@@ -106,6 +112,7 @@
             <td><%= precio %>€</td>     
             <td><%= valoracion %></td> 
             <td><%= (fecha.format(producto.getFecha()) + " " + hora.format(producto.getHora()) )%></td>
+            <td><a class="editar" href="VerProducto?id=<%= producto.getId() %>&editar=si">Ver todo</a></td>
             <td><a class="editar" href="ProductoEditar?id=<%= producto.getId() %>">Editar</a></td>
             <td><a class="borrar" href="ProductoBorrar?id=<%= producto.getId() %>" onclick="return confirm('¿Estás seguro?');">Borrar</a></td>
         </tr>

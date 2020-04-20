@@ -51,10 +51,7 @@
                             {"FechaHora", "Fecha y hora"}, {"Fecha","Fecha"}, {"Hora","Hora"}};
 
         %>
-        
-        <!--<div class="header">
-        
-        </div>-->
+
         <div class="navbar" id="navbar">
             <a href="ProductosListar?busqueda= &selectBuscar= ">
                 <img class="headerImagen" src="imagenes/logoblanco.png" width="100" height="30"> </a>
@@ -72,14 +69,6 @@
                 <%
                     }
                 %>
-                <!--
-                <option value="TituloDescripcion">Título y descripción</option>
-                <option value="Titulo">Título</option>
-                <option value="Descripcion">Descripción</option>
-                <option value="Etiqueta">Etiquetas</option>
-                <option value="FechaHora">Fecha y hora</option>
-                <option value="Fecha">Fecha</option>
-                <option value="Hora">Hora</option>-->
             </select>
             <input type="text" name="busqueda" id="busqueda" value="<%=busqueda%>" placeholder="" size="30" maxlength="300">
         </form>
@@ -179,7 +168,6 @@
                 <div class="bottom">
                     <precio><%= precio %>€</precio>
                     <fecha><%= fecha.format(producto.getFecha()) + " " + hora.format(producto.getHora()) %></fecha>
-                    
                 </div>
             </article>
            </a>

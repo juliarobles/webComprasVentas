@@ -31,7 +31,7 @@ th, td {
   text-align: center;
   white-space: normal;
   word-wrap: break-word;
-  max-width: 300px;
+  max-width: 200px;
 }
 
 td {
@@ -77,6 +77,8 @@ h3 {
     padding: 10px;
     border: 0.5px solid #003257;
     color: #003257;
+    display: block;
+    min-width: 60px;
 }
 
 .editar:hover {

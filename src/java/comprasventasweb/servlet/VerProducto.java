@@ -74,6 +74,8 @@ public class VerProducto extends HttpServlet {
                         request.setAttribute("listaComentarios", listaComentarios);
                         int valoracion = this.valoracionService.searchValoracion(user.getId(), pr.getId());
                         request.setAttribute("valoracion", valoracion);
+                        String d = request.getParameter("editar");
+                        if(d != null && d.equals("si")) request.setAttribute("editar", "si");
 
                         RequestDispatcher rd = request.getRequestDispatcher("verProducto.jsp");
                         rd.forward(request, response);
