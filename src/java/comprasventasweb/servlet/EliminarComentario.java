@@ -5,11 +5,6 @@
  */
 package comprasventasweb.servlet;
 
-import comprasventasweb.dao.ComentarioFacade;
-import comprasventasweb.dto.ProductoDTO;
-import comprasventasweb.dto.UsuarioDTO;
-import comprasventasweb.entity.Producto;
-import comprasventasweb.entity.Usuario;
 import comprasventasweb.service.ComentarioService;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,18 +15,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author danim
  */
-@WebServlet(name = "Comentar", urlPatterns = {"/Comentar"})
-public class Comentar extends HttpServlet {
-        
-        
-    @EJB
+@WebServlet(name = "EliminarComentario", urlPatterns = {"/EliminarComentario"})
+public class EliminarComentario extends HttpServlet {
+    
+    
+    @EJB 
     private ComentarioService comentarioService;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,33 +38,16 @@ public class Comentar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       System.out.println("He entrado al servlet de comentar");
-       
-       HttpSession sesion = request.getSession();
-       //Hacer siempre para comprobar el usuario
-       if(sesion.getAttribute("usuario")==null){
-           response.sendRedirect("login.jsp");
-       }
-       //Saco los parámetros del comentario
-  
-       ProductoDTO pr = (ProductoDTO)sesion.getAttribute("producto");
-       UsuarioDTO usu = (UsuarioDTO)sesion.getAttribute("usuario");
-       String contenido = request.getParameter("comentario");
-       
-       
-       this.comentarioService.comentario(pr, usu, contenido);
-       
-       System.out.println(pr.getTitulo()+ " " + usu.getUsuario() + " " + contenido);
-       
-      
-       response.sendRedirect("VerProducto?id=" + pr.getId());
-       
-       
-       /*RequestDispatcher rd = request.getRequestDispatcher("VerProducto?id=" + pr.getId());  
-       rd.forward(request, response);*/
-       
-      
-    }
+            String idComentario = request.getParameter("idComentario");
+            String idProducto = (String)request.getAttribute("idProducto");
+            this.comentarioService.eliminarComentario(idProducto, idComentario);
+            
+            
+            
+            RequestDispatcher rd = request.getRequestDispatcher("VerProducto?id=" + idProducto);
+            rd.forward(request, response);
+        }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
