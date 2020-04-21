@@ -44,7 +44,7 @@
                         <td>Foto</td>
                         <td><input type="url" name="foto" value="<%= foto %>" size="30" maxlength="520" placeholder="URL de la imagen" /></td>
                     </tr>
-                    <tr>
+                    <!--<tr>
                         <td>Administrador</td>
                         <%
                             String valorT = (administrador)?"checked":"";
@@ -58,7 +58,7 @@
                     <tr>
                         <td></td>
                         <td><i>AVISO: Si haces administrador a un usuario no podrás quitarle el acceso admin posteriormente ni borrarlo</i></td>
-                    </tr>
+                    </tr>-->
                     <tr>
                         <td>Contraseña</td>
                         <td><input type="text" name="password" value="<%= password %>" size="30" minlength="8" maxlength ="50" pattern="[A-Za-z0-9!?-]{8,50}" required/></td> 

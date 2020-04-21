@@ -75,7 +75,7 @@
               <td><%= etiquetas.toString() %></td>
               <td><%= prod.getCategoria().getNombre() %></td>
               <td><a href="PerfilUsuario?id=<%= prod.getVendedor().getId() %>"><%=prod.getVendedor().getUsuario()%></a></td>
-              <td><a href="VerProducto?id=<%= prod.getId() %>">Consultar</td>
+              <td><a href="ProductoVer?id=<%= prod.getId() %>">Consultar</td>
               <td><a href="ProductoEditar?id=<%= prod.getId() %>">Editar</a></td>
               <td><a href="ProductoBorrar?id=<%= prod.getId() %>" onclick="return confirm('¿Estás seguro?');">Borrar</a></td>
             </tr>

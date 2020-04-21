@@ -73,7 +73,10 @@ public class ComentarioService {
         this.comentarioFacade.create(comentario);
     }
 
-    public void eliminarComentario(String idProducto, String idComentario) {
-        this.comentarioFacade.remove(this.comentarioFacade.find(idComentario));
+    public void eliminarComentario(int idComentario) {
+        Comentario comentario = this.comentarioFacade.find(idComentario);
+        if(comentario != null){
+            this.comentarioFacade.remove(comentario);
+        }
     }
 }

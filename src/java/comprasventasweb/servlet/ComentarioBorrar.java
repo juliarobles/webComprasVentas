@@ -5,9 +5,13 @@
  */
 package comprasventasweb.servlet;
 
+import comprasventasweb.dto.ProductoDTO;
+import comprasventasweb.dto.UsuarioDTO;
 import comprasventasweb.service.ComentarioService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,14 +19,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author danim
  */
-@WebServlet(name = "EliminarComentario", urlPatterns = {"/EliminarComentario"})
-public class EliminarComentario extends HttpServlet {
+@WebServlet(name = "ComentarioBorrar", urlPatterns = {"/ComentarioBorrar"})
+public class ComentarioBorrar extends HttpServlet {
     
+    private static final Logger LOG = Logger.getLogger(ComentarioBorrar.class.getName());
     
     @EJB 
     private ComentarioService comentarioService;
@@ -38,14 +44,23 @@ public class EliminarComentario extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            String idComentario = request.getParameter("idComentario");
-            String idProducto = (String)request.getAttribute("idProducto");
-            this.comentarioService.eliminarComentario(idProducto, idComentario);
-            
-            
-            
-            RequestDispatcher rd = request.getRequestDispatcher("VerProducto?id=" + idProducto);
-            rd.forward(request, response);
+        
+            HttpSession sesion = request.getSession();
+            UsuarioDTO usu = (UsuarioDTO)sesion.getAttribute("usuario");
+        
+            if (usu==null) { // Se ha llamado al servlet sin haberse autenticado
+                response.sendRedirect("login.jsp");            
+            } else {
+                ProductoDTO pr = (ProductoDTO)sesion.getAttribute("producto");
+                String idComentario = request.getParameter("id");
+                if(pr == null || idComentario == null || idComentario.isEmpty()){
+                    LOG.log(Level.SEVERE, "No se ha encontrado el comentario a borrar");
+                response.sendRedirect("ProductosListar"); 
+                } else {
+                    this.comentarioService.eliminarComentario(Integer.parseInt(idComentario));
+                    response.sendRedirect("ProductoVer?id=" + pr.getId());
+                }
+            } 
         }
     
 

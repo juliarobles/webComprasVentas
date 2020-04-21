@@ -112,7 +112,7 @@
             <td><%= precio %>€</td>     
             <td><%= valoracion %></td> 
             <td><%= (fecha.format(producto.getFecha()) + " " + hora.format(producto.getHora()) )%></td>
-            <td><a class="editar" href="VerProducto?id=<%= producto.getId() %>&editar=si">Ver todo</a></td>
+            <td><a class="editar" href="ProductoVer?id=<%= producto.getId() %>&editar=si">Ver todo</a></td>
             <td><a class="editar" href="ProductoEditar?id=<%= producto.getId() %>">Editar</a></td>
             <td><a class="borrar" href="ProductoBorrar?id=<%= producto.getId() %>" onclick="return confirm('¿Estás seguro?');">Borrar</a></td>
         </tr>

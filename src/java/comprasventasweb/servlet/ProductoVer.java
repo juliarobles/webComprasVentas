@@ -5,13 +5,17 @@
  */
 package comprasventasweb.servlet;
 
+import comprasventasweb.dto.ComentarioDTO;
 import comprasventasweb.dto.ProductoDTO;
 import comprasventasweb.dto.UsuarioDTO;
+import comprasventasweb.service.ComentarioService;
 import comprasventasweb.service.ProductoService;
 import comprasventasweb.service.ValoracionService;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,12 +28,18 @@ import javax.servlet.http.HttpSession;
  *
  * @author danim
  */
-@WebServlet(name = "GuardarValoracion", urlPatterns = {"/GuardarValoracion"})
-public class GuardarValoracion extends HttpServlet {
-
+@WebServlet(name = "ProductoVer", urlPatterns = {"/ProductoVer"})
+public class ProductoVer extends HttpServlet {
+    @EJB
+    private ProductoService productoService;
+    
+    @EJB
+    private ComentarioService comentarioService;
     
     @EJB
     private ValoracionService valoracionService;
+        
+    private static final Logger LOG = Logger.getLogger(ProductoVer.class.getName());
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,20 +51,39 @@ public class GuardarValoracion extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("He entrado en guardarValoracion");
         
-        
-         HttpSession sesion = request.getSession();
-        ProductoDTO pr = (ProductoDTO)sesion.getAttribute("producto");
-        int valoracion = Integer.parseInt(request.getParameter("estrellas"));
-        UsuarioDTO usu = (UsuarioDTO)sesion.getAttribute("usuario");
-        System.out.println(pr.getTitulo() + " " + valoracion + " " + usu.getNombre());
-        this.valoracionService.valorar(valoracion, pr, usu);
-        
-        RequestDispatcher rd = request.getRequestDispatcher("VerProducto");
-        rd.forward(request, response);
-        
-    }
+            HttpSession session = request.getSession();
+            UsuarioDTO user = (UsuarioDTO)session.getAttribute("usuario");
+            if (user==null) { // Se ha llamado al servlet sin haberse autenticado
+                response.sendRedirect("login.jsp");            
+            } else {
+                String id = request.getParameter("id");
+                if(id == null){
+                    LOG.log(Level.SEVERE, "No se ha encontrado el producto");
+                    response.sendRedirect("ProductosListar");  
+                } else {
+                    //Arreglar cuando se añada el acceso al producto
+                    ProductoDTO pr = this.productoService.searchById(id);
+                    if (pr == null) {
+                        LOG.log(Level.SEVERE, "No se ha encontrado el producto");
+                        response.sendRedirect("ProductosListar");  
+                    } else {
+                        HttpSession sesion = request.getSession();
+                        sesion.setAttribute("producto", pr);
+                        List<ComentarioDTO> listaComentarios = this.comentarioService.searchByProducto(pr); 
+                        request.setAttribute("listaComentarios", listaComentarios);
+                        int valoracion = this.valoracionService.searchValoracion(user.getId(), pr.getId());
+                        request.setAttribute("valoracion", valoracion);
+                        String d = request.getParameter("editar");
+                        if(d != null && d.equals("si")) request.setAttribute("editar", "si");
+
+                        RequestDispatcher rd = request.getRequestDispatcher("verProducto.jsp");
+                        rd.forward(request, response);
+                    }
+                }
+            }
+        }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

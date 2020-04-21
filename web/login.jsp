@@ -86,8 +86,7 @@
              <button type="submit" class="btn">Login</button>
              <h3 class="error"><%= status %></h3>
              
-             <a  href="registro.jsp" class="enlace"><p class="enlace">¿No tienes cuenta? </p>  </a> <!-- Quiero ponerlo en el centro :( -->
-             <a class="enlace" href="prueba.jsp"><p class="enlace">Ver producto(pruebas)</p></a>
+             <a  href="registro.jsp" class="enlace"><p class="enlace">¿No tienes cuenta? </p>  </a>
         </form> 
         </div>
        

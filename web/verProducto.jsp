@@ -35,7 +35,7 @@
         DecimalFormat df = new DecimalFormat("#.##");
         df.setRoundingMode(RoundingMode.CEILING);
             
-        if(user.getId() == pr.getVendedor().getId()) {
+        if(user.getId() == pr.getVendedor().getId() || user.getAdministrador()) {
             propio = true;
         }
         
@@ -98,7 +98,7 @@
                         <td>
                             <input type="hidden" id="val" name="val" value="<%= valoracion %>" />
                             <p> ¿Que nota le pondrías a este producto? </p>
-                            <form class="estre" method="post" action="GuardarValoracion?id=<%= pr.getId() %>">
+                            <form class="estre" method="post" action="ValoracionGuardar?id=<%= pr.getId() %>">
                                 <p class="clasificacion"> 
                                     <input id="radio1" type="radio" name="estrellas" value="5" onclick="javascript:submit()">
                                     <label id="valor5" for="radio1">★</label>
@@ -125,7 +125,7 @@
                 %>
                     
                 <div id="id01" class="modal">
-                    <form class="modal-content animate" action="Comentar" method="post">
+                    <form class="modal-content animate" action="ComentarioGuardar" method="post">
                         <h3>Nuevo comentario</h3>
                         <textarea class="contenidoComentario"  maxlength="300"cols="60" rows="8" name="comentario" required ></textarea>
                         <p><button type="submit" class="comentarioSubmit">Enviar comentario</button></p>
@@ -144,9 +144,9 @@
                     for(ComentarioDTO c : comentarios){%>
                         <p class="emisor"> @<%=c.getUsuario().getUsuario() %> - <%= fecha.format(c.getFecha()) + " - " + hora.format(c.getHora()) %></p>
                         <p class="comentarioContainer"><%= c.getTexto() %></p>
-                        <% if(c.getUsuario().getId() == user.getId()){
+                        <% if(c.getUsuario().getId() == user.getId() || user.getAdministrador()){
                         %>
-                            <p><a class="eliminar" href="">Eliminar comentario</a></p> 
+                            <p><a class="eliminar" href="ComentarioBorrar?id=<%= c.getId() %>">Eliminar comentario</a></p> 
                 <%         }
                        
                     }

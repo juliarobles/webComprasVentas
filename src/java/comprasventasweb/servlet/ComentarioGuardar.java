@@ -13,6 +13,8 @@ import comprasventasweb.entity.Usuario;
 import comprasventasweb.service.ComentarioService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,9 +28,9 @@ import javax.servlet.http.HttpSession;
  *
  * @author danim
  */
-@WebServlet(name = "Comentar", urlPatterns = {"/Comentar"})
-public class Comentar extends HttpServlet {
-        
+@WebServlet(name = "ComentarioGuardar", urlPatterns = {"/ComentarioGuardar"})
+public class ComentarioGuardar extends HttpServlet {
+     private static final Logger LOG = Logger.getLogger(ComentarioGuardar.class.getName());
         
     @EJB
     private ComentarioService comentarioService;
@@ -43,32 +45,25 @@ public class Comentar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       System.out.println("He entrado al servlet de comentar");
+        
+        HttpSession sesion = request.getSession();
+        UsuarioDTO usu = (UsuarioDTO)sesion.getAttribute("usuario");
+        
+        if (usu==null) { // Se ha llamado al servlet sin haberse autenticado
+            response.sendRedirect("login.jsp");            
+        } else {
+            ProductoDTO pr = (ProductoDTO)sesion.getAttribute("producto");
+            if(pr==null){
+                LOG.log(Level.SEVERE, "No se ha encontrado el producto a valorar");
+                response.sendRedirect("ProductosListar");  
+            } else {
+                String contenido = request.getParameter("comentario");
+                this.comentarioService.comentario(pr, usu, contenido);
        
-       HttpSession sesion = request.getSession();
-       //Hacer siempre para comprobar el usuario
-       if(sesion.getAttribute("usuario")==null){
-           response.sendRedirect("login.jsp");
-       }
-       //Saco los parámetros del comentario
-  
-       ProductoDTO pr = (ProductoDTO)sesion.getAttribute("producto");
-       UsuarioDTO usu = (UsuarioDTO)sesion.getAttribute("usuario");
-       String contenido = request.getParameter("comentario");
+                response.sendRedirect("ProductoVer?id=" + pr.getId());
+            }
+        } 
        
-       
-       this.comentarioService.comentario(pr, usu, contenido);
-       
-       System.out.println(pr.getTitulo()+ " " + usu.getUsuario() + " " + contenido);
-       
-      
-       response.sendRedirect("VerProducto?id=" + pr.getId());
-       
-       
-       /*RequestDispatcher rd = request.getRequestDispatcher("VerProducto?id=" + pr.getId());  
-       rd.forward(request, response);*/
-       
-      
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

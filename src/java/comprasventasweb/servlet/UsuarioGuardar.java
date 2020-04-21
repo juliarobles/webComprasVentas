@@ -46,7 +46,7 @@ public class UsuarioGuardar extends HttpServlet {
             
             this.usuarioService.createOrUpdate(
                     Integer.parseInt(request.getParameter("id")), request.getParameter("usuario"), request.getParameter("email"),
-                    request.getParameter("nombre"), request.getParameter("password"), Boolean.parseBoolean(request.getParameter("administrador")),
+                    request.getParameter("nombre"), request.getParameter("password"), /*Boolean.parseBoolean(request.getParameter("administrador"))*/ false,
                     request.getParameter("foto")
             );
             

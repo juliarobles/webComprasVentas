@@ -41,7 +41,7 @@
         %>
         <div class="fondo">
            
-        <form method="post" action="RegistrarUsuario" class="container">
+        <form method="post" action="UsuarioRegistrar" class="container">
              <h1 class="iniciarSesion">¡Bienvenido!</h1>
         <h3 class="palabrasPrincipales">Introduce tus datos</h3>
             

@@ -7,9 +7,12 @@ package comprasventasweb.servlet;
 
 import comprasventasweb.dto.ProductoDTO;
 import comprasventasweb.dto.UsuarioDTO;
+import comprasventasweb.service.ProductoService;
 import comprasventasweb.service.ValoracionService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,9 +26,13 @@ import javax.servlet.http.HttpSession;
  *
  * @author danim
  */
-@WebServlet(name = "GValoracion", urlPatterns = {"/GValoracion"})
-public class GValoracion extends HttpServlet {
+@WebServlet(name = "ValoracionGuardar", urlPatterns = {"/ValoracionGuardar"})
+public class ValoracionGuardar extends HttpServlet {
 
+    private static final Logger LOG = Logger.getLogger(ValoracionGuardar.class.getName());
+    
+    @EJB
+    private ValoracionService valoracionService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,19 +42,27 @@ public class GValoracion extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @EJB
-    private ValoracionService valoracionService;
-   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("He entrado en guardarValoracion");
-         HttpSession sesion = request.getSession();
-        ProductoDTO pr = (ProductoDTO)sesion.getAttribute("producto");
-        int valoracion = Integer.parseInt(request.getParameter("estrellas"));
-        UsuarioDTO usu = (UsuarioDTO)sesion.getAttribute("usuario");
-        this.valoracionService.valorar(valoracion, pr, usu);
         
-        RequestDispatcher rd = request.getRequestDispatcher("verProducto.jsp");
-        rd.forward(request, response);
+        HttpSession sesion = request.getSession();
+        UsuarioDTO usu = (UsuarioDTO)sesion.getAttribute("usuario");
+        
+        if (usu==null) { // Se ha llamado al servlet sin haberse autenticado
+            response.sendRedirect("login.jsp");            
+        } else { 
+            ProductoDTO pr = (ProductoDTO)sesion.getAttribute("producto");
+            if(pr == null){
+                LOG.log(Level.SEVERE, "No se ha encontrado el producto a valorar");
+                response.sendRedirect("ProductosListar");  
+            } else {
+                int valoracion = Integer.parseInt(request.getParameter("estrellas"));
+                this.valoracionService.valorar(valoracion, pr, usu);
+
+                response.sendRedirect("ProductoVer?id=" + pr.getId());
+            }
+            
+        }
         
     }
 

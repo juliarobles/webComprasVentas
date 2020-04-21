@@ -22,8 +22,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author danim
  */
-@WebServlet(name = "RegistrarUsuario", urlPatterns = {"/RegistrarUsuario"})
-public class RegistrarUsuario extends HttpServlet {
+@WebServlet(name = "UsuarioRegistrar", urlPatterns = {"/UsuarioRegistrar"})
+public class UsuarioRegistrar extends HttpServlet {
 
     
     @EJB
