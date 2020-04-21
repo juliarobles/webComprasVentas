@@ -6,6 +6,7 @@
                  Se mantendrá el botón del perfil y el añadir producto. Además aqui se podrá comentar y valorar el producto.
 --%>
 
+<%@page import="comprasventasweb.dto.EtiquetaDTO"%>
 <%@page import="java.math.RoundingMode"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="comprasventasweb.dto.UsuarioDTO"%>
@@ -73,10 +74,20 @@
                     <media><%= media %></media>
                 </p>
                 <p class="descripcion"><%=pr.getDescripcion()%></p>
+                <p>
+                <%  for(EtiquetaDTO et : pr.getEtiquetas()){
+                %>
+                <a href="ProductosListar?busqueda=<%= et.getNombre()%>&selectBuscar=Etiqueta">#<%= et.getNombre()%></a>
+                <%
+                }
+                %>
+                </p>
                 <p class="fila">
                     <vendedor>Vendido por: @<%=pr.getVendedor().getUsuario() %></vendedor>
                     <fecha><%= fecha.format(pr.getFecha()) + " " + hora.format(pr.getHora()) %></fecha>
                 </p>
+                
+                
                 <%
                 if(!propio){
                 %>
