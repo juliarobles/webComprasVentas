@@ -57,6 +57,7 @@ and open the template in the editor.
     max-height: 350px;
     min-height: 100px;
     object-fit: contain;
+    object-position: top center;
     background-color: white;
     -webkit-border-radius: 3px 5px 1px 4px; 
     -moz-border-radius: 6px; 
@@ -120,6 +121,21 @@ vendedor, categoria a, .emisor {
 
 .fila {
     line-height:1.5em;
+}
+
+h5 {
+    color: #454545;
+    margin: 0 auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-align: center;
+    clear: both;
+}
+
+.precio {
+    color: #003257;
+    font-size: 30px;
+    margin-bottom: 10px;
 }
 
 .contenido button, .botonComentario, .comentarioSubmit {
