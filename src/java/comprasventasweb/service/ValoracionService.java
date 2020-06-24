@@ -49,7 +49,7 @@ public class ValoracionService {
         
         boolean esCrearNuevo = false;
         Valoracion valoracion;
-        if ( val.isEmpty() || val == null ) { // Estamos en el caso de creación de un nuevo cliente
+        if ( val == null || val.isEmpty()) { // Estamos en el caso de creación de un nuevo cliente
              valoracion = new Valoracion(new ValoracionPK(producto, usuario)); // Aunque el id es autoincremental, hay ocasiones en las que
                                        // si no se le da un valor por defecto, da un error al guardarlo.
             esCrearNuevo = true;
@@ -110,7 +110,7 @@ public class ValoracionService {
         }
     }
 
-    public void eliminarTodasValoraciones(int usuario) {
+    public void eliminarTodasValoraciones(int usuario) { //Consulta que borra todos
         for(Valoracion v : this.valoracionFacade.findByUser(this.usuarioFacade.find(usuario))){
             int producto = v.getProducto1().getId();
             this.valoracionFacade.remove(v);

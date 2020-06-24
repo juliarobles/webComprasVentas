@@ -40,9 +40,16 @@
             propio = true;
         }
         
-        String media = "";
+        String media = "", precio = "";
         if(pr.getValoracionmedia() > 0){
             media = df.format(pr.getValoracionmedia()) + "/5★";
+        }
+        
+        Float p = pr.getPrecio();
+        if(p % 1 == 0){
+            precio = p.intValue() + "";
+        } else {
+            precio = p + "";
         }
         
         if(destino != null && destino.equals("si")){
@@ -87,7 +94,8 @@
                     <fecha><%= fecha.format(pr.getFecha()) + " " + hora.format(pr.getHora()) %></fecha>
                 </p>
                 
-                
+                <h5>Precio</h5>
+                <h5 class="precio"><%= precio %>€</h5>
                 <%
                 if(!propio){
                 %>
@@ -95,6 +103,7 @@
                 <%
                 }    
                 %>
+                
             </div>
             
             <div class="comentarios">

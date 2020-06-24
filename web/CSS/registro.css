@@ -118,7 +118,7 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, inp
 .error{
     color:red;
     font-weight: normal;
-    line-height: 6px;
-    font-size: 15px;
+    line-height: 2px;
+    font-size: 12px;
     text-align: center;
 }
