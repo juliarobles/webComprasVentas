@@ -65,7 +65,7 @@
        <script type="text/javascript" src="javascript/ponerEstrellas.js"></script>
        <a class="volver" href=<%= destino %>>&#8592 Volver atrás</a></br>
         <div class="todo">
-            
+
             <div class="contenido">
                 <img class="imagen" src="<%=pr.getFoto()%>" align="left">
                 <h1><%=pr.getTitulo()%></h1>
